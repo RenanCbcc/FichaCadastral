@@ -3,10 +3,7 @@ package com.example.dell.fichacadastral;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,7 +42,7 @@ public class JsonRequest {
     /**
      * This method reads the Json file and create the Address objects
      *
-     * @return
+     * @return LoadedAddress
      */
     public static LoadedAddress loadJsonAddress() {
         try {
@@ -54,15 +51,14 @@ public class JsonRequest {
             if (response == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = connection.getInputStream();
                 JSONObject json = new JSONObject(byteToString(inputStream));
-                LoadedAddress loadedAddress = new LoadedAddress(
+
+                return new LoadedAddress(
                         json.getString("cep"),
                         json.getString("logradouro"),
                         json.getString("complemento"),
                         json.getString("bairro"),
                         json.getString("localidade"),
                         json.getString("uf"));
-
-                return loadedAddress;
             }
         } catch (Exception e) {
             e.printStackTrace();
