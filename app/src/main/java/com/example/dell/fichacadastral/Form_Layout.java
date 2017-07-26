@@ -52,7 +52,7 @@ public class Form_Layout extends Fragment implements TextWatcher {
     public void afterTextChanged(Editable editable) {
         String zipCode = editable.toString();
         if (zipCode.length() == 8) {
-            new AddressRequest(context).execute();
+
         }
     }
 

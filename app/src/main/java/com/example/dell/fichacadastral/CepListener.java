@@ -19,7 +19,7 @@ public class CepListener implements TextWatcher {
         String zipCode = editable.toString();
 
         if( zipCode.length() == 8 ){
-            new AddressRequest( context ).execute();
+            new AddressTask( context ).execute();
         }
     }
 
