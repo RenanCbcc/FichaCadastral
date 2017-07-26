@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_marginTop="24dp"
+            android:text="INFORMAÇÕS CADASTRAIS"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/activity_horizontal_margin" />
+
+        <EditText
+            android:id="@+id/edt_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="11dp"
+            android:hint="@string/hint_nome"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName|textCapWords" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edt_nome"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Foto\n(clique na imagem para alterar)" />
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="75dp"
+            android:layout_height="100dp"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_marginLeft="31dp"
+            android:layout_marginStart="31dp"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textView"
+            android:src="@drawable/user" />
+
+        <RadioGroup
+            android:id="@+id/docFical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+        </RadioGroup>
+
+        <RadioButton
+            android:id="@+id/radioBtnPJ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView2"
+            android:layout_alignRight="@+id/textView2"
+            android:layout_below="@+id/imageView"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="11dp"
+            android:text="Pessoas Jurídica" />
+
+        <RadioButton
+            android:id="@+id/radioBtnPF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/radioBtnPJ"
+            android:layout_alignBottom="@+id/radioBtnPJ"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textView"
+            android:text="Pessoas Física" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONTATO"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/activity_horizontal_margin"
+            android:layout_below="@+id/radioBtnPJ"
+            android:layout_alignLeft="@+id/edt_nCelular"
+            android:layout_alignStart="@+id/edt_nCelular" />
+
+        <EditText
+            android:id="@+id/edt_nCelular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="12dp"
+            android:hint="@string/hint_numero_celular"
+            android:imeOptions="actionDone"
+            android:inputType="phone" />
+
+        <EditText
+            android:hint="@string/hint_email"
+            android:id="@+id/edt_email"
+            android:inputType="textEmailAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edt_nCelular"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/edt_nCelular"
+            android:layout_below="@+id/edt_nCelular"
+            android:imeOptions="actionNext"
+ />
+
+        <EditText
+            android:id="@+id/edt_senha"
+            android:inputType="textPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edt_email"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/edt_email"
+            android:layout_below="@+id/edt_email"
+            android:hint="@string/hint_senha"
+            android:imeOptions="actionNext"
+             />
+
+        <EditText
+            android:id="@+id/edt_rp_senha"
+            android:inputType="textPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edt_senha"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/edt_senha"
+            android:layout_below="@+id/edt_senha"
+            android:hint="@string/hint_rp_senha"
+            android:imeOptions="actionNext"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ENDEREÇO"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/activity_horizontal_margin"
+            android:id="@+id/textView4"
+            android:layout_below="@+id/edt_rp_senha"
+            android:layout_alignLeft="@+id/edt_rp_senha"
+            android:layout_alignStart="@+id/edt_rp_senha"
+            android:layout_marginTop="13dp" />
+
+        <EditText
+            android:id="@+id/edt_Cep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView4"
+            android:hint="@string/hint_CEP"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="8"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignStart="@+id/textView4"
+            android:layout_alignRight="@+id/edt_nCelular"
+            android:layout_alignEnd="@+id/edt_nCelular" />
+
+        <Spinner
+            android:id="@+id/snp_Estados"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/edt_Cep"
+            android:layout_toRightOf="@+id/edtn_numero"
+            android:layout_alignRight="@+id/radioBtnPF"
+            android:layout_alignEnd="@+id/radioBtnPF"
+            android:layout_alignBottom="@+id/edt_Cep"
+            android:scrollbarStyle="insideOverlay"
+            ></Spinner>
+
+        <EditText
+            android:id="@+id/edt_rua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:hint="@string/hint_rua"
+            android:layout_below="@+id/snp_Estados"
+            android:layout_alignLeft="@+id/edt_Cep"
+            android:layout_alignStart="@+id/edt_Cep"
+            android:layout_alignRight="@+id/radioBtnPF"
+            android:layout_alignEnd="@+id/radioBtnPF" />
+
+        <EditText
+            android:id="@+id/edtn_numero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number|text"
+            android:imeOptions="actionNext"
+            android:hint="@string/hint_numero"
+            android:layout_below="@+id/edt_rua"
+            android:layout_alignLeft="@+id/edt_rua"
+            android:layout_alignStart="@+id/edt_rua"
+            android:layout_alignRight="@+id/radioBtnPJ"
+            android:layout_alignEnd="@+id/radioBtnPJ" />
+
+        <EditText
+            android:id="@+id/edt_complemento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:hint="@string/hint_complemento"
+            android:layout_below="@+id/edt_rua"
+            android:layout_toRightOf="@+id/edtn_numero"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:id="@+id/edt_bairro"
+            android:layout_width="wrap_content"
+            android:inputType="textCapWords"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edt_complemento"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/edt_nCelular"
+            android:layout_below="@+id/edt_complemento"
+            android:hint="@string/hint_bairro"
+            android:imeOptions="actionNext"
+            />
+
+        <EditText
+            android:id="@+id/edt_cidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:imeOptions="actionNext"
+            android:hint="@string/hint_cidade"
+            android:layout_below="@+id/edt_bairro"
+            android:layout_alignLeft="@+id/edt_bairro"
+            android:layout_alignStart="@+id/edt_bairro"
+            android:layout_alignRight="@+id/edt_bairro"
+            android:layout_alignEnd="@+id/edt_bairro" />
+
+        <EditText
+            android:id="@+id/edt_pais"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:imeOptions="actionNext"
+            android:hint="@string/hint_pais"
+            android:layout_below="@+id/edt_cidade"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignLeft="@+id/edt_cidade"
+            android:layout_alignStart="@+id/edt_cidade" />
+
+    </RelativeLayout>
+
+</ScrollView>
