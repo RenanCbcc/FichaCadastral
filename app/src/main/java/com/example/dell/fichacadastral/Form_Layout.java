@@ -1,4 +1,5 @@
 package com.example.dell.fichacadastral;
+
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,12 +12,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 /**
  * Created by Dell on 20/07/2017.
  */
 
 public class Form_Layout extends Fragment implements TextWatcher {
     private EditText edtCep;
+    private EditText edtRua;
+    private EditText edtCidade;
+    private EditText edtComplemento;
+    private EditText edtBairro;
+
     private Spinner spinner;
     private AddressTask addressTask;
 
@@ -28,12 +35,18 @@ public class Form_Layout extends Fragment implements TextWatcher {
         configureSpinner();
         spinner.setSelection(1);
         edtCep = (EditText) view.findViewById(R.id.edt_Cep);
+        edtRua = (EditText) view.findViewById(R.id.edt_rua);
+        edtCidade = (EditText) view.findViewById(R.id.edt_cidade);
+        edtComplemento = (EditText) view.findViewById(R.id.edt_complemento);
+        edtBairro = (EditText) view.findViewById(R.id.edt_bairro);
+
         edtCep.addTextChangedListener(this);
+
         if (isAdded()) {
             //verify if the fragment is attached at the activity
         }
 
-        if (!JsonRequest.hasConnection(getActivity())){
+        if (!JsonRequest.hasConnection(getActivity())) {
             edtCep.setText("No connection");
         }
         return view;
@@ -49,11 +62,20 @@ public class Form_Layout extends Fragment implements TextWatcher {
 
     }
 
+    /**
+     * This method verify whether the field text has changed, if yes; it executes a search for
+     * the Cep.
+     *
+     * @param editable
+     */
     @Override
     public void afterTextChanged(Editable editable) {
         String zipCode = editable.toString();
         if (zipCode.length() == 8) {
-            //TODO Invoke LoadedAddress here
+            if (addressTask != null || addressTask.getStatus() != AsyncTask.Status.RUNNING) {
+                addressTask = new AddressTask();
+                addressTask.execute();
+            }
         }
     }
 
@@ -79,6 +101,12 @@ public class Form_Layout extends Fragment implements TextWatcher {
 
         @Override
         protected LoadedAddress doInBackground(Void... voids) {
+            try {
+                LoadedAddress loadedAddress = JsonRequest.loadJsonAddress("MyCEP");
+                return loadedAddress;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             return null;
         }
@@ -91,7 +119,11 @@ public class Form_Layout extends Fragment implements TextWatcher {
                 edtCep.setEnabled(true);
 
                 if (address != null) {
-                    //TODO
+                    edtCep.setText(address.getCep());
+                    edtRua.setText(address.getLogradouro());
+                    edtBairro.setText(address.getBairro());
+                    edtComplemento.setText(address.getComplemento());
+                    edtCidade.setText(address.getLocalidade());
                 }
             }
         }

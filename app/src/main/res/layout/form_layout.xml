@@ -185,7 +185,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/edt_Cep"
-            android:layout_toRightOf="@+id/edtn_numero"
+            android:layout_toRightOf="@+id/edt_numero"
             android:layout_alignRight="@+id/radioBtnPF"
             android:layout_alignEnd="@+id/radioBtnPF"
             android:layout_alignBottom="@+id/edt_Cep"
@@ -206,7 +206,7 @@
             android:layout_alignEnd="@+id/radioBtnPF" />
 
         <EditText
-            android:id="@+id/edtn_numero"
+            android:id="@+id/edt_numero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number|text"
@@ -226,7 +226,7 @@
             android:imeOptions="actionNext"
             android:hint="@string/hint_complemento"
             android:layout_below="@+id/edt_rua"
-            android:layout_toRightOf="@+id/edtn_numero"
+            android:layout_toRightOf="@+id/edt_numero"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_alignParentRight="true"

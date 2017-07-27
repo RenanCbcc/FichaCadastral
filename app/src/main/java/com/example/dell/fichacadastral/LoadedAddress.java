@@ -11,12 +11,12 @@ import java.io.Serializable;
 
 public class LoadedAddress implements Serializable {
 
-    public String cep;
-    public String logradouro;
-    public String complemento;
-    public String bairro;
-    public String localidade;
-    public String uf;
+    private String cep;
+    private String logradouro;
+    private String complemento;
+    private String bairro;
+    private String localidade; //Cidade
+    private String uf;
 
     public LoadedAddress(String cep, String logradouro, String complemento, String bairro, String localidade, String uf) {
         this.cep = cep;

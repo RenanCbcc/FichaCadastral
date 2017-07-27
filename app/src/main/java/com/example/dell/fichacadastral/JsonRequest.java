@@ -17,9 +17,9 @@ import java.net.URL;
  */
 
 public class JsonRequest {
-    public static final String CEP_URL_JSON = "";
 
-    private static HttpURLConnection connectar(String file) throws IOException {
+
+    private static HttpURLConnection toConnect(String file) throws IOException {
         final int SEGUNDOS = 1000;
         URL url = new URL(file);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -44,14 +44,14 @@ public class JsonRequest {
      *
      * @return LoadedAddress
      */
-    public static LoadedAddress loadJsonAddress() {
+    public static LoadedAddress loadJsonAddress(final String CEP_URL_JSON) {
         try {
-            HttpURLConnection connection = connectar(CEP_URL_JSON);
+            HttpURLConnection connection = toConnect(CEP_URL_JSON);
             int response = connection.getResponseCode();
             if (response == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = connection.getInputStream();
                 JSONObject json = new JSONObject(byteToString(inputStream));
-
+                connection.disconnect();
                 return new LoadedAddress(
                         json.getString("cep"),
                         json.getString("logradouro"),
