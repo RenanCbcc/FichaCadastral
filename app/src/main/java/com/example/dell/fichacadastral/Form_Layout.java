@@ -33,7 +33,6 @@ public class Form_Layout extends Fragment implements TextWatcher {
         View view = inflater.inflate(R.layout.form_layout, container, false);
         spinner = (Spinner) view.findViewById(R.id.snp_Estados);
         configureSpinner();
-        spinner.setSelection(1);
         edtCep = (EditText) view.findViewById(R.id.edt_Cep);
         edtRua = (EditText) view.findViewById(R.id.edt_rua);
         edtCidade = (EditText) view.findViewById(R.id.edt_cidade);
@@ -54,11 +53,14 @@ public class Form_Layout extends Fragment implements TextWatcher {
     }
 
     private void configureSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.support_simple_spinner_dropdown_item,
                 getResources().getStringArray(R.array.string_array_estados));
+
 
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setSelection(1);
 
     }
 
@@ -72,8 +74,8 @@ public class Form_Layout extends Fragment implements TextWatcher {
     public void afterTextChanged(Editable editable) {
         String zipCode = editable.toString();
         if (zipCode.length() == 8) {
-            if (addressTask != null || addressTask.getStatus() != AsyncTask.Status.RUNNING) {
-                addressTask = new AddressTask();
+            if (addressTask == null || addressTask.getStatus() != AsyncTask.Status.RUNNING) {
+                addressTask = new AddressTask(zipCode);
                 addressTask.execute();
             }
         }
@@ -92,6 +94,12 @@ public class Form_Layout extends Fragment implements TextWatcher {
      */
     public class AddressTask extends AsyncTask<Void, Void, LoadedAddress> {
 
+        private final String url;
+
+        public AddressTask(String cep) {
+            this.url = "https://viacep.com.br/ws/" + cep + "/json/";
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -102,7 +110,7 @@ public class Form_Layout extends Fragment implements TextWatcher {
         @Override
         protected LoadedAddress doInBackground(Void... voids) {
             try {
-                LoadedAddress loadedAddress = JsonRequest.loadJsonAddress("MyCEP");
+                LoadedAddress loadedAddress = JsonRequest.loadJsonAddress(url);
                 return loadedAddress;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -124,6 +132,7 @@ public class Form_Layout extends Fragment implements TextWatcher {
                     edtBairro.setText(address.getBairro());
                     edtComplemento.setText(address.getComplemento());
                     edtCidade.setText(address.getLocalidade());
+
                 }
             }
         }
