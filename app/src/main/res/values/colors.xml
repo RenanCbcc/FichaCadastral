@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="gray">#ede9ea</color>
     <color name="blue">#3749af</color>
+    <color name="background_color_loading">#7b1d1d1e</color>
+    <color name="color_whight">#ffffff</color>
 </resources>

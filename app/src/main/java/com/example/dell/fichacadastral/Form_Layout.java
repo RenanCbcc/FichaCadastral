@@ -1,5 +1,6 @@
 package com.example.dell.fichacadastral;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 /**
@@ -23,9 +26,10 @@ public class Form_Layout extends Fragment implements TextWatcher {
     private EditText edtCidade;
     private EditText edtComplemento;
     private EditText edtBairro;
-
+    private ProgressBar progressBar;
     private Spinner spinner;
     private AddressTask addressTask;
+    private RelativeLayout layout_pai;
 
     @Nullable
     @Override
@@ -33,11 +37,13 @@ public class Form_Layout extends Fragment implements TextWatcher {
         View view = inflater.inflate(R.layout.form_layout, container, false);
         spinner = (Spinner) view.findViewById(R.id.snp_Estados);
         configureSpinner();
+        progressBar = (ProgressBar) view.findViewById(R.id.pgb_progress);
         edtCep = (EditText) view.findViewById(R.id.edt_Cep);
         edtRua = (EditText) view.findViewById(R.id.edt_rua);
         edtCidade = (EditText) view.findViewById(R.id.edt_cidade);
         edtComplemento = (EditText) view.findViewById(R.id.edt_complemento);
         edtBairro = (EditText) view.findViewById(R.id.edt_bairro);
+        layout_pai = (RelativeLayout) view.findViewById(R.id.layout_pai);
 
         edtCep.addTextChangedListener(this);
 
@@ -104,13 +110,15 @@ public class Form_Layout extends Fragment implements TextWatcher {
         protected void onPreExecute() {
             super.onPreExecute();
             edtCep.setEnabled(false);
-
+            layout_pai.setBackgroundColor(getResources().getColor(R.color.background_color_loading));
+            progressBar.setVisibility(true? View.VISIBLE:View.GONE);
         }
 
         @Override
         protected LoadedAddress doInBackground(Void... voids) {
             try {
                 LoadedAddress loadedAddress = JsonRequest.loadJsonAddress(url);
+
                 return loadedAddress;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -118,11 +126,11 @@ public class Form_Layout extends Fragment implements TextWatcher {
 
             return null;
         }
-
         @Override
         protected void onPostExecute(LoadedAddress address) {
             super.onPostExecute(address);
-
+            progressBar.setVisibility(false? View.VISIBLE:View.GONE);
+            layout_pai.setBackgroundColor(getResources().getColor(R.color.color_whight));
             if (getActivity() != null) {
                 edtCep.setEnabled(true);
 
