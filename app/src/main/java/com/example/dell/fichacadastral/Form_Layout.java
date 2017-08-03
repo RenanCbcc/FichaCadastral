@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * Created by Dell on 20/07/2017.
  */
 
-public class Form_Layout extends Fragment implements TextWatcher {
+public class Form_Layout extends Fragment implements TextWatcher, TextView.OnEditorActionListener {
     private EditText edtCep;
     private EditText edtRua;
     private EditText edtCidade;
@@ -52,6 +54,7 @@ public class Form_Layout extends Fragment implements TextWatcher {
         }
 
         if (!JsonRequest.hasConnection(getActivity())) {
+            //TODO por um pop up aqui
             edtCep.setText("No connection");
         }
         return view;
@@ -68,6 +71,16 @@ public class Form_Layout extends Fragment implements TextWatcher {
         spinner.setAdapter(adapter);
         spinner.setSelection(1);
 
+    }
+
+    private void setSpinner(int arrayId, String uf) {
+        String[] states = getResources().getStringArray(arrayId);
+        for (int i = 0; i < states.length; i++) {
+            if (states[i].endsWith("(" + uf + ")")) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -95,6 +108,12 @@ public class Form_Layout extends Fragment implements TextWatcher {
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
     }
 
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        //TODO
+        return false;
+    }
+
     /**
      * this class will make a requisition.
      */
@@ -111,7 +130,7 @@ public class Form_Layout extends Fragment implements TextWatcher {
             super.onPreExecute();
             edtCep.setEnabled(false);
             layout_pai.setBackgroundColor(getResources().getColor(R.color.background_color_loading));
-            progressBar.setVisibility(true? View.VISIBLE:View.GONE);
+            progressBar.setVisibility(true ? View.VISIBLE : View.GONE);
         }
 
         @Override
@@ -126,10 +145,11 @@ public class Form_Layout extends Fragment implements TextWatcher {
 
             return null;
         }
+
         @Override
         protected void onPostExecute(LoadedAddress address) {
             super.onPostExecute(address);
-            progressBar.setVisibility(false? View.VISIBLE:View.GONE);
+            progressBar.setVisibility(false ? View.VISIBLE : View.GONE);
             layout_pai.setBackgroundColor(getResources().getColor(R.color.color_whight));
             if (getActivity() != null) {
                 edtCep.setEnabled(true);
@@ -140,7 +160,7 @@ public class Form_Layout extends Fragment implements TextWatcher {
                     edtBairro.setText(address.getBairro());
                     edtComplemento.setText(address.getComplemento());
                     edtCidade.setText(address.getLocalidade());
-
+                    setSpinner(R.array.string_array_estados, address.getUf());
                 }
             }
         }

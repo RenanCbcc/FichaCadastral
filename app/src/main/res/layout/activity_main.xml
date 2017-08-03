@@ -1,42 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fillViewport="true"
     tools:context="com.example.dell.fichacadastral.MainActivity">
+    >
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <RelativeLayout
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="270dp"
+            android:layout_height="122dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:contentDescription="Logo MarketplaceAPP"
+             />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_email"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp">
 
-        </android.support.v7.widget.Toolbar>
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:ems="10"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/til_email"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
 
-    </android.support.design.widget.AppBarLayout>
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:ems="10"
+                android:hint="@string/hint_senha"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
-</android.support.design.widget.CoordinatorLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/til_password"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:onClick="signUpActivity"
+            android:text="Ainda não tem conta? Cadastre-se"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</ScrollView>
