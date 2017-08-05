@@ -15,81 +15,87 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/textView2"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
             android:text="INFORMAÇÕS CADASTRAIS"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/activity_horizontal_margin" />
+            android:textSize="@dimen/activity_horizontal_margin"
+            android:layout_below="@+id/pgb_progress"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:id="@+id/edt_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView"
-            android:layout_marginTop="11dp"
             android:hint="@string/hint_nome"
             android:imeOptions="actionNext"
-            android:inputType="textPersonName|textCapWords" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:inputType="textPersonName|textCapWords"
+            android:layout_below="@+id/textView"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentStart="true" />
+
+        <RelativeLayout
+            android:id="@+id/layout_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/edt_nome"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Foto\n(clique na imagem para alterar)" />
+            android:layout_toRightOf="@+id/pgb_progress"
+            android:layout_toEndOf="@+id/pgb_progress"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:text="Foto\n(clique na imagem para alterar)" />
 
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="75dp"
-            android:layout_height="100dp"
-            android:layout_alignTop="@+id/textView2"
-            android:layout_marginLeft="31dp"
-            android:layout_marginStart="31dp"
-            android:layout_toEndOf="@+id/textView"
-            android:layout_toRightOf="@+id/textView"
-            android:src="@drawable/user" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="34dp"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/user"
+                android:layout_below="@+id/docFical"
+                android:layout_toRightOf="@+id/textView2"
+                android:layout_toEndOf="@+id/textView2" />
 
-        <RadioGroup
-            android:id="@+id/docFical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            <RadioGroup
+                android:id="@+id/docFical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </RadioGroup>
+
+            <RadioButton
+                android:id="@+id/radioBtnPJ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="50dp"
+                android:text="Pessoas Jurídica" />
+
+            <RadioButton
+                android:id="@+id/radioBtnPF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pessoas Física"
+                android:layout_below="@+id/radioBtnPJ"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2"
+                android:layout_marginTop="18dp" />
 
 
-        </RadioGroup>
-
-        <RadioButton
-            android:id="@+id/radioBtnPJ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/textView2"
-            android:layout_alignRight="@+id/textView2"
-            android:layout_below="@+id/imageView"
-            android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
-            android:layout_marginTop="11dp"
-            android:text="Pessoas Jurídica" />
-
-        <RadioButton
-            android:id="@+id/radioBtnPF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/radioBtnPJ"
-            android:layout_alignBottom="@+id/radioBtnPJ"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_toEndOf="@+id/textView"
-            android:layout_toRightOf="@+id/textView"
-            android:text="Pessoas Física" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView3"
@@ -98,7 +104,7 @@
             android:text="CONTATO"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/activity_horizontal_margin"
-            android:layout_below="@+id/radioBtnPJ"
+            android:layout_below="@+id/layout_pic"
             android:layout_alignLeft="@+id/edt_nCelular"
             android:layout_alignStart="@+id/edt_nCelular" />
 
@@ -116,8 +122,6 @@
             android:id="@+id/edt_nCelular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2"
             android:layout_below="@+id/textView3"
             android:layout_marginTop="12dp"
             android:hint="@string/hint_numero_celular"
@@ -196,13 +200,14 @@
             android:id="@+id/snp_Estados"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/edt_Cep"
-            android:layout_toRightOf="@+id/edt_numero"
-            android:layout_alignRight="@+id/radioBtnPF"
-            android:layout_alignEnd="@+id/radioBtnPF"
-            android:layout_alignBottom="@+id/edt_Cep"
             android:scrollbarStyle="insideOverlay"
-            ></Spinner>
+            android:layout_alignTop="@+id/edt_Cep"
+            android:layout_toRightOf="@+id/textView"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp">
+
+        </Spinner>
 
         <EditText
             android:id="@+id/edt_rua"
@@ -213,9 +218,7 @@
             android:hint="@string/hint_rua"
             android:layout_below="@+id/snp_Estados"
             android:layout_alignLeft="@+id/edt_Cep"
-            android:layout_alignStart="@+id/edt_Cep"
-            android:layout_alignRight="@+id/radioBtnPF"
-            android:layout_alignEnd="@+id/radioBtnPF" />
+            android:layout_alignStart="@+id/edt_Cep" />
 
         <EditText
             android:id="@+id/edt_numero"
@@ -226,9 +229,7 @@
             android:hint="@string/hint_numero"
             android:layout_below="@+id/edt_rua"
             android:layout_alignLeft="@+id/edt_rua"
-            android:layout_alignStart="@+id/edt_rua"
-            android:layout_alignRight="@+id/radioBtnPJ"
-            android:layout_alignEnd="@+id/radioBtnPJ" />
+            android:layout_alignStart="@+id/edt_rua"/>
 
         <EditText
             android:id="@+id/edt_complemento"
@@ -266,10 +267,10 @@
             android:imeOptions="actionNext"
             android:hint="@string/hint_cidade"
             android:layout_below="@+id/edt_bairro"
-            android:layout_alignLeft="@+id/edt_bairro"
-            android:layout_alignStart="@+id/edt_bairro"
-            android:layout_alignRight="@+id/edt_bairro"
-            android:layout_alignEnd="@+id/edt_bairro" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <EditText
             android:id="@+id/edt_pais"

@@ -11,11 +11,16 @@ import android.view.ViewGroup;
  * Created by Dell on 20/07/2017.
  */
 
-public class Additional_Layout extends Fragment {
+public class Additional_Layout extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.additional_layout,container,false);
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

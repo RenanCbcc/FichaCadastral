@@ -14,7 +14,7 @@ import android.widget.Toast;
  * Created by Dell on 21/07/2017.
  */
 
-public class Estates_fragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class States_fragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater,
