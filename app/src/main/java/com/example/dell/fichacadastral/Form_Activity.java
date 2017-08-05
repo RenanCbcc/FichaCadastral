@@ -168,6 +168,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), R.string.error_msg_image, Toast.LENGTH_SHORT).show();
         }
+
     }
 
     /**

@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +28,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView textView = (TextView) findViewById(R.id.txt_singup);
         button= (Button) findViewById(R.id.btn_login);
-        textView.setOnClickListener(this);
-    }
 
-
-    @Override
-    public void onClick(View view) {
-        Intent intent;
-        switch (view.getId()){
-            case R.id.txt_singup:
-            intent = new Intent(MainActivity.this, SignUp.class);
-                startActivity(intent);
-
-            case R.id.btn_login:
+        button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent intent;
                 intent = new Intent(MainActivity.this, Deliverer_Activity.class);
                 startActivity(intent);
+            }
+        });
 
-        }
+        textView.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent intent;
+                intent = new Intent(MainActivity.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
     }
 }

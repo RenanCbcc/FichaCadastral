@@ -54,14 +54,14 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+*/
     //@Override
    /* public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -147,7 +147,7 @@ public class SignUp extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Dasdos Cadastrais";
+                    return "Dados Cadastrais";
                 case 1:
                     return "Dados Adicionais";
             }
