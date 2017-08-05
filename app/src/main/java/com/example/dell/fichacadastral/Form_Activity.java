@@ -31,7 +31,7 @@ import java.io.FileNotFoundException;
  * Created by Dell on 20/07/2017.
  */
 
-public class Form_Layout extends Fragment implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+public class Form_Activity extends Fragment implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
     private EditText edtCep;
     private EditText edtRua;
     private EditText edtCidade;

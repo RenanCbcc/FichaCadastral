@@ -126,11 +126,11 @@ public class SignUp extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Form_Layout form_layout = new Form_Layout();
-                    return form_layout;
+                    Form_Activity form_activity = new Form_Activity();
+                    return form_activity;
                 case 1:
-                    Additional_Layout additional_layout = new Additional_Layout();
-                    return additional_layout;
+                    Additional_Activity additional_activity = new Additional_Activity();
+                    return additional_activity;
 
             }
             return null;

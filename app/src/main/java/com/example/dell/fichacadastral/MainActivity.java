@@ -15,26 +15,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         TextView textView = (TextView) findViewById(R.id.txt_singup);
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SignUp.class);
-                startActivity(intent);
-            }
-        });
+        button= (Button) findViewById(R.id.btn_login);
+        textView.setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View view) {
+        Intent intent;
+        switch (view.getId()){
+            case R.id.txt_singup:
+            intent = new Intent(MainActivity.this, SignUp.class);
+                startActivity(intent);
+
+            case R.id.btn_login:
+                intent = new Intent(MainActivity.this, Deliverer_Activity.class);
+                startActivity(intent);
+
+        }
+    }
 }

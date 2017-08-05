@@ -79,8 +79,6 @@
                 android:id="@+id/radioBtnPJ"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp"
-                android:layout_marginRight="18dp"
                 android:layout_marginTop="50dp"
                 android:text="Pessoas Jurídica" />
 
@@ -89,10 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pessoas Física"
+                android:layout_marginTop="18dp"
                 android:layout_below="@+id/radioBtnPJ"
-                android:layout_alignLeft="@+id/textView2"
-                android:layout_alignStart="@+id/textView2"
-                android:layout_marginTop="18dp" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
 
         </RelativeLayout>

@@ -73,19 +73,26 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/til_password"
+            android:layout_centerHorizontal="true"
+            android:text="Login"
+            android:layout_marginTop="16dp" />
+
         <TextView
             android:id="@+id/txt_singup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/til_password"
-            android:layout_marginEnd="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
             android:gravity="center"
             android:onClick="signUp"
             android:text="Ainda não tem conta? Cadastre-se!"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/imageView"
+            android:layout_alignStart="@+id/imageView"
+            android:layout_marginBottom="9dp" />
     </RelativeLayout>
 </ScrollView>
