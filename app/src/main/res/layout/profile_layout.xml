@@ -4,20 +4,23 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout_pai"
-        >
+        android:id="@+id/layout_pai">
+
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:id="@+id/relativeLayout4"
             android:layout_below="@+id/layout_pic"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="17dp">
 
             <TextView
                 android:id="@+id/textView3"
@@ -51,12 +54,8 @@
 
             <EditText
                 android:id="@+id/edt_email"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_nCelular"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignStart="@+id/edt_nCelular"
                 android:layout_below="@+id/edt_nCelular"
                 android:hint="@string/hint_email"
                 android:imeOptions="actionNext"
@@ -64,12 +63,8 @@
 
             <EditText
                 android:id="@+id/edt_senha"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_email"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignStart="@+id/edt_email"
                 android:layout_below="@+id/edt_email"
                 android:hint="@string/hint_senha"
                 android:imeOptions="actionNext"
@@ -77,16 +72,14 @@
 
             <EditText
                 android:id="@+id/edt_rp_senha"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_senha"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignStart="@+id/edt_senha"
-                android:layout_below="@+id/edt_senha"
                 android:hint="@string/hint_rp_senha"
                 android:inputType="textPassword"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:layout_below="@+id/edt_senha">
+
+            </EditText>
 
 
         </RelativeLayout>
@@ -103,7 +96,7 @@
 
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewCadastro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="INFORMAÇÕS CADASTRAIS"
@@ -121,7 +114,7 @@
                 android:hint="@string/hint_nome"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName|textCapWords"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/textViewCadastro"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
@@ -132,8 +125,8 @@
                 android:layout_height="wrap_content"
                 android:text="Foto\n(clique na imagem para alterar)"
                 android:layout_below="@+id/edt_nome"
-                android:layout_alignRight="@+id/textView"
-                android:layout_alignEnd="@+id/textView" />
+                android:layout_alignRight="@+id/textViewCadastro"
+                android:layout_alignEnd="@+id/textViewCadastro" />
 
 
             <ImageView
@@ -180,9 +173,10 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:id="@+id/relativeLayout3"
-            android:layout_below="@+id/relativeLayout4"
+            android:layout_below="@+id/relativeLayout"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="80dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -296,6 +290,128 @@
                 android:layout_alignParentEnd="true" />
 
 
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout"
+            android:layout_below="@+id/relativeLayout4">
+
+            <TextView
+                android:id="@+id/txtView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMAÇÕS BANCÁRIAS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="19dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp" />
+
+            <EditText
+                android:id="@+id/edt_titular"
+                android:hint="@string/hint_titular_conta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:layout_below="@+id/txtView2"
+                />
+
+            <EditText
+                android:id="@+id/edt_banco"
+                android:hint="@string/hint_banco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:layout_below="@+id/edt_titular"
+                />
+
+            <EditText
+                android:id="@+id/edt_agencia"
+                android:hint="@string/hint_agencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_below="@+id/edt_banco"/>
+
+            <EditText
+                android:id="@+id/edt_conta"
+                android:hint="@string/hint_conta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_alignBaseline="@+id/edt_agencia"
+                android:layout_alignBottom="@+id/edt_agencia"
+                android:layout_alignRight="@+id/edt_titular"
+                android:layout_alignEnd="@+id/edt_titular" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/edt_conta"
+                android:text="FINALIZAR CADASTRO" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/edt_banco"
+                android:layout_alignStart="@+id/edt_banco"
+                android:layout_below="@+id/edt_titular"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="INFORMAÇÕS DO VEÍCULO"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/activity_horizontal_margin" />
+
+                <EditText
+                    android:id="@+id/edt_placaVeiculo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignStart="@+id/textView"
+                    android:layout_below="@+id/textView"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/hint_placa_veiculo" />
+
+                <EditText
+                    android:id="@+id/edt_marca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/edt_placaVeiculo"
+                    android:layout_alignStart="@+id/edt_placaVeiculo"
+                    android:layout_below="@+id/edt_placaVeiculo"
+                    android:layout_marginTop="9dp"
+                    android:hint="@string/hint_marca_veiculo"
+                    android:inputType="text" />
+
+                <EditText
+
+                    android:id="@+id/edt_modelo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/edt_marca"
+                    android:layout_alignBottom="@+id/edt_marca"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:hint="@string/hint_modelo_veiculo" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

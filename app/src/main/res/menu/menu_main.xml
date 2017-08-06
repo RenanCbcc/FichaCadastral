@@ -3,13 +3,16 @@
     tools:context=".MainActivity">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/action_preferences"
+            android:id="@+id/action_dados"
             android:icon="@android:drawable/ic_menu_edit"
-            android:title="@string/option_preferencia" />
+            android:title="@string/option_dados" />
         <item
-            android:id="@+id/action_deliries"
+            android:id="@+id/action_entregas"
             android:icon="@android:drawable/ic_menu_add"
             android:title="@string/option_entregas" />
-
+        <item
+            android:id="@+id/action_historico"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:title="@string/option_outros" />
     </group>
 </menu>
