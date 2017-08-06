@@ -9,7 +9,9 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="244dp"
-        android:layout_height="430dp"></ListView>
+        android:layout_height="430dp"
+        android:choiceMode="multipleChoice"
+        ></ListView>
 
 
 </LinearLayout>

@@ -59,6 +59,19 @@
         <item>"Tocantins (TO)"</item>
     </string-array>
 
+
+    <string-array name="string_array_dias">
+        <item>"*Dias da Semana"</item>
+        <item>"Segunda-feira"</item>
+        <item>"Terça-feira"</item>
+        <item>"Quarta-feira"</item>
+        <item>"Quinta-feira"</item>
+        <item>"Sexta-feira"</item>
+        <item>"Sabado"</item>
+        <item>"Domingo"</item>
+            </string-array>
+
+
     <string name="hint_cidade">Cidade</string>
     <string name="hint_bairro">Bairro</string>
 
@@ -76,5 +89,10 @@
 '   <string name="option_entregas">Entregas</string>
     <string name="option_outros">Outros</string>
     <!-- Fim Mensagens.  -->
+
+    <string name="expedienteInicio">Horário do início de expediente</string>
+    <string name="expedienteFim">Horário do fim de expediente</string>
+    <string name="expedienteSemana">Dias da semana</string>
+
 
 </resources>

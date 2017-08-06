@@ -9,23 +9,105 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/relativeLayout5">
 
         <TextView
             android:id="@+id/nome_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name Here"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/nivel_id"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Nivel Here"
+            android:textSize="20dp"
+            android:layout_below="@+id/nome_id"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/xp_id"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Xp Here"
+            android:textSize="20dp"
+            android:layout_alignBaseline="@+id/nivel_id"
+            android:layout_alignBottom="@+id/nivel_id"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="17dp"
+            android:layout_marginEnd="17dp" />
+        <TextView
+            android:id="@+id/feedbad_id"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Feed Here"
+            android:textSize="20dp"
+            android:layout_below="@+id/nivel_id"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="18dp" />
+
+        <TextView
+            android:id="@+id/media_id"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Media Here"
+            android:textSize="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/xp_id"
+            android:layout_alignStart="@+id/xp_id" />
+
+
     </RelativeLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/textView"/>
+    <RelativeLayout
+            android:id="@+id/layoutExpediente"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/relativeLayout5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginStart="7dp">
+
+        <TextView
+            android:id="@+id/txt_expediente"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="EXPEDIENTE"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+
+            android:layout_marginTop="7dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/btn_diasSemana"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/txt_expediente"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/expedienteSemana"
+            android:layout_marginTop="10dp" />
+
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

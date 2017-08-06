@@ -11,8 +11,6 @@
         android:layout_height="match_parent"
         android:id="@+id/layout_pai">
 
-
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="220dp"
@@ -172,11 +170,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:id="@+id/relativeLayout3"
-            android:layout_below="@+id/relativeLayout"
+            android:id="@+id/relativeLayoutAddress"
+            android:layout_below="@+id/relativeLayout4"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="80dp">
+            android:layout_alignParentStart="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,10 +200,11 @@
 
             <Spinner
                 android:id="@+id/snp_Estados"
-                android:layout_width="100dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:scrollbarStyle="insideOverlay"
                 android:layout_alignTop="@+id/edt_Cep"
+                android:layout_marginTop="8dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true">
 
@@ -233,9 +231,9 @@
                 android:inputType="number|text"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_numero"
-                android:layout_above="@+id/edt_bairro"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/edt_complemento" />
 
             <EditText
                 android:id="@+id/edt_complemento"
@@ -289,15 +287,17 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
-
         </RelativeLayout>
-
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout"
-            android:layout_below="@+id/relativeLayout4">
+            android:id="@+id/relativeLayoutBanco"
+            android:layout_below="@+id/relativeLayoutAddress"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
 
             <TextView
                 android:id="@+id/txtView2"
@@ -317,15 +317,21 @@
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:layout_below="@+id/txtView2"
+                android:layout_alignLeft="@+id/txtView2"
+                android:layout_alignStart="@+id/txtView2"
+                android:layout_marginTop="15dp"
                 />
 
             <EditText
                 android:id="@+id/edt_banco"
                 android:hint="@string/hint_banco"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:layout_below="@+id/edt_titular"
+                android:layout_alignLeft="@+id/edt_titular"
+                android:layout_alignStart="@+id/edt_titular"
+                android:layout_marginTop="15dp"
                 />
 
             <EditText
@@ -334,7 +340,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:layout_below="@+id/edt_banco"/>
+                android:layout_marginTop="14dp"
+                android:layout_below="@+id/edt_banco"
+                android:layout_alignLeft="@+id/edt_banco"
+                android:layout_alignStart="@+id/edt_banco"
+                android:layout_alignRight="@+id/edt_banco"
+                android:layout_alignEnd="@+id/edt_banco" />
 
             <EditText
                 android:id="@+id/edt_conta"
@@ -347,29 +358,26 @@
                 android:layout_alignRight="@+id/edt_titular"
                 android:layout_alignEnd="@+id/edt_titular" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/edt_conta"
-                android:text="FINALIZAR CADASTRO" />
-
             <RelativeLayout
-                android:id="@+id/relativeLayout2"
+                android:id="@+id/relativeLayoutVeiculo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_banco"
-                android:layout_alignStart="@+id/edt_banco"
-                android:layout_below="@+id/edt_titular"
-                android:layout_marginLeft="14dp"
-                android:layout_marginStart="14dp">
+
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/edt_agencia"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="18dp"
                     android:text="INFORMAÇÕS DO VEÍCULO"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/activity_horizontal_margin" />
@@ -411,10 +419,24 @@
                     android:layout_marginRight="24dp"
                     android:hint="@string/hint_modelo_veiculo" />
 
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edt_modelo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Salvar Alterações" />
+
+
             </RelativeLayout>
+
 
         </RelativeLayout>
 
+
     </RelativeLayout>
+
+
 
 </ScrollView>
