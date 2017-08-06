@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 
+import static android.app.Activity.RESULT_CANCELED;
+
 /**
  * Created by Dell on 20/07/2017.
  */
@@ -157,14 +159,17 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 4;
-            bitmap = BitmapFactory.decodeStream(
-                    getActivity().getContentResolver().openInputStream(data.getData()),
-                    null,
-                    options
-            );
-            foto.setImageBitmap(bitmap);
+            if(resultCode != RESULT_CANCELED){
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+                bitmap = BitmapFactory.decodeStream(
+                        getActivity().getContentResolver().openInputStream(data.getData()),
+                        null,
+                        options
+                );
+                foto.setImageBitmap(bitmap);
+            }
+
         } catch (FileNotFoundException e) {
             Toast.makeText(getActivity(), R.string.error_msg_image, Toast.LENGTH_SHORT).show();
         }
