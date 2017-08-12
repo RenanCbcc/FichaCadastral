@@ -95,9 +95,9 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         foto.setOnClickListener(this);
         costumer = new Costumer();
         configureSpinner();
-        edtCPF.setVisibility(View.INVISIBLE);
+        edtCPF.setVisibility(View.VISIBLE);
         edtCNPJ.setVisibility(View.INVISIBLE);
-
+        radioCPF.setChecked(true);
         radioCPF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -122,7 +122,7 @@
                     android:id="@+id/radioBtnPJ"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pessoas Jurídica"
+                    android:text="Pessoa Jurídica"
                     android:layout_above="@+id/radioBtnPF"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -132,33 +132,38 @@
                     android:id="@+id/radioBtnPF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pessoas Física"
+                    android:text="Pessoa Física"
                     android:layout_marginBottom="15dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
-                <EditText
-                    android:id="@+id/edt_cpf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_cpf"
-                    android:imeOptions="actionNext"
-                    android:layout_below="@+id/radioBtnPF"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
 
-                <EditText
-                    android:id="@+id/edt_cnpj"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_cnpj"
-                    android:imeOptions="actionNext"
-                    android:layout_below="@+id/radioBtnPF"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
             </RadioGroup>
 
+            <EditText
+                android:id="@+id/edt_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_cpf"
+                android:imeOptions="actionNext"
+                android:layout_below="@+id/docFical"
+                android:layout_alignParentLeft="true"
+                android:inputType="number"
+                android:digits="1234567890"
+                />
+
+            <EditText
+                android:id="@+id/edt_cnpj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_cnpj"
+                android:imeOptions="actionNext"
+                android:layout_below="@+id/docFical"
+                android:layout_alignParentLeft="true"
+                android:inputType="number"
+                android:digits="1234567890"
+                />
 
             <EditText
                 android:id="@+id/edt_nome"
@@ -166,10 +171,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_nome"
                 android:imeOptions="actionNext"
-                android:inputType="textPersonName|textCapWords"
-                android:layout_below="@+id/docFical"
+                android:layout_below="@+id/edt_cnpj"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvxwyz"/>
 
 
             <TextView
@@ -290,7 +296,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:digits="abcdefghijklmnopqrstuvxwyz"/>
 
             <EditText
                 android:id="@+id/edt_cidade"
@@ -303,7 +310,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:digits="abcdefghijklmnopqrstuvxwyz"/>
 
             <EditText
                 android:id="@+id/edt_pais"
@@ -316,7 +324,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:digits="abcdefghijklmnopqrstuvxwyz"/>
 
             <Button
                 android:id="@+id/btn_validar"

@@ -44,7 +44,9 @@
                 android:layout_alignStart="@+id/textView"
                 android:layout_marginTop="12dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:inputType="number"
+                android:digits="1234567890"/>
 
             <EditText
                 android:id="@+id/edt_marca"
@@ -55,7 +57,8 @@
                 android:layout_below="@+id/edt_placaVeiculo"
                 android:layout_alignLeft="@+id/edt_placaVeiculo"
                 android:layout_alignStart="@+id/edt_placaVeiculo"
-                android:layout_marginTop="9dp" />
+                android:layout_marginTop="9dp"
+                android:digits="abcdefghijklmnopqrstuvxwyz"/>
 
             <EditText
 
@@ -68,7 +71,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="24dp"
-                android:layout_marginEnd="24dp" />
+                android:layout_marginEnd="24dp"
+                />
 
 
         </RelativeLayout>
@@ -104,6 +108,7 @@
                 android:layout_alignLeft="@+id/txtView2"
                 android:layout_alignStart="@+id/txtView2"
                 android:layout_marginTop="15dp"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
                 />
 
             <EditText
@@ -116,6 +121,7 @@
                 android:layout_alignLeft="@+id/edt_titular"
                 android:layout_alignStart="@+id/edt_titular"
                 android:layout_marginTop="15dp"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
                 />
 
             <EditText
@@ -129,7 +135,8 @@
                 android:layout_alignLeft="@+id/edt_banco"
                 android:layout_alignStart="@+id/edt_banco"
                 android:layout_alignRight="@+id/edt_banco"
-                android:layout_alignEnd="@+id/edt_banco" />
+                android:layout_alignEnd="@+id/edt_banco"
+                android:digits="1234567890"/>
 
             <EditText
                 android:id="@+id/edt_conta"
@@ -140,7 +147,8 @@
                 android:layout_alignBaseline="@+id/edt_agencia"
                 android:layout_alignBottom="@+id/edt_agencia"
                 android:layout_alignRight="@+id/edt_titular"
-                android:layout_alignEnd="@+id/edt_titular" />
+                android:layout_alignEnd="@+id/edt_titular"
+                android:digits="1234567890"/>
 
             <Button
                 android:id="@+id/button"
