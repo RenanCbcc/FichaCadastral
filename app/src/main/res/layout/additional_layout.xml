@@ -75,7 +75,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="280dp"
             android:id="@+id/relativeLayout"
             android:layout_below="@+id/relativeLayout2"
             android:layout_alignParentLeft="true"
@@ -143,13 +143,26 @@
                 android:layout_alignEnd="@+id/edt_titular" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btn_Salvar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/edt_conta"
-                android:text="FINALIZAR CADASTRO" />
+                android:text="Salvar"
+                android:layout_alignBaseline="@+id/btn_Cancelar"
+                android:layout_alignBottom="@+id/btn_Cancelar"
+                android:layout_toRightOf="@+id/txtView2"
+                android:layout_toEndOf="@+id/txtView2" />
+
+            <Button
+                android:id="@+id/btn_Cancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_below="@+id/edt_conta"
+                android:layout_toRightOf="@+id/edt_agencia"
+                android:layout_toEndOf="@+id/edt_agencia"
+                android:layout_marginTop="10dp" />
 
         </RelativeLayout>
 

@@ -3,7 +3,6 @@ package com.example.dell.fichacadastral;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ import java.io.FileNotFoundException;
  * Created by Dell on 20/07/2017.
  */
 
-public class Form_Activity extends Fragment implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+public class Form_Fragment extends Fragment implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
     private EditText edtCep;
     private EditText edtRua;
     private EditText edtCidade;
@@ -46,7 +45,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private RelativeLayout layout_pai;
     private ImageView foto;
     private Bitmap bitmap;
-    private Costumer costumer;
+    private Customer costumer;
 
     @Nullable
     @Override
@@ -66,7 +65,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         layout_pai = (RelativeLayout) view.findViewById(R.id.layout_pai);
         edtCep.addTextChangedListener(this);
         foto.setOnClickListener(this);
-        costumer = new Costumer();
+        costumer = new Customer();
         configureSpinner();
 
         if (isAdded()) {

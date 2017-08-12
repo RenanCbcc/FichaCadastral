@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent;
-                intent = new Intent(MainActivity.this, SignUp.class);
+                intent = new Intent(MainActivity.this, SignUp_Activity.class);
                 startActivity(intent);
             }
         });

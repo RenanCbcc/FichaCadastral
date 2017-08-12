@@ -1,5 +1,6 @@
 package com.example.dell.fichacadastral;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -15,13 +16,19 @@ import android.view.MenuItem;
 
 /**
  * Created by Dell on 05/08/2017.
+ * The principal purpose of this Activity is to offer a simple interface, through three fragments,
+ * to a Customer, in this case a deliverer, using a Drawer View.
  */
 
-public class Deliverer_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Deliverer_Activity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener, Delivery_Fragment.onModifyFragment,
+            Profile_Fragment.onModifyFragment{
+    private static final String EXTRA_CUSTOMER = "customer"; // Primary Key
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle; // used to open and quit the lateral menu
     private int selectedOption;
+    private Customer costumer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +36,11 @@ public class Deliverer_Activity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.deliverer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); // we define toolbar as action bar for this activity
-
+        {
+            //We receive an object that will come from the activity Main Activity or Sign Up
+            Intent intent = getIntent();
+            costumer = (Customer) intent.getSerializableExtra(EXTRA_CUSTOMER);
+        }
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -95,10 +106,10 @@ public class Deliverer_Activity extends AppCompatActivity implements NavigationV
         //initializing the fragment object which is selected
         switch (selectedOption) {
             case R.id.action_dados:
-                fragment = new Profile_Activity();
+                fragment = new Profile_Fragment();
                 break;
             case R.id.action_entregas:
-                fragment = new Delivery_Activity();
+                fragment = Delivery_Fragment.newInstance(costumer);
                 break;
         }
 
@@ -129,5 +140,10 @@ public class Deliverer_Activity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         selectFromMenu(item);
         return true;
+    }
+
+    @Override
+    public void saveAllModifications(Customer customer) {
+        this.costumer = customer; //Receives all changes made in the fragment
     }
 }

@@ -8,12 +8,13 @@ import java.io.Serializable;
  * Created by Dell on 27/07/2017.
  */
 
-public class Costumer implements Serializable {
+public class Customer implements Serializable {
     private String nome;
     private Bitmap foto;
     private String contato;
     private String email;
     private String senha;
+    private String telefone;
     private LoadedAddress loadedAddress;
     private String placa_Veiculo;
     private String marca_Veiculo;
@@ -23,8 +24,58 @@ public class Costumer implements Serializable {
     private String agencia;
     private String conta;
 
-    public Costumer(){}
-    public Costumer(String nome, Bitmap foto, String contato, String email, String senha,
+
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setFeed(String feed) {
+        this.feed = feed;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public void setExperiencia(int experiencia) {
+        this.experiencia = experiencia;
+    }
+
+    public void setMedia(float media) {
+        this.media = media;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getFeed() {
+        return feed;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public float getMedia() {
+        return media;
+    }
+
+    private String feed;
+    private boolean isAvailable;
+    private int nivel = 0;
+    private int experiencia = 0;
+    private float media = (float)0;
+
+
+
+    public Customer(){}
+    public Customer(String nome, Bitmap foto, String contato, String email, String senha,
                     LoadedAddress loadedAddress, String placa_Veiculo, String marca_Veiculo,
                     String model_Veiculo, String titular_banco, String banco, String agencia,
                     String conta) {
@@ -71,8 +122,16 @@ public class Costumer implements Serializable {
         return email;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public String getSenha() {

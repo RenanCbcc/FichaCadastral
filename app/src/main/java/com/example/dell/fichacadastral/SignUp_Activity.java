@@ -16,7 +16,7 @@ import android.view.ViewGroup;
  * Created by Dell on 03/08/2017.
  */
 
-public class SignUp extends AppCompatActivity {
+public class SignUp_Activity extends AppCompatActivity {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -125,11 +125,11 @@ public class SignUp extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Form_Activity form_activity = new Form_Activity();
-                    return form_activity;
+                    Form_Fragment form_fragment = new Form_Fragment();
+                    return form_fragment;
                 case 1:
-                    Additional_Activity additional_activity = new Additional_Activity();
-                    return additional_activity;
+                    Additional_Fragment additional_fragment = new Additional_Fragment();
+                    return additional_fragment;
 
             }
             return null;

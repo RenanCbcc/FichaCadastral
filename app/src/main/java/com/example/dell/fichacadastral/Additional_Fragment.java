@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by Dell on 20/07/2017.
  */
 
-public class Additional_Activity extends Fragment implements View.OnClickListener {
+public class Additional_Fragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
