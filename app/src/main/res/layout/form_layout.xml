@@ -11,277 +11,325 @@
         android:id="@+id/layout_pai"
         >
 
-        <TextView
-            android:id="@+id/textView"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="INFORMAÇÕS CADASTRAIS"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/activity_horizontal_margin"
-            android:layout_below="@+id/pgb_progress"
+            android:layout_height="200dp"
+            android:id="@+id/relativeLayout4"
+            android:layout_below="@+id/layout_pic"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true">
 
-        <EditText
-            android:id="@+id/edt_nome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_nome"
-            android:imeOptions="actionNext"
-            android:inputType="textPersonName|textCapWords"
-            android:layout_below="@+id/textView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/edt_nCelular"
+                android:layout_alignStart="@+id/edt_nCelular"
+                android:text="CONTATO"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin" />
+
+            <ProgressBar
+                android:id="@+id/pgb_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/edt_nCelular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="12dp"
+                android:hint="@string/hint_numero_celular"
+                android:imeOptions="actionDone"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/edt_nCelular"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/edt_nCelular"
+                android:layout_below="@+id/edt_nCelular"
+                android:hint="@string/hint_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/edt_senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/edt_email"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/edt_email"
+                android:layout_below="@+id/edt_email"
+                android:hint="@string/hint_senha"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/edt_rp_senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/edt_senha"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/edt_senha"
+                android:layout_below="@+id/edt_senha"
+                android:hint="@string/hint_rp_senha"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext" />
+
+
+        </RelativeLayout>
+
 
         <RelativeLayout
+
             android:id="@+id/layout_pic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/edt_nome"
-            android:layout_toRightOf="@+id/pgb_progress"
-            android:layout_toEndOf="@+id/pgb_progress"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp">
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMAÇÕES CADASTRAIS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <RadioGroup
+                android:id="@+id/docFical"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/textView"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioBtnPJ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pessoas Jurídica"
+                    android:layout_above="@+id/radioBtnPF"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="12dp" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnPF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pessoas Física"
+                    android:layout_marginBottom="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <EditText
+                    android:id="@+id/edt_cpf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_cpf"
+                    android:imeOptions="actionNext"
+                    android:layout_below="@+id/radioBtnPF"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:id="@+id/edt_cnpj"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_cnpj"
+                    android:imeOptions="actionNext"
+                    android:layout_below="@+id/radioBtnPF"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RadioGroup>
+
+
+            <EditText
+                android:id="@+id/edt_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_nome"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textCapWords"
+                android:layout_below="@+id/docFical"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
-                android:text="Foto\n(clique na imagem para alterar)" />
+                android:text="Foto\n(clique na imagem para alterar)"
+                android:layout_below="@+id/edt_nome"
+                android:layout_alignRight="@+id/textView"
+                android:layout_alignEnd="@+id/textView" />
 
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="120dp"
                 android:layout_height="150dp"
-                android:layout_marginLeft="34dp"
-                android:layout_marginStart="34dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/user"
-                android:layout_below="@+id/docFical"
+                android:layout_below="@+id/edt_nome"
                 android:layout_toRightOf="@+id/textView2"
                 android:layout_toEndOf="@+id/textView2" />
 
-            <RadioGroup
-                android:id="@+id/docFical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioBtnPJ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="Pessoas Jurídica" />
 
-            <RadioButton
-                android:id="@+id/radioBtnPF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pessoas Física"
-                android:layout_marginTop="18dp"
-                android:layout_below="@+id/radioBtnPJ"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
 
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CONTATO"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/activity_horizontal_margin"
-            android:layout_below="@+id/layout_pic"
-            android:layout_alignLeft="@+id/edt_nCelular"
-            android:layout_alignStart="@+id/edt_nCelular" />
-
-        <ProgressBar
-            android:id="@+id/pgb_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            />
-        <EditText
-            android:id="@+id/edt_nCelular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
-            android:layout_marginTop="12dp"
-            android:hint="@string/hint_numero_celular"
-            android:imeOptions="actionDone"
-            android:inputType="phone" />
-
-        <EditText
-            android:hint="@string/hint_email"
-            android:id="@+id/edt_email"
-            android:inputType="textEmailAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/edt_nCelular"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/edt_nCelular"
-            android:layout_below="@+id/edt_nCelular"
-            android:imeOptions="actionNext"
- />
-
-        <EditText
-            android:id="@+id/edt_senha"
-            android:inputType="textPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/edt_email"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/edt_email"
-            android:layout_below="@+id/edt_email"
-            android:hint="@string/hint_senha"
-            android:imeOptions="actionNext"
-             />
-
-        <EditText
-            android:id="@+id/edt_rp_senha"
-            android:inputType="textPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/edt_senha"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/edt_senha"
-            android:layout_below="@+id/edt_senha"
-            android:hint="@string/hint_rp_senha"
-            android:imeOptions="actionNext"
-             />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ENDEREÇO"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/activity_horizontal_margin"
-            android:id="@+id/textView4"
-            android:layout_below="@+id/edt_rp_senha"
-            android:layout_alignLeft="@+id/edt_rp_senha"
-            android:layout_alignStart="@+id/edt_rp_senha"
-            android:layout_marginTop="13dp" />
-
-        <EditText
-            android:id="@+id/edt_Cep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView4"
-            android:hint="@string/hint_CEP"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:maxLength="9"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_alignStart="@+id/textView4"
-            android:layout_alignRight="@+id/edt_nCelular"
-            android:layout_alignEnd="@+id/edt_nCelular" />
-
-        <Spinner
-            android:id="@+id/snp_Estados"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:scrollbarStyle="insideOverlay"
-            android:layout_alignTop="@+id/edt_Cep"
-            android:layout_toRightOf="@+id/textView"
-            android:layout_toEndOf="@+id/textView"
-            android:layout_marginLeft="13dp"
-            android:layout_marginStart="13dp">
-
-        </Spinner>
-
-        <EditText
-            android:id="@+id/edt_rua"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:imeOptions="actionNext"
-            android:hint="@string/hint_rua"
-            android:layout_below="@+id/snp_Estados"
-            android:layout_alignLeft="@+id/edt_Cep"
-            android:layout_alignStart="@+id/edt_Cep" />
-
-        <EditText
-            android:id="@+id/edt_numero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number|text"
-            android:imeOptions="actionNext"
-            android:hint="@string/hint_numero"
-            android:layout_below="@+id/edt_rua"
-            android:layout_alignLeft="@+id/edt_rua"
-            android:layout_alignStart="@+id/edt_rua"/>
-
-        <EditText
-            android:id="@+id/edt_complemento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:imeOptions="actionNext"
-            android:hint="@string/hint_complemento"
-            android:layout_below="@+id/edt_rua"
-            android:layout_toRightOf="@+id/edt_numero"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <EditText
-            android:id="@+id/edt_bairro"
-            android:layout_width="wrap_content"
-            android:inputType="textCapWords"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/edt_complemento"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/edt_nCelular"
-            android:layout_below="@+id/edt_complemento"
-            android:hint="@string/hint_bairro"
-            android:imeOptions="actionNext"
-            />
-
-        <EditText
-            android:id="@+id/edt_cidade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:imeOptions="actionNext"
-            android:hint="@string/hint_cidade"
-            android:layout_below="@+id/edt_bairro"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:id="@+id/relativeLayout3"
+            android:layout_below="@+id/relativeLayout4"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentStart="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ENDEREÇO"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:id="@+id/textView4"
+                android:layout_marginTop="13dp" />
 
-        <EditText
-            android:id="@+id/edt_pais"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:imeOptions="actionNext"
-            android:hint="@string/hint_pais"
-            android:layout_below="@+id/edt_cidade"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignLeft="@+id/edt_cidade"
-            android:layout_alignStart="@+id/edt_cidade" />
+            <EditText
+                android:id="@+id/edt_Cep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_CEP"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="9"
+                android:layout_marginTop="9dp"
+                android:layout_below="@+id/textView4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/snp_Estados"
+                android:layout_toStartOf="@+id/snp_Estados" />
+
+            <Spinner
+                android:id="@+id/snp_Estados"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:scrollbarStyle="insideOverlay"
+                android:layout_alignTop="@+id/edt_Cep"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+
+            </Spinner>
+
+            <EditText
+                android:id="@+id/edt_rua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:imeOptions="actionNext"
+                android:hint="@string/hint_rua"
+
+                android:layout_below="@+id/edt_Cep"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:id="@+id/edt_numero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number|text"
+                android:imeOptions="actionNext"
+                android:hint="@string/hint_numero"
+                android:layout_above="@+id/edt_bairro"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:id="@+id/edt_complemento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:imeOptions="actionNext"
+                android:hint="@string/hint_complemento"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/textView4"
+                android:layout_toEndOf="@+id/textView4" />
+
+            <EditText
+                android:id="@+id/edt_bairro"
+                android:layout_width="wrap_content"
+                android:inputType="textCapWords"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_bairro"
+                android:imeOptions="actionNext"
+                android:layout_above="@+id/edt_cidade"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:id="@+id/edt_cidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:imeOptions="actionNext"
+                android:hint="@string/hint_cidade"
+                android:layout_above="@+id/edt_pais"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:id="@+id/edt_pais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:imeOptions="actionNext"
+                android:hint="@string/hint_pais"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:id="@+id/btn_validar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/edt_pais"
+                android:text="Validar Dados" />
+
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

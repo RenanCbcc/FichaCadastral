@@ -6,136 +6,152 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/relative_Layout"
         >
 
-        <TextView
-            android:id="@+id/textView"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INFORMAÇÕS DO VEÍCULO"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/activity_horizontal_margin"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="18dp" />
+            android:id="@+id/relativeLayout2">
 
-        <EditText
-            android:id="@+id/edt_placaVeiculo"
-            android:hint="@string/hint_placa_veiculo"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMAÇÕS DO VEÍCULO"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp" />
+
+            <EditText
+                android:id="@+id/edt_placaVeiculo"
+                android:hint="@string/hint_placa_veiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/textView"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_marginTop="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:id="@+id/edt_marca"
+                android:hint="@string/hint_marca_veiculo"
+                android:inputType="text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edt_placaVeiculo"
+                android:layout_alignLeft="@+id/edt_placaVeiculo"
+                android:layout_alignStart="@+id/edt_placaVeiculo"
+                android:layout_marginTop="9dp" />
+
+            <EditText
+
+                android:id="@+id/edt_modelo"
+                android:hint="@string/hint_modelo_veiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edt_marca"
+                android:layout_alignBottom="@+id/edt_marca"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="24dp"
+                android:layout_marginEnd="24dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_below="@+id/textView"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"
-            android:layout_marginTop="12dp"
+            android:id="@+id/relativeLayout"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true">
 
-        <EditText
-            android:id="@+id/edt_marca"
-            android:hint="@string/hint_marca_veiculo"
-            android:inputType="text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edt_placaVeiculo"
-            android:layout_alignLeft="@+id/edt_placaVeiculo"
-            android:layout_alignStart="@+id/edt_placaVeiculo"
-            android:layout_marginTop="9dp" />
+            <TextView
+                android:id="@+id/txtView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMAÇÕS BANCÁRIAS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="19dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp" />
 
-        <EditText
+            <EditText
+                android:id="@+id/edt_titular"
+                android:hint="@string/hint_titular_conta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:layout_below="@+id/txtView2"
+                android:layout_alignLeft="@+id/txtView2"
+                android:layout_alignStart="@+id/txtView2"
+                android:layout_marginTop="15dp"
+                />
 
-            android:id="@+id/edt_modelo"
-            android:hint="@string/hint_modelo_veiculo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edt_marca"
-            android:layout_alignBottom="@+id/edt_marca"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="24dp"
-            android:layout_marginEnd="24dp" />
+            <EditText
+                android:id="@+id/edt_banco"
+                android:hint="@string/hint_banco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:layout_below="@+id/edt_titular"
+                android:layout_alignLeft="@+id/edt_titular"
+                android:layout_alignStart="@+id/edt_titular"
+                android:layout_marginTop="15dp"
+                />
 
-       <TextView
-           android:id="@+id/txtView2"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="INFORMAÇÕS BANCÁRIAS"
-           android:textColor="@color/colorPrimary"
-           android:textSize="@dimen/activity_horizontal_margin"
-           android:layout_marginTop="19dp"
-           android:layout_below="@+id/edt_marca"
-           android:layout_alignLeft="@+id/edt_marca"
-           android:layout_alignStart="@+id/edt_marca"
-           android:layout_marginLeft="7dp"
-           android:layout_marginStart="7dp" />
+            <EditText
+                android:id="@+id/edt_agencia"
+                android:hint="@string/hint_agencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_marginTop="14dp"
+                android:layout_below="@+id/edt_banco"
+                android:layout_alignLeft="@+id/edt_banco"
+                android:layout_alignStart="@+id/edt_banco"
+                android:layout_alignRight="@+id/edt_banco"
+                android:layout_alignEnd="@+id/edt_banco" />
 
-        <EditText
-            android:id="@+id/edt_titular"
-            android:hint="@string/hint_titular_conta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:layout_below="@+id/txtView2"
-            android:layout_alignLeft="@+id/txtView2"
-            android:layout_alignStart="@+id/txtView2"
-            android:layout_marginTop="15dp"
-            android:layout_alignRight="@+id/edt_modelo"
-            android:layout_alignEnd="@+id/edt_modelo" />
+            <EditText
+                android:id="@+id/edt_conta"
+                android:hint="@string/hint_conta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_alignBaseline="@+id/edt_agencia"
+                android:layout_alignBottom="@+id/edt_agencia"
+                android:layout_alignRight="@+id/edt_titular"
+                android:layout_alignEnd="@+id/edt_titular" />
 
-        <EditText
-            android:id="@+id/edt_banco"
-            android:hint="@string/hint_banco"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:layout_below="@+id/edt_titular"
-            android:layout_alignLeft="@+id/edt_titular"
-            android:layout_alignStart="@+id/edt_titular"
-            android:layout_marginTop="15dp"
-            android:layout_alignRight="@+id/edt_marca"
-            android:layout_alignEnd="@+id/edt_marca" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/edt_conta"
+                android:text="FINALIZAR CADASTRO" />
 
-        <EditText
-            android:id="@+id/edt_agencia"
-            android:hint="@string/hint_agencia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_marginTop="14dp"
-            android:layout_below="@+id/edt_banco"
-            android:layout_alignLeft="@+id/edt_banco"
-            android:layout_alignStart="@+id/edt_banco"
-            android:layout_alignRight="@+id/edt_banco"
-            android:layout_alignEnd="@+id/edt_banco" />
-
-        <EditText
-            android:id="@+id/edt_conta"
-            android:hint="@string/hint_conta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_alignBaseline="@+id/edt_agencia"
-            android:layout_alignBottom="@+id/edt_agencia"
-            android:layout_alignLeft="@+id/edt_modelo"
-            android:layout_alignStart="@+id/edt_modelo"
-            android:layout_alignRight="@+id/edt_titular"
-            android:layout_alignEnd="@+id/edt_titular" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/edt_conta"
-            android:text="FINALIZAR CADASTRO" />
+        </RelativeLayout>
 
 
     </RelativeLayout>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -16,9 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,11 +38,17 @@ import static android.app.Activity.RESULT_CANCELED;
  */
 
 public class Form_Activity extends Fragment implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+    private EditText edtNome;
+    private EditText edtCPF;
+    private EditText edtCNPJ;
+    private EditText edtCel;
     private EditText edtCep;
     private EditText edtRua;
     private EditText edtCidade;
     private EditText edtComplemento;
     private EditText edtBairro;
+    private EditText edtNum;
+    private Button btnValidar;
     private ProgressBar progressBar;
     private Spinner spinner;
     private EditText edtSenha;
@@ -49,6 +59,8 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private ImageView foto;
     private Bitmap bitmap;
     private Costumer costumer;
+    private RadioButton radioCPF;
+    private RadioButton radioCNPJ;
 
     @Nullable
     @Override
@@ -56,11 +68,24 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         View view = inflater.inflate(R.layout.form_layout, container, false);
         spinner = (Spinner) view.findViewById(R.id.snp_Estados);
         progressBar = (ProgressBar) view.findViewById(R.id.pgb_progress);
+        edtNome = (EditText) view.findViewById(R.id.edt_nome);
+        edtCel = (EditText) view.findViewById(R.id.edt_nCelular);
+        edtCPF = (EditText) view.findViewById(R.id.edt_cpf);
+        edtCPF.addTextChangedListener(Mask.insert("###.###.###-##", edtCPF));
+
+        edtCNPJ = (EditText) view.findViewById(R.id.edt_cnpj);
+        edtCNPJ.addTextChangedListener(Mask.insert("##.###.###/####-##", edtCNPJ));
+
+        radioCPF = (RadioButton) view.findViewById(R.id.radioBtnPF);
+        radioCNPJ = (RadioButton) view.findViewById(R.id.radioBtnPJ);
+
         edtCep = (EditText) view.findViewById(R.id.edt_Cep);
         edtRua = (EditText) view.findViewById(R.id.edt_rua);
         edtCidade = (EditText) view.findViewById(R.id.edt_cidade);
         edtComplemento = (EditText) view.findViewById(R.id.edt_complemento);
         edtBairro = (EditText) view.findViewById(R.id.edt_bairro);
+        edtNum = (EditText) view.findViewById(R.id.edt_numero);
+        btnValidar = (Button) view.findViewById(R.id.btn_validar);
         edtSenha = (EditText) view.findViewById(R.id.edt_senha);
         EdtSenhaRep = (EditText) view.findViewById(R.id.edt_rp_senha);
         foto = (ImageView) view.findViewById(R.id.imageView);
@@ -70,6 +95,61 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         foto.setOnClickListener(this);
         costumer = new Costumer();
         configureSpinner();
+        edtCPF.setVisibility(View.INVISIBLE);
+        edtCNPJ.setVisibility(View.INVISIBLE);
+
+        radioCPF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    edtCPF.setVisibility(View.VISIBLE);
+                    edtCNPJ.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        radioCNPJ.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    edtCNPJ.setVisibility(View.VISIBLE);
+                    edtCPF.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        btnValidar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Validator.validateNotNull(edtNome,"Preencha o campo nome");
+                Validator.validateNotNull(edtCPF,"Preencha o campo CPF");
+                Validator.validateNotNull(edtCel,"Preencha o campo numero de celular");
+                Validator.validateNotNull(edtCep,"Preencha o campo CEP");
+                Validator.validateNotNull(edtRua,"Preencha o campo rua");
+                Validator.validateNotNull(edtNum,"Preencha o campo número");
+                Validator.validateNotNull(edtComplemento,"Preencha o campo complemento");
+                Validator.validateNotNull(edtBairro,"Preencha o campo bairro");
+                Validator.validateNotNull(edtCidade,"Preencha o campo cidade");
+                boolean cpf_valido = Validator.validateCPF(edtCPF.getText().toString());
+                if(!cpf_valido){
+                    edtCPF.setError("CPF inválido");
+                    edtCPF.setFocusable(true);
+                    edtCPF.requestFocus();
+                }
+
+                boolean cnpj_valido = Validator.isCNPJ(edtCNPJ.getText().toString());
+                if(!cnpj_valido){
+                    edtCNPJ.setError("CNPJ inválido");
+                    edtCNPJ.setFocusable(true);
+                    edtCNPJ.requestFocus();
+                }
+
+                boolean email_valido = Validator.validateEmail(edtEmail.getText().toString());
+                if(!email_valido){
+                    edtEmail.setError("Email inválido");
+                    edtEmail.setFocusable(true);
+                    edtEmail.requestFocus();
+                }
+            }
+        });
 
         if (isAdded()) {
             //verify if the fragment is attached at the activity
@@ -82,6 +162,8 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         return view;
 
     }
+
+
 
     private void configureSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),

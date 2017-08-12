@@ -4,6 +4,8 @@
     <string name="app_name">Smart Delivery</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="hint_nome">Nome completo</string>
+    <string name="hint_cpf">CPF</string>
+    <string name="hint_cnpj">CNPJ</string>
     <string name="hint_email">E-Mail</string>
     <string name="hint_senha">Senha</string>
     <string name="hint_rp_senha">Repita a Senha</string>
