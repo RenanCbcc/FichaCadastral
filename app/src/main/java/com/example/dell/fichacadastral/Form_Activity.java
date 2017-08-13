@@ -62,6 +62,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private RadioButton radioCPF;
     private RadioButton radioCNPJ;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         edtBairro = (EditText) view.findViewById(R.id.edt_bairro);
         edtNum = (EditText) view.findViewById(R.id.edt_numero);
         btnValidar = (Button) view.findViewById(R.id.btn_validar);
+
         edtSenha = (EditText) view.findViewById(R.id.edt_senha);
         EdtSenhaRep = (EditText) view.findViewById(R.id.edt_rp_senha);
         foto = (ImageView) view.findViewById(R.id.imageView);
@@ -97,6 +99,8 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         configureSpinner();
         edtCPF.setVisibility(View.VISIBLE);
         edtCNPJ.setVisibility(View.INVISIBLE);
+
+
         radioCPF.setChecked(true);
         radioCPF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -128,6 +132,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                 Validator.validateNotNull(edtComplemento,"Preencha o campo complemento");
                 Validator.validateNotNull(edtBairro,"Preencha o campo bairro");
                 Validator.validateNotNull(edtCidade,"Preencha o campo cidade");
+
                 boolean cpf_valido = Validator.validateCPF(edtCPF.getText().toString());
                 if(!cpf_valido){
                     edtCPF.setError("CPF inválido");
@@ -148,8 +153,36 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     edtEmail.setFocusable(true);
                     edtEmail.requestFocus();
                 }
+
+
+                if((Validator.validateNotNull(edtNome,"Preencha o campo nome")&&
+                    Validator.validateNotNull(edtCPF,"Preencha o campo CPF")&&
+                    Validator.validateNotNull(edtCel,"Preencha o campo numero de celular")&&
+                    Validator.validateNotNull(edtCep,"Preencha o campo CEP")&&
+                    Validator.validateNotNull(edtRua,"Preencha o campo rua")&&
+                    Validator.validateNotNull(edtNum,"Preencha o campo número")&&
+                    Validator.validateNotNull(edtComplemento,"Preencha o campo complemento")&&
+                    Validator.validateNotNull(edtBairro,"Preencha o campo bairro")&&
+                    Validator.validateNotNull(edtCidade,"Preencha o campo cidade")&&
+                    cpf_valido&&cnpj_valido&&email_valido)){
+                        String nome = edtNome.getText().toString();
+                        String cpf = edtCPF.getText().toString();
+                        String celular = edtCel.getText().toString();
+                        String email = edtEmail.getText().toString();
+                        String senha = edtSenha.getText().toString();
+                        costumer.setNome(nome);
+                        costumer.setCPF(cpf);
+                        costumer.setContato(celular);
+                        costumer.setEmail(email);
+                        costumer.setSenha(senha);
+
+                }
+
             }
         });
+
+
+
 
         if (isAdded()) {
             //verify if the fragment is attached at the activity

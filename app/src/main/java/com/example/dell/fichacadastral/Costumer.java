@@ -12,6 +12,8 @@ public class Costumer implements Serializable {
     private String nome;
     private Bitmap foto;
     private String contato;
+    private String cpf;
+    private String cnpj;
     private String email;
     private String senha;
     private LoadedAddress loadedAddress;
@@ -24,13 +26,15 @@ public class Costumer implements Serializable {
     private String conta;
 
     public Costumer(){}
-    public Costumer(String nome, Bitmap foto, String contato, String email, String senha,
+    public Costumer(String nome, Bitmap foto, String contato, String cpf, String cnpj, String email, String senha,
                     LoadedAddress loadedAddress, String placa_Veiculo, String marca_Veiculo,
                     String model_Veiculo, String titular_banco, String banco, String agencia,
                     String conta) {
         this.nome = nome;
         this.foto = foto;
         this.contato = contato;
+        this.cpf = cpf;
+        this.cnpj = cnpj;
         this.email = email;
         this.senha = senha;
         this.loadedAddress = loadedAddress;
@@ -65,6 +69,22 @@ public class Costumer implements Serializable {
 
     public void setContato(String contato) {
         this.contato = contato;
+    }
+
+    public String getCPF() {
+        return cpf;
+    }
+
+    public void setCPF(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCNPJ() {
+        return cnpj;
+    }
+
+    public void setCNPJ(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getEmail() {
