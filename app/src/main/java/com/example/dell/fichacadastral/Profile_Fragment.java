@@ -52,9 +52,9 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener, 
     private Button btnCancelar;
     private Customer customer;
 
-    public static Profile_Fragment newInstance(Customer costumer) {//METODO CONSTRUTOR
+    public static Profile_Fragment newInstance(Customer customer) {//METODO CONSTRUTOR
         Bundle parametros = new Bundle();
-        parametros.putSerializable(EXTRA_CUSTOMER, costumer);
+        parametros.putSerializable(EXTRA_CUSTOMER, customer);
         Profile_Fragment fragment = new Profile_Fragment();
         fragment.setArguments(parametros);
         return fragment;

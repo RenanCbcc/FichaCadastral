@@ -2,6 +2,7 @@ package com.example.dell.fichacadastral;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         TextView textView = (TextView) findViewById(R.id.txt_singup);
         button = (Button) findViewById(R.id.btn_login);
+        signInButton = (SignInButton)findViewById(R.id.signInButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
 
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onActivityResult(int requestCode, int responseCode, Intent intent) {
         super.onActivityResult(requestCode, responseCode, intent);
         if (requestCode == REQUEST_SIGN_IN) {
-            if (responseCode != Activity.RESULT_OK) {
+            if (responseCode == Activity.RESULT_OK) {
                 Toast.makeText(this, R.string.sucsses_msg_01, Toast.LENGTH_SHORT).show();
                 intent = new Intent(this, Deliverer_Activity.class);
                 startActivity(intent);
@@ -118,8 +121,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    //If the connection failed, attempt to encounter a solution. Generally on Google Play.
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(this, REQUEST_SIGN_IN);
+            } catch (IntentSender.SendIntentException siex) {
+                siex.printStackTrace();
+            }
+
+        } else {
+            //exhibitErrorMessage(this,connectionResult.getErrorCode());
+            Toast.makeText(this, "Erro unsolved", Toast.LENGTH_SHORT).show();
+        }
     }
 }

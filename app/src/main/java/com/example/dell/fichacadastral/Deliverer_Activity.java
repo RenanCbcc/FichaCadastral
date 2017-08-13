@@ -1,6 +1,8 @@
 package com.example.dell.fichacadastral;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,12 +21,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import static com.example.dell.fichacadastral.MainActivity.REQUEST_SIGN_IN;
 
 
 /**
@@ -35,7 +47,7 @@ import com.squareup.picasso.Target;
 
 public class Deliverer_Activity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, Delivery_Fragment.onModifyFragment,
-        Profile_Fragment.onModifyFragment {
+        Profile_Fragment.onModifyFragment, GoogleApiClient.OnConnectionFailedListener {
     private static final String EXTRA_CUSTOMER = "customer"; // Primary Key
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -75,6 +87,15 @@ public class Deliverer_Activity extends AppCompatActivity implements
             selectedOption = savedInstanceState.getInt("menuItem");
         }
         selectFromMenu(navigationView.getMenu().findItem(selectedOption));
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
     }
 
@@ -120,7 +141,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
         //initializing the fragment object which is selected
         switch (selectedOption) {
             case R.id.action_dados:
-                fragment = new Profile_Fragment();
+                fragment = Profile_Fragment.newInstance(costumer);
                 break;
             case R.id.action_entregas:
                 fragment = Delivery_Fragment.newInstance(costumer);
@@ -161,52 +182,107 @@ public class Deliverer_Activity extends AppCompatActivity implements
         this.costumer = customer; //Receives all changes made in the fragment
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    private void upDateMenu() {
-        final ImageView imgCapa = (ImageView) findViewById(R.id.imgCapa);
-        final ImageView imgFoto = (ImageView) findViewById(R.id.imgFotoPerfil);
-        final TextView txtNome = (TextView) findViewById(R.id.txtNome);
-        if (googleApiClient.isConnected()) {
-            Person person = Plus.PeopleApi.getCurrentPerson(googleApiClient);
-            if (person != null) {
-                txtNome.setText(person.getDisplayName());
-                if (person.hasImage()) {
-                    Target target = new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
-                            RoundedBitmapDrawable fotoRedonda = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-                            fotoRedonda.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
-                            imgFoto.setImageDrawable(fotoRedonda);
-                        }
-
-                        @Override
-                        public void onBitmapFailed(Drawable drawable) {
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable drawable) {
-                        }
-                    };
-                    Picasso.with(this)
-                            .load(person.getImage().getUrl())
-                            .into(target);
-                }
-                if (person.hasCover()) {
-                    Picasso.with(this)
-                            .load(person.getCover().getCoverPhoto().getUrl())
-                            .into(imgCapa);
-                }
-            }
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if (opr.isDone()) {
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
         } else {
-            imgCapa.setImageBitmap(null);
-            txtNome.setText(R.string.app_name);
-            imgFoto.setImageResource(R.mipmap.ic_launcher);
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
         }
-        navigationView.getMenu()
-                .findItem(R.id.action_login_logout)
-                .setTitle(googleApiClient.isConnected() ?
-                        "Logout" : "Login");
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            final TextView txtNome = (TextView) findViewById(R.id.txtNome);
+            final ImageView imgCapa = (ImageView) findViewById(R.id.imgCapa);
+            final ImageView imgFoto = (ImageView) findViewById(R.id.imgFotoPerfil);
+            if (googleApiClient.isConnected()) {
+                Person person = Plus.PeopleApi.getCurrentPerson(googleApiClient);
+                if (person != null) {
+                    GoogleSignInAccount account = result.getSignInAccount();
+                    costumer.setEmail(account.getEmail());
+                    costumer.setNome(person.getDisplayName());
+                    if (person.hasImage()) {
+                        Target target = new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                                RoundedBitmapDrawable fotoRedonda = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                                fotoRedonda.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
+                                imgFoto.setImageDrawable(fotoRedonda);
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable drawable) {
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable drawable) {
+                            }
+                        };
+                        Picasso.with(this)
+                                .load(person.getImage().getUrl())
+                                .into(target);
+                    }
+                    if (person.hasCover()) {
+                        Picasso.with(this)
+                                .load(person.getCover().getCoverPhoto().getUrl())
+                                .into(imgCapa);
+                    }
+                }
+            } else {
+                imgCapa.setImageBitmap(null);
+                txtNome.setText(R.string.app_name);
+                imgFoto.setImageResource(R.mipmap.ic_launcher);
+            }
+            navigationView.getMenu()
+                    .findItem(R.id.action_login_logout)
+                    .setTitle(googleApiClient.isConnected() ?
+                            "Logout" : "Login");
+        }
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        super.onActivityResult(requestCode, responseCode, intent);
+        if (requestCode == REQUEST_SIGN_IN) {
+            if (responseCode == Activity.RESULT_OK) {
+                Toast.makeText(this, R.string.sucsses_msg_01, Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, Deliverer_Activity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, R.string.error_msg_01, Toast.LENGTH_SHORT).show();
+            }
+
+            if (!googleApiClient.isConnecting()) {
+                googleApiClient.connect();
+            }
+        }
+    }
+
+
+    //If the connection failed, attempt to encounter a solution. Generally on Google Play.
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(this, REQUEST_SIGN_IN);
+            } catch (IntentSender.SendIntentException siex) {
+                siex.printStackTrace();
+            }
+
+        } else {
+            //exhibitErrorMessage(this,connectionResult.getErrorCode());
+            Toast.makeText(this, "Erro unsolved", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
