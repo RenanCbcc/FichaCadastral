@@ -8,14 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 /**
  * Created by Dell on 05/08/2017.
  */
 
-public class Delivery_Fragment extends Fragment implements View.OnClickListener {
+public class Delivery_Fragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     private static final String EXTRA_CUSTOMER = "customer"; // tuple{Key,value}
     private Customer customer;
     private TextView txt_Name;
@@ -51,7 +53,7 @@ public class Delivery_Fragment extends Fragment implements View.OnClickListener 
         txt_Feed = view.findViewById(R.id.feedbad_id);
         txt_Mean = view.findViewById(R.id.media_id);
         toggleButton = view.findViewById(R.id.tgb_isAvailable);
-        toggleButton.setOnClickListener(this);
+        toggleButton.setOnCheckedChangeListener(this);
 
         if (customer != null) {
             txt_Name.setText(String.format("Nome: %s", customer.getNome()));
@@ -66,21 +68,33 @@ public class Delivery_Fragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
-    public void onClick(View v) {
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         Activity activity = getActivity();
         if (activity instanceof onModifyFragment) {
             if (toggleButton.getText().toString().equals("Disponivel")) {
                 toggleButton.setChecked(false);
-                customer.setAvailable(false);
+                if (customer != null) {
+                    customer.setAvailable(false);
+                    Toast.makeText(getActivity(), "Estou indisponivels para realizar Entregas", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Impossivel atribuir valor", Toast.LENGTH_SHORT).show();
+                }
 
             } else {
                 toggleButton.setChecked(true);
-                customer.setAvailable(true);
+                if (customer != null) {
+                    customer.setAvailable(true);
+                    Toast.makeText(getActivity(), "Estou disponivels para realizar Entregas", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Impossivel atribuir valor", Toast.LENGTH_SHORT).show();
+                }
+
             }
             onModifyFragment listener = (onModifyFragment) activity;
             listener.saveAllModifications(customer);
         }
     }
+
 
     public interface onModifyFragment {
         void saveAllModifications(Customer customer);

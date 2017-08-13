@@ -434,19 +434,29 @@
                     android:layout_alignBaseline="@+id/btn_Cancelar"
                     android:layout_alignBottom="@+id/btn_Cancelar"
                     android:layout_toLeftOf="@+id/edt_modelo"
-                    android:layout_toStartOf="@+id/edt_modelo" />
+                    android:layout_toStartOf="@+id/edt_modelo"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#B0A9AE"
+                    android:shadowDx="0"
+                    android:shadowDy="-0"
+                    android:shadowRadius="5"
+                    />
 
                 <Button
                     android:id="@+id/btn_Cancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cancelar"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
                     android:layout_below="@+id/edt_modelo"
-                    android:layout_toRightOf="@+id/edt_modelo"
-                    android:layout_toEndOf="@+id/edt_modelo"
-                    android:layout_marginTop="10dp" />
+                    android:layout_toEndOf="@+id/btn_Salvar"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#B0A9AE"
+                    android:shadowDx="0"
+                    android:shadowDy="-0"
+                    android:shadowRadius="5"
+                    android:layout_toRightOf="@+id/btn_Salvar" />
+
 
 
 

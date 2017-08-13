@@ -5,47 +5,31 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.plus.Plus;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
+
     private SignInButton signInButton;
     private Button button;
-    private int selectedOption;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener stateListener;
     public static final int REQUEST_SIGN_IN = 0;
     private GoogleApiClient googleApiClient;
-    private boolean IntentInProgress;
-    private boolean SignInClicked;
-    private ConnectionResult mConnectionResult;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        googleApiClient.connect();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (googleApiClient.isConnected()) {
-            googleApiClient.disconnect();
-        }
-    }
 
 
     @Override
@@ -55,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         TextView textView = (TextView) findViewById(R.id.txt_singup);
         button = (Button) findViewById(R.id.btn_login);
-        signInButton = (SignInButton)findViewById(R.id.signInButton);
+        signInButton = (SignInButton) findViewById(R.id.signInButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -92,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent intent) {
         super.onActivityResult(requestCode, responseCode, intent);
@@ -105,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 Toast.makeText(this, R.string.error_msg_01, Toast.LENGTH_SHORT).show();
             }
 
-            if (!googleApiClient.isConnecting()) {
+            if (!googleApiClient.isConnecting() || !googleApiClient.isConnected()) {
                 googleApiClient.connect();
             }
         }

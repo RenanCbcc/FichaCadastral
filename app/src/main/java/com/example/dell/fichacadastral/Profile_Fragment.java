@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,7 +26,7 @@ import android.widget.Toast;
  * Created by Dell on 05/08/2017.
  */
 
-public class Profile_Fragment extends Fragment implements View.OnClickListener, TextView.OnEditorActionListener {
+public class Profile_Fragment extends Fragment implements TextWatcher, View.OnClickListener, TextView.OnEditorActionListener {
     private static final String EXTRA_CUSTOMER = "customer"; // Primary Key
 
     private EditText edtTelefone;
@@ -70,8 +72,9 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener, 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.delivery_layout, container, false);
-        edtTelefone = view.findViewById(R.id.edt_numero);
+        View view = inflater.inflate(R.layout.profile_layout, container, false);
+
+        edtTelefone = view.findViewById(R.id.edt_nCelular);
         edtNome = view.findViewById(R.id.edt_nome);
         edtCep = view.findViewById(R.id.edt_Cep);
         edtRua = view.findViewById(R.id.edt_rua);
@@ -101,63 +104,46 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener, 
         edtBanco.setOnEditorActionListener(this);
         edtAgencia.setOnEditorActionListener(this);
         edtConta.setOnEditorActionListener(this);
-
         btnCancelar.setOnClickListener(this);
+
+        edtNome.setEnabled(false);
+        edtTelefone.setEnabled(false);
+        edtRua.setEnabled(false);
+        edtCep.setEnabled(false);
+        edtCep.setEnabled(false);
+        edtCidade.setEnabled(false);
+        edtComplemento.setEnabled(false);
+        edtBairro.setEnabled(false);
+        spnEstado.setEnabled(false);
+        edtEmail.setEnabled(false);
+        edtPlacaViculo.setEnabled(false);
+        edtMArcaViculo.setEnabled(false);
+        edtModelViculo.setEnabled(false);
 
         if (customer != null) {
             edtNome.setText(customer.getNome());
-            edtNome.setEnabled(false);
-
             edtTelefone.setText(customer.getTelefone());
-            edtTelefone.setEnabled(false);
-
             edtCep.setText(customer.getLoadedAddress().getCep());
-            edtCep.setEnabled(false);
-
             edtRua.setText(customer.getLoadedAddress().getLogradouro());
-            edtRua.setEnabled(false);
-
             edtCidade.setText(customer.getLoadedAddress().getLocalidade());
-            edtCidade.setEnabled(false);
-
             edtComplemento.setText(customer.getLoadedAddress().getComplemento());
-            edtComplemento.setEnabled(false);
-
             edtBairro.setText(customer.getLoadedAddress().getBairro());
-            edtBairro.setEnabled(false);
-
             spnEstado.setSelection(0); //TODO costumer.getLoadedAddress().getUf()
-            spnEstado.setEnabled(false);
-
             edtSenha.setText(customer.getSenha());
             edtSenha.setEnabled(true);
-
             EdtSenhaRep.setText(customer.getSenha());
             EdtSenhaRep.setEnabled(true);
-
             edtEmail.setText(customer.getEmail());
-            edtEmail.setEnabled(false);
-
             edtPlacaViculo.setText(customer.getPlaca_Veiculo());
-            edtPlacaViculo.setEnabled(false);
-
             edtMArcaViculo.setText(customer.getMarca_Veiculo());
-            edtMArcaViculo.setEnabled(false);
-
             edtModelViculo.setText(customer.getModel_Veiculo());
-            edtModelViculo.setEnabled(false);
-
             foto.setImageBitmap(customer.getFoto());
-
             edtTitular.setText(customer.getTitular_banco());
             edtTitular.setEnabled(true);
-
             edtBanco.setText(customer.getBanco());
             edtBanco.setEnabled(true);
-
             edtAgencia.setText(customer.getAgencia());
             edtAgencia.setEnabled(true);
-
             edtConta.setText(customer.getConta());
             edtConta.setEnabled(true);
 
@@ -234,6 +220,21 @@ public class Profile_Fragment extends Fragment implements View.OnClickListener, 
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 
     public interface onModifyFragment {

@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "901891525749",
+    "firebase_url": "https://fir-smartdelivery.firebaseio.com",
+    "project_id": "firebase-smartdelivery",
+    "storage_bucket": "firebase-smartdelivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901891525749:android:65f9706060546d69",
+        "android_client_info": {
+          "package_name": "Renan.Cbcc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901891525749-1nmqu56ujqvhbcrfin4tpohf5af9p122.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "901891525749-r5p85on501pk258mtbmlc6dd318t5gl9.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "901891525749-3ghnhuf27f4m8c2ccdmrgnrg588u4icr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Renan.Cbcc",
+            "certificate_hash": "9c7bf3e6943eb350f1689ba44c85d1c735ac223e"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUSOuLwckjgXXpGu80-CCjlp4dgoOM9_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901891525749-1nmqu56ujqvhbcrfin4tpohf5af9p122.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
