@@ -3,7 +3,6 @@ package com.example.dell.fichacadastral;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,23 +10,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private SignInButton signInButton;
     private Button button;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener stateListener;
     public static final int REQUEST_SIGN_IN = 0;
     private GoogleApiClient googleApiClient;
 
@@ -80,19 +75,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onActivityResult(int requestCode, int responseCode, Intent intent) {
         super.onActivityResult(requestCode, responseCode, intent);
         if (requestCode == REQUEST_SIGN_IN) {
-            if (responseCode == Activity.RESULT_OK) {
+            if (Auth.GoogleSignInApi.getSignInResultFromIntent(intent).isSuccess()) {
                 Toast.makeText(this, R.string.sucsses_msg_01, Toast.LENGTH_SHORT).show();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent = new Intent(this, Deliverer_Activity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, R.string.error_msg_01, Toast.LENGTH_SHORT).show();
             }
-
-            if (!googleApiClient.isConnecting() || !googleApiClient.isConnected()) {
-                googleApiClient.connect();
-            }
         }
     }
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

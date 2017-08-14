@@ -96,7 +96,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
     }
 
     @Override
@@ -146,6 +145,14 @@ public class Deliverer_Activity extends AppCompatActivity implements
             case R.id.action_entregas:
                 fragment = Delivery_Fragment.newInstance(costumer);
                 break;
+            case R.id.action_logout:
+                if(googleApiClient.isConnected()){
+                    Intent intent = new Intent(this,MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    googleApiClient.disconnect();
+                    Toast.makeText(this, getString(R.string.sucsses_msg_02,"Fulano"), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
         }
 
         /*
@@ -244,7 +251,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 imgFoto.setImageResource(R.mipmap.ic_launcher);
             }
             navigationView.getMenu()
-                    .findItem(R.id.action_login_logout)
+                    .findItem(R.id.action_logout)
                     .setTitle(googleApiClient.isConnected() ?
                             "Logout" : "Login");
         }
@@ -261,7 +268,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 startActivity(intent);
             } else {
                 Toast.makeText(this, R.string.error_msg_01, Toast.LENGTH_SHORT).show();
-            }
+               }
 
             if (!googleApiClient.isConnecting()) {
                 googleApiClient.connect();

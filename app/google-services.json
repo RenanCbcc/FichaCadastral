@@ -1,39 +1,31 @@
 {
   "project_info": {
-    "project_number": "901891525749",
-    "firebase_url": "https://fir-smartdelivery.firebaseio.com",
-    "project_id": "firebase-smartdelivery",
-    "storage_bucket": "firebase-smartdelivery.appspot.com"
+    "project_number": "409134748049",
+    "firebase_url": "https://fir-smartdelvery.firebaseio.com",
+    "project_id": "firebase-smartdelvery",
+    "storage_bucket": "firebase-smartdelvery.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:901891525749:android:65f9706060546d69",
+        "mobilesdk_app_id": "1:409134748049:android:fd8e99641e0d5df7",
         "android_client_info": {
-          "package_name": "Renan.Cbcc"
+          "package_name": "com.example.dell.fichacadastral"
         }
       },
       "oauth_client": [
         {
-          "client_id": "901891525749-1nmqu56ujqvhbcrfin4tpohf5af9p122.apps.googleusercontent.com",
+          "client_id": "409134748049-udvl6joffvqalb7av4uf0ere86r5ia11.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "901891525749-r5p85on501pk258mtbmlc6dd318t5gl9.apps.googleusercontent.com",
+          "client_id": "409134748049-m3hkri363jtehi7dul9lstj3ihil3kgb.apps.googleusercontent.com",
           "client_type": 3
-        },
-        {
-          "client_id": "901891525749-3ghnhuf27f4m8c2ccdmrgnrg588u4icr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "Renan.Cbcc",
-            "certificate_hash": "9c7bf3e6943eb350f1689ba44c85d1c735ac223e"
-          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCUSOuLwckjgXXpGu80-CCjlp4dgoOM9_o"
+          "current_key": "AIzaSyBRB-WKR4fWoIRE0nlL27j4Prhha7PrpbE"
         }
       ],
       "services": {
@@ -41,13 +33,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "901891525749-1nmqu56ujqvhbcrfin4tpohf5af9p122.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
