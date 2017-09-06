@@ -45,6 +45,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private EditText edtCep;
     private EditText edtRua;
     private EditText edtCidade;
+    private EditText edtPais;
     private EditText edtComplemento;
     private EditText edtBairro;
     private EditText edtNum;
@@ -83,6 +84,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         edtCep = (EditText) view.findViewById(R.id.edt_Cep);
         edtRua = (EditText) view.findViewById(R.id.edt_rua);
         edtCidade = (EditText) view.findViewById(R.id.edt_cidade);
+        edtPais = (EditText) view.findViewById(R.id.edt_pais);
         edtComplemento = (EditText) view.findViewById(R.id.edt_complemento);
         edtBairro = (EditText) view.findViewById(R.id.edt_bairro);
         edtNum = (EditText) view.findViewById(R.id.edt_numero);
@@ -132,6 +134,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                 Validator.validateNotNull(edtComplemento,"Preencha o campo complemento");
                 Validator.validateNotNull(edtBairro,"Preencha o campo bairro");
                 Validator.validateNotNull(edtCidade,"Preencha o campo cidade");
+                Validator.validateNotNull(edtPais,"Preencha o campo país");
 
                 boolean cpf_valido = Validator.validateCPF(edtCPF.getText().toString());
                 if(!cpf_valido){
@@ -164,6 +167,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     Validator.validateNotNull(edtComplemento,"Preencha o campo complemento")&&
                     Validator.validateNotNull(edtBairro,"Preencha o campo bairro")&&
                     Validator.validateNotNull(edtCidade,"Preencha o campo cidade")&&
+                    Validator.validateNotNull(edtPais,"Preencha o campo país")&&
                     cpf_valido&&cnpj_valido&&email_valido)){
                         String nome = edtNome.getText().toString();
                         String cpf = edtCPF.getText().toString();
@@ -175,7 +179,6 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                         costumer.setContato(celular);
                         costumer.setEmail(email);
                         costumer.setSenha(senha);
-
                 }
 
             }
@@ -337,6 +340,8 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     edtBairro.setText(address.getBairro());
                     edtComplemento.setText(address.getComplemento());
                     edtCidade.setText(address.getLocalidade());
+                    String pais = edtPais.getText().toString();
+                    address.setPais(pais);
                     setSpinner(R.array.string_array_estados, address.getUf());
                     costumer.setLoadedAddress(address);
                 }

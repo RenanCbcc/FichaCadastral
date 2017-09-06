@@ -207,7 +207,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
             android:id="@+id/relativeLayout3"
             android:layout_below="@+id/relativeLayout4"
             android:layout_alignParentLeft="true"
@@ -268,7 +268,7 @@
                 android:inputType="number|text"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_numero"
-                android:layout_above="@+id/edt_bairro"
+                android:layout_below="@+id/edt_complemento"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -279,11 +279,9 @@
                 android:inputType="text"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_complemento"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/textView4"
-                android:layout_toEndOf="@+id/textView4" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/edt_rua" />
 
             <EditText
                 android:id="@+id/edt_bairro"
@@ -292,12 +290,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_bairro"
                 android:imeOptions="actionNext"
-                android:layout_above="@+id/edt_cidade"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                android:layout_below="@+id/edt_numero"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:digits="abcdefghijklmnopqrstuvxwyz"/>
+                android:layout_alignParentStart="true" />
 
             <EditText
                 android:id="@+id/edt_cidade"
@@ -306,12 +302,10 @@
                 android:inputType="textCapWords"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_cidade"
-                android:layout_above="@+id/edt_pais"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                android:layout_below="@+id/edt_bairro"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:digits="abcdefghijklmnopqrstuvxwyz"/>
+                android:layout_alignParentStart="true" />
 
             <EditText
                 android:id="@+id/edt_pais"
@@ -320,21 +314,18 @@
                 android:inputType="textCapWords"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_pais"
-                android:layout_alignParentBottom="true"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                android:layout_below="@+id/edt_cidade"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:digits="abcdefghijklmnopqrstuvxwyz"/>
+                android:layout_alignParentStart="true" />
 
             <Button
                 android:id="@+id/btn_validar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/edt_pais"
-                android:text="Validar Dados" />
+                android:text="Salvar Dados"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
 
 
 

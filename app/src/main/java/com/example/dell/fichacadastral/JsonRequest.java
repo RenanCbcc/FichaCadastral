@@ -59,6 +59,7 @@ public class JsonRequest {
                         json.getString("bairro"),
                         json.getString("localidade"),
                         json.getString("uf"));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
