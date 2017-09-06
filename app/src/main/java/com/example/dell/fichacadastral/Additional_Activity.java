@@ -27,6 +27,8 @@ public class Additional_Activity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Bundle args = getArguments();
+
         View view = inflater.inflate(R.layout.additional_layout, container, false);
 
         edtPlaca = (EditText) view.findViewById(R.id.edt_placaVeiculo);
@@ -76,6 +78,7 @@ public class Additional_Activity extends Fragment {
                 }
             }
         });
+
 
         return view;
     }

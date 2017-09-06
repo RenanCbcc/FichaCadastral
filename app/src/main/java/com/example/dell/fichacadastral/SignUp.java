@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +19,7 @@ import android.view.ViewGroup;
  * Created by Dell on 03/08/2017.
  */
 
-public class SignUp extends AppCompatActivity {
+public class SignUp extends AppCompatActivity implements Form_Activity.OnForm_ActivityListener {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -52,6 +53,19 @@ public class SignUp extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+    }
+
+    @Override
+    public void OnBotaoClicado(Costumer costumer) {
+        Bundle args = new Bundle();
+        args.putInt(Additional_Activity.ARG_POSITION, position);
+
+        Additional_Activity additionalActivity = new Additional_Activity();
+        additionalActivity.setArguments(args);
+
+        FragmentTransaction transacao = getSupportFragmentManager().beginTransaction();
+        transacao.replace(R.id.fragment_container, additionalActivity);
+        transacao.commit();
     }
 
     /*

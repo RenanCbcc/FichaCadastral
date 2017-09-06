@@ -1,5 +1,6 @@
 package com.example.dell.fichacadastral;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -62,6 +63,29 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private Costumer costumer;
     private RadioButton radioCPF;
     private RadioButton radioCNPJ;
+
+
+    OnForm_ActivityListener mCallback;
+
+
+    public interface OnForm_ActivityListener{
+        public void OnBotaoClicado(Costumer costumer);
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnForm_ActivityListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnForm_ActivityListener");
+        }
+    }
 
 
     @Nullable
@@ -180,9 +204,10 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                         costumer.setEmail(email);
                         costumer.setSenha(senha);
                 }
-
+                mCallback.OnBotaoClicado(costumer);
             }
         });
+
 
 
 
