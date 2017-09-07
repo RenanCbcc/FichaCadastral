@@ -65,27 +65,25 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private RadioButton radioCNPJ;
 
 
-    OnForm_ActivityListener mCallback;
 
 
-    public interface OnForm_ActivityListener{
-        public void OnBotaoClicado(Costumer costumer);
-
+    public interface InterfaceComunicacao{
+        public void enviaDadosFragment(Costumer costumer);
     }
+    private InterfaceComunicacao listener;
+
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnForm_ActivityListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnForm_ActivityListener");
-        }
+        if(activity instanceof InterfaceComunicacao){
+            listener = (InterfaceComunicacao) activity;
+        }else
+            throw new RuntimeException("Activity deve implementar Form_Activity.InterfaceComunicacao");
     }
+
+
 
 
     @Nullable
@@ -203,8 +201,10 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                         costumer.setContato(celular);
                         costumer.setEmail(email);
                         costumer.setSenha(senha);
+
+                        listener.enviaDadosFragment(costumer);
+
                 }
-                mCallback.OnBotaoClicado(costumer);
             }
         });
 

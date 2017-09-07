@@ -27,7 +27,6 @@ public class Additional_Activity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Bundle args = getArguments();
 
         View view = inflater.inflate(R.layout.additional_layout, container, false);
 
@@ -39,6 +38,8 @@ public class Additional_Activity extends Fragment {
         edtAgencia = (EditText) view.findViewById(R.id.edt_agencia);
         edtConta = (EditText) view.findViewById(R.id.edt_conta);
         costumer = new Costumer();
+
+
 
         Button btnFinalizar = view.findViewById(R.id.button);
 
