@@ -78,6 +78,7 @@
 
     <!-- Mensagens.  -->
     <string name="error_msg_01">Erro ao tentar conexão</string>
+    <string name="gps_error">Its necessary to enable the G.P.S. </string>
     <string name="error_msg_email">Email Inválido</string>
     <string name="error_msg_senha">Senha Inválida</string>
     <string name="error_msg_senharp">Senhas Diferem</string>

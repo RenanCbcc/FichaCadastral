@@ -1,7 +1,6 @@
 package com.example.dell.fichacadastral;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +11,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by Dell on 05/08/2017.
@@ -55,10 +52,10 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     private Customer customer;
 
     public static Profile_Fragment newInstance(Customer customer) {//METODO CONSTRUTOR
-        Bundle parametros = new Bundle();
-        parametros.putSerializable(EXTRA_CUSTOMER, customer);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_CUSTOMER, customer);
         Profile_Fragment fragment = new Profile_Fragment();
-        fragment.setArguments(parametros);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -155,9 +152,9 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     @Override
     public void onClick(View view) {
         Activity activity = getActivity();
-        if (activity instanceof Delivery_Fragment.onModifyFragment) {
+        if (activity instanceof Deliveries_Fragment.onModifyFragment) {
             if (view.getId() == R.id.btn_Salvar) {
-                Delivery_Fragment.onModifyFragment listener = (Delivery_Fragment.onModifyFragment) activity;
+                Deliveries_Fragment.onModifyFragment listener = (Deliveries_Fragment.onModifyFragment) activity;
                 listener.saveAllModifications(customer);
             } else if (view.getId() == R.id.btn_Cancelar) {
                 // TODO implments something here!!!
