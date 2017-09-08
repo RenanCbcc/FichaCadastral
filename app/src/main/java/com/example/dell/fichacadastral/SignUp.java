@@ -19,7 +19,7 @@ import android.view.ViewGroup;
  * Created by Dell on 03/08/2017.
  */
 
-public class SignUp extends AppCompatActivity implements Form_Activity.InterfaceComunicacao {
+public class SignUp extends AppCompatActivity {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -29,8 +29,6 @@ public class SignUp extends AppCompatActivity implements Form_Activity.Interface
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private Costumer costumer;
-    Additional_Activity additional_activity;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -52,14 +50,11 @@ public class SignUp extends AppCompatActivity implements Form_Activity.Interface
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        //tabLayout.setupWithViewPager(mViewPager);
     }
 
-    @Override
-    public void enviaDadosFragment(Costumer costumer){
-        this.costumer = costumer;
-    }
+
 
     /*
     @Override
@@ -147,7 +142,7 @@ public class SignUp extends AppCompatActivity implements Form_Activity.Interface
         @Override
         public int getCount() {
 
-            return 2;
+            return 1;
         }
 
         @Override

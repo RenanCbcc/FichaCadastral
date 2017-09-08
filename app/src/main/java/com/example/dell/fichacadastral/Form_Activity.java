@@ -50,7 +50,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private EditText edtComplemento;
     private EditText edtBairro;
     private EditText edtNum;
-    private Button btnValidar;
+
     private ProgressBar progressBar;
     private Spinner spinner;
     private EditText edtSenha;
@@ -64,24 +64,20 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private RadioButton radioCPF;
     private RadioButton radioCNPJ;
 
-
-
-
-    public interface InterfaceComunicacao{
-        public void enviaDadosFragment(Costumer costumer);
-    }
-    private InterfaceComunicacao listener;
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        if(activity instanceof InterfaceComunicacao){
-            listener = (InterfaceComunicacao) activity;
-        }else
-            throw new RuntimeException("Activity deve implementar Form_Activity.InterfaceComunicacao");
-    }
+    //Pertenciam ao segundo fragment
+    private EditText edtPlaca;
+    private EditText edtMarca;
+    private EditText edtModelo;
+    private EditText edtTitular;
+    private EditText edtBanco;
+    private EditText edtAgencia;
+    private EditText edtConta;
+    private boolean boolCPF;
+    private boolean boolCNPJ;
+    private boolean boolEmail;
+    private boolean senhasIguais;
+    //private Costumer costumer;
+    //
 
 
 
@@ -110,7 +106,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         edtComplemento = (EditText) view.findViewById(R.id.edt_complemento);
         edtBairro = (EditText) view.findViewById(R.id.edt_bairro);
         edtNum = (EditText) view.findViewById(R.id.edt_numero);
-        btnValidar = (Button) view.findViewById(R.id.btn_validar);
+
 
         edtSenha = (EditText) view.findViewById(R.id.edt_senha);
         EdtSenhaRep = (EditText) view.findViewById(R.id.edt_rp_senha);
@@ -124,6 +120,16 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         edtCPF.setVisibility(View.VISIBLE);
         edtCNPJ.setVisibility(View.INVISIBLE);
 
+        //Pertenciam ao segundo fragment
+        edtPlaca = (EditText) view.findViewById(R.id.edt_placaVeiculo);
+        edtMarca = (EditText) view.findViewById(R.id.edt_marca);
+        edtModelo = (EditText) view.findViewById(R.id.edt_modelo);
+        edtTitular = (EditText) view.findViewById(R.id.edt_titular);
+        edtBanco = (EditText) view.findViewById(R.id.edt_banco);
+        edtAgencia = (EditText) view.findViewById(R.id.edt_agencia);
+        edtConta = (EditText) view.findViewById(R.id.edt_conta);
+        //
+
 
         radioCPF.setChecked(true);
         radioCPF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -132,6 +138,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                 if(isChecked){
                     edtCPF.setVisibility(View.VISIBLE);
                     edtCNPJ.setVisibility(View.INVISIBLE);
+                    boolCPF = true;
                 }
             }
         });
@@ -141,15 +148,26 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                 if(isChecked){
                     edtCNPJ.setVisibility(View.VISIBLE);
                     edtCPF.setVisibility(View.INVISIBLE);
+                    boolCNPJ = true;
                 }
             }
         });
 
-        btnValidar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        //Pertenciam ao segundo fragment
+        Button btnFinalizar = view.findViewById(R.id.button);
+
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
                 Validator.validateNotNull(edtNome,"Preencha o campo nome");
                 Validator.validateNotNull(edtCPF,"Preencha o campo CPF");
+                Validator.validateNotNull(edtCNPJ,"Preencha o campo CNPJ");
                 Validator.validateNotNull(edtCel,"Preencha o campo numero de celular");
+                Validator.validateNotNull(edtEmail,"Preencha o campo email");
+                Validator.validateNotNull(edtSenha,"Preencha o campo senha");
+                Validator.validateNotNull(EdtSenhaRep,"Preencha o campo repetir senha");
                 Validator.validateNotNull(edtCep,"Preencha o campo CEP");
                 Validator.validateNotNull(edtRua,"Preencha o campo rua");
                 Validator.validateNotNull(edtNum,"Preencha o campo número");
@@ -157,6 +175,24 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                 Validator.validateNotNull(edtBairro,"Preencha o campo bairro");
                 Validator.validateNotNull(edtCidade,"Preencha o campo cidade");
                 Validator.validateNotNull(edtPais,"Preencha o campo país");
+
+                Validator.validateNotNull(edtPlaca,"Preencha o campo placa");
+                Validator.validateNotNull(edtMarca,"Preencha o campo marca");
+                Validator.validateNotNull(edtModelo,"Preencha o campo modelo");
+                Validator.validateNotNull(edtTitular,"Preencha o campo titular");
+                Validator.validateNotNull(edtBanco,"Preencha o campo banco");
+                Validator.validateNotNull(edtAgencia,"Preencha o campo agencia");
+                Validator.validateNotNull(edtConta,"Preencha o campo conta");
+
+                if(!(edtSenha.getText().toString().equals(EdtSenhaRep.getText().toString()))){
+                    EdtSenhaRep.setError("Senhas não conferem");
+                    EdtSenhaRep.setFocusable(true);
+                    EdtSenhaRep.requestFocus();
+                    senhasIguais = false;
+                }
+                else {
+                    senhasIguais = true;
+                }
 
                 boolean cpf_valido = Validator.validateCPF(edtCPF.getText().toString());
                 if(!cpf_valido){
@@ -177,40 +213,80 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     edtEmail.setError("Email inválido");
                     edtEmail.setFocusable(true);
                     edtEmail.requestFocus();
+                    boolEmail = false;
                 }
-
+                else
+                    boolEmail = true;
 
                 if((Validator.validateNotNull(edtNome,"Preencha o campo nome")&&
-                    Validator.validateNotNull(edtCPF,"Preencha o campo CPF")&&
-                    Validator.validateNotNull(edtCel,"Preencha o campo numero de celular")&&
-                    Validator.validateNotNull(edtCep,"Preencha o campo CEP")&&
-                    Validator.validateNotNull(edtRua,"Preencha o campo rua")&&
-                    Validator.validateNotNull(edtNum,"Preencha o campo número")&&
-                    Validator.validateNotNull(edtComplemento,"Preencha o campo complemento")&&
-                    Validator.validateNotNull(edtBairro,"Preencha o campo bairro")&&
-                    Validator.validateNotNull(edtCidade,"Preencha o campo cidade")&&
-                    Validator.validateNotNull(edtPais,"Preencha o campo país")&&
-                    cpf_valido&&cnpj_valido&&email_valido)){
-                        String nome = edtNome.getText().toString();
-                        String cpf = edtCPF.getText().toString();
-                        String celular = edtCel.getText().toString();
-                        String email = edtEmail.getText().toString();
-                        String senha = edtSenha.getText().toString();
-                        costumer.setNome(nome);
-                        costumer.setCPF(cpf);
-                        costumer.setContato(celular);
-                        costumer.setEmail(email);
-                        costumer.setSenha(senha);
+                        Validator.validateNotNull(edtCel,"Preencha o campo numero de celular")&&
+                        Validator.validateNotNull(edtEmail,"Preencha o campo email")&&
+                        (boolEmail)&&(senhasIguais)&&
+                        Validator.validateNotNull(edtSenha,"Preencha o campo senha")&&
+                        Validator.validateNotNull(EdtSenhaRep,"Preencha o campo repetir senha")&&
+                        Validator.validateNotNull(edtCep,"Preencha o campo CEP")&&
+                        Validator.validateNotNull(edtRua,"Preencha o campo rua")&&
+                        Validator.validateNotNull(edtNum,"Preencha o campo número")&&
+                        Validator.validateNotNull(edtComplemento,"Preencha o campo complemento")&&
+                        Validator.validateNotNull(edtBairro,"Preencha o campo bairro")&&
+                        Validator.validateNotNull(edtCidade,"Preencha o campo cidade")&&
+                        Validator.validateNotNull(edtPais,"Preencha o campo país")&&
+                        Validator.validateNotNull(edtPlaca,"Preencha o campo placa")&&
+                        Validator.validateNotNull(edtMarca,"Preencha o campo marca")&&
+                        Validator.validateNotNull(edtModelo,"Preencha o campo modelo")&&
+                        Validator.validateNotNull(edtTitular,"Preencha o campo titular")&&
+                        Validator.validateNotNull(edtBanco,"Preencha o campo banco")&&
+                        Validator.validateNotNull(edtAgencia,"Preencha o campo agencia")&&
+                        Validator.validateNotNull(edtConta,"Preencha o campo conta"))){
 
-                        listener.enviaDadosFragment(costumer);
+                        if(boolCPF){
+                            Validator.validateNotNull(edtCPF,"Preencha o campo cpf");
+                            String cpf = edtCPF.getText().toString();
+                            costumer.setCPF(cpf);
+
+                        }
+                        else if(boolCNPJ){
+                            Validator.validateNotNull(edtCNPJ,"Preencha o campo cnpj");
+                            String cnpj = edtCNPJ.getText().toString();
+                            costumer.setCNPJ(cnpj);
+                        }
+
+                            String nome = edtNome.getText().toString();
+                            String celular = edtCel.getText().toString();
+                            String email = edtEmail.getText().toString();
+                            String senha = edtSenha.getText().toString();
+
+                            String placa = edtPlaca.getText().toString();
+                            String marca = edtMarca.getText().toString();
+                            String modelo = edtModelo.getText().toString();
+                            String titular = edtTitular.getText().toString();
+                            String banco = edtBanco.getText().toString();
+                            String agencia = edtAgencia.getText().toString();
+                            String conta = edtConta.getText().toString();
+
+                            costumer.setNome(nome);
+
+                            costumer.setContato(celular);
+                            costumer.setEmail(email);
+                            costumer.setSenha(senha);
+                            costumer.setPlaca_Veiculo(placa);
+                            costumer.setMarca_Veiculo(marca);
+                            costumer.setModel_Veiculo(modelo);
+                            costumer.setTitular_banco(titular);
+                            costumer.setBanco(banco);
+                            costumer.setAgencia(agencia);
+                            costumer.setConta(conta);
+
+                            Toast.makeText( getActivity() , "Dados cadastrados com sucesso!" , Toast.LENGTH_LONG).show();
+
+
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
 
                 }
             }
         });
-
-
-
-
+        //
 
         if (isAdded()) {
             //verify if the fragment is attached at the activity
@@ -369,6 +445,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     address.setPais(pais);
                     setSpinner(R.array.string_array_estados, address.getUf());
                     costumer.setLoadedAddress(address);
+
                 }
             }
         }
