@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import Classes.Customer;
+import Classes.Deliveryman;
 import Interfaces.onModifyFragment;
 
 import com.example.dell.fichacadastral.R;
@@ -54,11 +54,11 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     private EditText edtConta;
     private Button btnSalvar;
     private Button btnCancelar;
-    private Customer customer;
+    private Deliveryman deliveryman;
 
-    public static Profile_Fragment newInstance(Customer customer) {//METODO CONSTRUTOR
+    public static Profile_Fragment newInstance(Deliveryman deliveryman) {//METODO CONSTRUTOR
         Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_CUSTOMER, customer);
+        bundle.putSerializable(EXTRA_CUSTOMER, deliveryman);
         Profile_Fragment fragment = new Profile_Fragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -67,7 +67,7 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        customer = (Customer) getArguments().getSerializable(EXTRA_CUSTOMER);
+        deliveryman = (Deliveryman) getArguments().getSerializable(EXTRA_CUSTOMER);
 
     }
 
@@ -122,31 +122,31 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
         edtMArcaViculo.setEnabled(false);
         edtModelViculo.setEnabled(false);
 
-        if (customer != null) {
-            edtNome.setText(customer.getNome());
-            edtTelefone.setText(customer.getTelefone());
-            edtCep.setText(customer.getLoadedAddress().getCep());
-            edtRua.setText(customer.getLoadedAddress().getLogradouro());
-            edtCidade.setText(customer.getLoadedAddress().getLocalidade());
-            edtComplemento.setText(customer.getLoadedAddress().getComplemento());
-            edtBairro.setText(customer.getLoadedAddress().getBairro());
+        if (deliveryman != null) {
+            edtNome.setText(deliveryman.getNome());
+            edtTelefone.setText(deliveryman.getTelefone());
+            edtCep.setText(deliveryman.getLoadedAddress().getCep());
+            edtRua.setText(deliveryman.getLoadedAddress().getLogradouro());
+            edtCidade.setText(deliveryman.getLoadedAddress().getLocalidade());
+            edtComplemento.setText(deliveryman.getLoadedAddress().getComplemento());
+            edtBairro.setText(deliveryman.getLoadedAddress().getBairro());
             spnEstado.setSelection(0); //TODO costumer.getLoadedAddress().getUf()
-            edtSenha.setText(customer.getSenha());
+            edtSenha.setText(deliveryman.getSenha());
             edtSenha.setEnabled(true);
-            EdtSenhaRep.setText(customer.getSenha());
+            EdtSenhaRep.setText(deliveryman.getSenha());
             EdtSenhaRep.setEnabled(true);
-            edtEmail.setText(customer.getEmail());
-            edtPlacaViculo.setText(customer.getPlaca_Veiculo());
-            edtMArcaViculo.setText(customer.getMarca_Veiculo());
-            edtModelViculo.setText(customer.getModel_Veiculo());
-            foto.setImageBitmap(customer.getFoto());
-            edtTitular.setText(customer.getTitular_banco());
+            edtEmail.setText(deliveryman.getEmail());
+            edtPlacaViculo.setText(deliveryman.getPlaca_Veiculo());
+            edtMArcaViculo.setText(deliveryman.getMarca_Veiculo());
+            edtModelViculo.setText(deliveryman.getModel_Veiculo());
+            foto.setImageBitmap(deliveryman.getFoto());
+            edtTitular.setText(deliveryman.getTitular_banco());
             edtTitular.setEnabled(true);
-            edtBanco.setText(customer.getBanco());
+            edtBanco.setText(deliveryman.getBanco());
             edtBanco.setEnabled(true);
-            edtAgencia.setText(customer.getAgencia());
+            edtAgencia.setText(deliveryman.getAgencia());
             edtAgencia.setEnabled(true);
-            edtConta.setText(customer.getConta());
+            edtConta.setText(deliveryman.getConta());
             edtConta.setEnabled(true);
 
         }
@@ -160,7 +160,7 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
         if (activity instanceof onModifyFragment) {
             if (view.getId() == R.id.btn_Salvar) {
                 onModifyFragment listener = (onModifyFragment) activity;
-                listener.saveAllModifications(customer);
+                listener.saveAllModifications(deliveryman);
             } else if (view.getId() == R.id.btn_Cancelar) {
                 // TODO implments something here!!!
             }

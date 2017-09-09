@@ -1,11 +1,11 @@
 package Interfaces;
 
-import Classes.Customer;
+import Classes.Deliveryman;
 
 /**
  * Created by Dell on 08/09/2017.
  */
 
 public interface onModifyFragment {
-    void saveAllModifications(Customer customer);
+    void saveAllModifications(Deliveryman deliveryman);
 }

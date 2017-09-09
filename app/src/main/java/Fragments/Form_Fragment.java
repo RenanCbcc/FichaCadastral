@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 
-import Classes.Customer;
+import Classes.Deliveryman;
 import Classes.JsonRequest;
 import Classes.LoadedAddress;
 import com.example.dell.fichacadastral.R;
@@ -50,7 +50,7 @@ public class Form_Fragment extends Fragment implements TextWatcher, TextView.OnE
     private RelativeLayout layout_pai;
     private ImageView foto;
     private Bitmap bitmap;
-    private Customer costumer;
+    private Deliveryman costumer;
 
     @Nullable
     @Override
@@ -70,7 +70,7 @@ public class Form_Fragment extends Fragment implements TextWatcher, TextView.OnE
         layout_pai = (RelativeLayout) view.findViewById(R.id.layout_pai);
         edtCep.addTextChangedListener(this);
         foto.setOnClickListener(this);
-        costumer = new Customer();
+        costumer = new Deliveryman();
         configureSpinner();
 
         if (isAdded()) {

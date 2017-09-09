@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Dell on 27/07/2017.
  */
 
-public class Customer implements Serializable {
+public class Deliveryman implements Serializable {
     private String nome;
     private Bitmap foto;
     private String contato;
@@ -74,11 +74,11 @@ public class Customer implements Serializable {
 
 
 
-    public Customer(){}
-    public Customer(String nome, Bitmap foto, String contato, String email, String senha,
-                    LoadedAddress loadedAddress, String placa_Veiculo, String marca_Veiculo,
-                    String model_Veiculo, String titular_banco, String banco, String agencia,
-                    String conta) {
+    public Deliveryman(){}
+    public Deliveryman(String nome, Bitmap foto, String contato, String email, String senha,
+                       LoadedAddress loadedAddress, String placa_Veiculo, String marca_Veiculo,
+                       String model_Veiculo, String titular_banco, String banco, String agencia,
+                       String conta) {
         this.nome = nome;
         this.foto = foto;
         this.contato = contato;

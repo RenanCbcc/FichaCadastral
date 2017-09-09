@@ -15,12 +15,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import Classes.Customer;
+import Classes.Deliveryman;
 import Classes.JsonRequest;
 import Classes.LoadedRequest;
 import Interfaces.onModifyFragment;
 import Interfaces.onRequestClick;
 import com.example.dell.fichacadastral.R;
+import com.google.android.gms.maps.model.LatLng;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import cz.msebera.android.httpclient.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +37,10 @@ import java.util.List;
  */
 
 public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemClickListener {
-    private static final String EXTRA_CUSTOMER = "customer"; // tuple{Key,value}
-    private Customer customer;
+    private static final String EXTRA_DELIVEYMAN = "deliveryman"; // tuple{Key,value}
+    private static final String EXTRA_ORIGIN = "origin"; // tuple{Key,value}
+
+    private Deliveryman deliveryman;
     private TextView txt_Name;
     private TextView txt_Nivel;
     private TextView txt_Xp;
@@ -41,13 +51,12 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
     private ArrayAdapter<LoadedRequest> requestArrayAdapter;
     private TextView textView;
     private ListView listView;
-    private RequestTask task;
     private ProgressBar progressBar;
+    private LatLng origin;
 
-
-    public static Deliveries_Fragment newInstance(Customer costumer) {
+    public static Deliveries_Fragment newInstance(Deliveryman deliveryman ) {
         Bundle parametros = new Bundle();
-        parametros.putSerializable(EXTRA_CUSTOMER, costumer);
+        parametros.putSerializable(EXTRA_DELIVEYMAN, deliveryman);
         Deliveries_Fragment fragment = new Deliveries_Fragment();
         fragment.setArguments(parametros);
         return fragment;
@@ -57,7 +66,7 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        customer = (Customer) getArguments().getSerializable(EXTRA_CUSTOMER);
+        deliveryman = (Deliveryman) getArguments().getSerializable(EXTRA_DELIVEYMAN);
     }
     
     @Nullable
@@ -81,13 +90,13 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
         toggleButton.setOnCheckedChangeListener(this);
 
-        if (customer != null) {
-            txt_Name.setText(String.format("Nome: %s", customer.getNome()));
-            txt_Nivel.setText(String.format("%s%s", "Nivel: ".toUpperCase(), customer.getNome()));
-            txt_Xp.setText(String.format("XP: %s", customer.getNome()));
-            txt_Feed.setText(String.format("%s%s", "FeedBack: ".toUpperCase(), customer.getNome()));
-            txt_Mean.setText(String.format("%s%s", "Média: ".toUpperCase(), customer.getNome()));
-            toggleButton.setChecked(customer.isAvailable());
+        if (deliveryman != null) {
+            txt_Name.setText(String.format("Nome: %s", deliveryman.getNome()));
+            txt_Nivel.setText(String.format("%s%s", "Nivel: ".toUpperCase(), deliveryman.getNome()));
+            txt_Xp.setText(String.format("XP: %s", deliveryman.getNome()));
+            txt_Feed.setText(String.format("%s%s", "FeedBack: ".toUpperCase(), deliveryman.getNome()));
+            txt_Mean.setText(String.format("%s%s", "Média: ".toUpperCase(), deliveryman.getNome()));
+            toggleButton.setChecked(deliveryman.isAvailable());
 
         }
         return view;
@@ -105,8 +114,8 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         if (activity instanceof onModifyFragment) {
             if (toggleButton.getText().toString().equals("Disponivel")) {
                 toggleButton.setChecked(false);
-                if (customer != null) {
-                    customer.setAvailable(false);
+                if (deliveryman != null) {
+                    deliveryman.setAvailable(false);
                     Toast.makeText(getActivity(), "Estou indisponível para realizar Entregas",
                             Toast.LENGTH_SHORT).show();
                 } else {
@@ -116,10 +125,10 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
             } else {
                 toggleButton.setChecked(true);
-                //TODO get current location
+                initiateDownload();
 
-                if (customer != null) {
-                    customer.setAvailable(true);
+                if (deliveryman != null) {
+                    deliveryman.setAvailable(true);
                     Toast.makeText(getActivity(), "Estou disponível para realizar Entregas", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Impossivel atribuir valor", Toast.LENGTH_SHORT).show();
@@ -127,7 +136,7 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
             }
             onModifyFragment listener = (onModifyFragment) activity;
-            listener.saveAllModifications(customer);
+            listener.saveAllModifications(deliveryman);
         }
     }
 
@@ -142,13 +151,11 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
         listView.setAdapter(requestArrayAdapter);
 
-        if(task == null) {
-            if (JsonRequest.hasConnection(getActivity())) {
-                textView.setText("Sem conexão");
-            }
-        }else if (task.getStatus() == AsyncTask.Status.RUNNING) {
-            exhibitPogress(true);
-        }
+       // if(!JsonRequest.hasConnection(getActivity()) {textView.setText("Sem conexão");}
+
+
+
+
     }
     private void exhibitPogress(boolean exhibit) {
         if (exhibit) {
@@ -157,11 +164,36 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         textView.setVisibility(exhibit ? View.VISIBLE : View.GONE);
         progressBar.setVisibility(exhibit ? View.VISIBLE : View.GONE);
     }
+
     public void initiateDownload() {
-        if (task == null ||  task.getStatus() != AsyncTask.Status.RUNNING) {
-            task = new RequestTask();
-            task.execute();
+        String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/procurarNovasSolicitacoes/";
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("Id", "");
+        params.put("latitude", "");
+        params.put("longitude", "");
+        client.post(URL, params, new JsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            try {
+                if (!response.getBoolean("success"))
+                {
+                    String errorMsg = response.getString("errorMsg");
+                    Toast.makeText(getActivity(), "Erro ao cadastrar: " + errorMsg,Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(getActivity(), "Erro Inesperado", Toast.LENGTH_LONG).show();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+        }
+    });
+
     }
 
     @Override
@@ -171,34 +203,6 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
             LoadedRequest loadedRequest = (LoadedRequest) adapterView.getItemAtPosition(i);
             onRequestClick requestClick = (onRequestClick) activity;
             requestClick.selectRequest(loadedRequest);
-        }
-    }
-
-
-    class RequestTask extends AsyncTask<Void, Void, List<LoadedRequest>>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            exhibitPogress(true);
-        }
-        @Override
-        protected List<LoadedRequest> doInBackground(Void... strings) {
-            return JsonRequest.loadJsonRequest("POR_ALGO_AQUI");
-
-        }
-
-        @Override
-        protected void onPostExecute(List<LoadedRequest> loadedRequest) {
-            super.onPostExecute(loadedRequest);
-            exhibitPogress(false);
-            if (loadedRequest != null) {
-                loadedRequestList.clear();
-                loadedRequestList.addAll(loadedRequest);
-                requestArrayAdapter.notifyDataSetChanged();
-            } else {
-                textView.setText("Falha ao obter requisições");
-            }
         }
     }
 

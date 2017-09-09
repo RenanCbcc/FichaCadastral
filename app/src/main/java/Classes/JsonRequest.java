@@ -37,6 +37,7 @@ public class JsonRequest {
         return connection;
     }
 
+
     public static boolean hasConnection(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -71,26 +72,6 @@ public class JsonRequest {
         return null;
     }
 
-    //TODO
-    public static List<LoadedRequest> loadJsonRequest(final String CEP_URL_JSON) {
-        try {
-            HttpURLConnection connection = toConnect(CEP_URL_JSON);
-            int response = connection.getResponseCode();
-            if (response == HttpURLConnection.HTTP_OK) {
-                InputStream inputStream = connection.getInputStream();
-                JSONObject json = new JSONObject(byteToString(inputStream));
-                connection.disconnect();
-                return readJsonResquests(json);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private static List<LoadedRequest> readJsonResquests(JSONObject jsonObject){
-        return new ArrayList<LoadedRequest>();
-    }
 
     private static String byteToString(InputStream is) throws IOException {
         byte[] buffer = new byte[1024];

@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -34,7 +35,7 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 
-import Classes.Customer;
+import Classes.Deliveryman;
 import Classes.LoadedRequest;
 import Fragments.Deliveries_Fragment;
 import Fragments.Profile_Fragment;
@@ -52,12 +53,12 @@ public class Deliverer_Activity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         ResultCallback<LocationSettingsResult>, onRequestClick {
     private static final String EXTRA_ORING = "origin";
-    private static final String EXTRA_CUSTOMER = "customer"; // Primary Key
+    private static final String EXTRA_DELIVERYMAN = "customer"; // Primary Key
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle; // used to open and quit the lateral menu
     private int selectedOption;
-    private Customer costumer;
+    private Deliveryman deliveryman;
     private static final int REQUEST_ERRO_PLAY_SERVICES = 1;
     private static final int REQUEST_CHECK_GPS = 2;
     private Handler handler;
@@ -65,7 +66,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
     private boolean shouldExhibitDialog;
     private LatLng origin;
     private GoogleApiClient googleApiClient;
-
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
         {
             //We receive an object that will come from the activity Main Activity or Sign Up
             Intent intent = getIntent();
-            costumer = (Customer) intent.getSerializableExtra(EXTRA_CUSTOMER);
+            deliveryman = (Deliveryman) intent.getSerializableExtra(EXTRA_DELIVERYMAN);
         }
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -101,12 +102,12 @@ public class Deliverer_Activity extends AppCompatActivity implements
 
         handler = new Handler();
         shouldExhibitDialog = savedInstanceState == null;
+
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
 
     }
 
@@ -160,10 +161,10 @@ public class Deliverer_Activity extends AppCompatActivity implements
         //initializing the fragment object which is selected
         switch (selectedOption) {
             case R.id.action_dados:
-                fragment = Profile_Fragment.newInstance(costumer);
+                fragment = Profile_Fragment.newInstance(deliveryman);
                 break;
             case R.id.action_entregas:
-                fragment = Deliveries_Fragment.newInstance(costumer);
+                fragment = Deliveries_Fragment.newInstance(deliveryman);
                 break;
             case R.id.action_logout:
                     Intent intent = new Intent(this,MainActivity.class);
@@ -172,18 +173,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
                     startActivity(intent);
 
         }
-
-        /*
-        *  //replacing the fragment
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            //do not add unnecessarily a new fragment
-            if (fragmentManager.findFragmentByTag(menuItem.getTitle().toString()) == null) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, fragment, menuItem.getTitle().toString());
-            }
-        }
-        * */
 
         //replacing the fragment
         if (fragment != null) {
@@ -203,73 +192,13 @@ public class Deliverer_Activity extends AppCompatActivity implements
     }
 
     @Override
-    public void saveAllModifications(Customer customer) {
-        this.costumer = customer; //Receives all changes made in the fragment
+    public void saveAllModifications(Deliveryman deliveryman) {
+        this.deliveryman = deliveryman; //Receives all changes made in the fragment
     }
-
-    /*
-    private void handleSignInResult(GoogleSignInResult result) {
-        if (result.isSuccess()) {
-            final TextView txtNome = (TextView) findViewById(R.id.txtNome);
-            final ImageView imgCapa = (ImageView) findViewById(R.id.imgCapa);
-            final ImageView imgFoto = (ImageView) findViewById(R.id.imgFotoPerfil);
-            if (googleApiClient.isConnected()) {
-                Person person = Plus.PeopleApi.getCurrentPerson(googleApiClient);
-                if (person != null) {
-                    GoogleSignInAccount account = result.getSignInAccount();
-                    costumer.setEmail(account.getEmail());
-                    costumer.setNome(person.getDisplayName());
-                    if (person.hasImage()) {
-                        Target target = new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
-                                RoundedBitmapDrawable fotoRedonda = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-                                fotoRedonda.setCornerRadius(Math.max(bitmap.getWidth(), bitmap.getHeight()) / 2.0f);
-                                imgFoto.setImageDrawable(fotoRedonda);
-                            }
-
-                            @Override
-                            public void onBitmapFailed(Drawable drawable) {
-                            }
-
-                            @Override
-                            public void onPrepareLoad(Drawable drawable) {
-                            }
-                        };
-                        Picasso.with(this)
-                                .load(person.getImage().getUrl())
-                                .into(target);
-                    }
-                    if (person.hasCover()) {
-                        Picasso.with(this)
-                                .load(person.getCover().getCoverPhoto().getUrl())
-                                .into(imgCapa);
-                    }
-                }
-            } else {
-                imgCapa.setImageBitmap(null);
-                txtNome.setText(R.string.app_name);
-                imgFoto.setImageResource(R.mipmap.ic_launcher);
-            }
-            navigationView.getMenu()
-                    .findItem(R.id.action_logout)
-                    .setTitle(googleApiClient.isConnected() ?
-                            "Logout" : "Login");
-        }
-    }
-
-
-    */
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        googleApiClient.connect();
-    }
-
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
+    public void onConnected(Bundle data) {
+        verifyGPSStatus();
     }
 
     @Override
@@ -277,14 +206,29 @@ public class Deliverer_Activity extends AppCompatActivity implements
         googleApiClient.connect();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        googleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (googleApiClient != null && googleApiClient.isConnected()) {
+            googleApiClient.disconnect();
+        }
+
+        handler.removeCallbacksAndMessages(null);
+        super.onStop();
+    }
+
 
     /**
      * Verify whether the location settings is enable usng the method:
      * <code>LocationServices.SettingsApi.checkLocationSettings</code>, that, then, returns an
      * <code>PendingResult<LocationSettingsResult></code> object.
-     *
-     * @see {@link com.example.dell.fichacadastral#onResult(LocationSettingsResult)}
-     */
+     **/
     private void verifyGPSStatus() {
         Toast.makeText(this, "verifyGPSStatus", Toast.LENGTH_SHORT).show();
 
@@ -352,10 +296,10 @@ public class Deliverer_Activity extends AppCompatActivity implements
 
     /**
      * Method get the current location soon after request permission from user.
-     *
-     * @see {@link com.example.dell.fichacadastral#onActivityResult(int, int, Intent)}
      */
     private void getCurrentLocation() {
+        Toast.makeText(this, "getCurrentLocation()", Toast.LENGTH_SHORT).show();
+
         //Verify if the application have permissions of user.
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
@@ -380,7 +324,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
         Toast.makeText(this, "onRequestPermissionsResult", Toast.LENGTH_SHORT).show();
@@ -399,7 +342,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
      * the method below will be called
      *
      * @param locationSettingsResult
-     * @see {@link com.example.dell.fichacadastral#onActivityResult(int, int, Intent)}
      */
 
     @Override
@@ -427,9 +369,8 @@ public class Deliverer_Activity extends AppCompatActivity implements
         }
     }
 
-
     @Override
     public void selectRequest(LoadedRequest loadedRequest) {
-        //TODO
+        //TODO When a requisition was selected
     }
 }
