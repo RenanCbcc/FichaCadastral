@@ -26,6 +26,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import cz.msebera.android.httpclient.Header;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -125,7 +127,7 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
             } else {
                 toggleButton.setChecked(true);
-                initiateDownload();
+                getResquests();
 
                 if (deliveryman != null) {
                     deliveryman.setAvailable(true);
@@ -146,17 +148,16 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         if (loadedRequestList == null) {
             loadedRequestList = new ArrayList<LoadedRequest>();
         }
-        requestArrayAdapter = new ArrayAdapter<LoadedRequest>(getActivity()
-                ,android.R.layout.simple_list_item_1);
+        requestArrayAdapter = new ArrayAdapter<LoadedRequest>(getActivity(),android.R.layout.simple_list_item_1);
 
         listView.setAdapter(requestArrayAdapter);
 
-       // if(!JsonRequest.hasConnection(getActivity()) {textView.setText("Sem conexão");}
-
-
-
-
+       if(!JsonRequest.hasConnection(getActivity())) {
+            textView.setText("Sem conexão");
+       }
     }
+
+
     private void exhibitPogress(boolean exhibit) {
         if (exhibit) {
             textView.setText("Carregando as requisiçoes disponíveis...");
@@ -165,34 +166,39 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         progressBar.setVisibility(exhibit ? View.VISIBLE : View.GONE);
     }
 
-    public void initiateDownload() {
+    public void getResquests() {
         String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/procurarNovasSolicitacoes/";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        params.put("Id", "");
-        params.put("latitude", "");
-        params.put("longitude", "");
-        client.post(URL, params, new JsonHttpResponseHandler(){
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            try {
-                if (!response.getBoolean("success"))
-                {
-                    String errorMsg = response.getString("errorMsg");
-                    Toast.makeText(getActivity(), "Erro ao cadastrar: " + errorMsg,Toast.LENGTH_LONG).show();
-                    return;
+        if (deliveryman!=null) {
+            params.put("idEntregador", deliveryman.getId());
+            params.put("latitude", deliveryman.getLocal().latitude);
+            params.put("longitude", deliveryman.getLocal().longitude);
+            client.post(URL, params, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        if (!response.getBoolean("success")) {
+                            String errorMsg = response.getString("errorMsg");
+                            Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        else{
+                            loadedRequestList.clear();
+                            loadedRequestList.addAll(readRequests(response));
+                            requestArrayAdapter.notifyDataSetChanged();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-                Toast.makeText(getActivity(), "Erro Inesperado", Toast.LENGTH_LONG).show();
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-        }
-    });
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                }
+            });
+        }else{Toast.makeText(getActivity(), "Erro null pointer", Toast.LENGTH_LONG).show();}
 
     }
 
@@ -206,5 +212,35 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         }
     }
 
+    public static List<LoadedRequest> readRequests (JSONObject json) throws JSONException {
+        List<LoadedRequest> requestsList = new ArrayList<LoadedRequest>();
+        JSONArray jsonResquestsArray = json.getJSONArray("solicitacoes");
+
+        for (int i = 0; i < jsonResquestsArray.length(); i++) {
+            JSONObject jsonRequest = jsonResquestsArray.getJSONObject(i);
+
+            LoadedRequest loadedRequest = new LoadedRequest(
+                    jsonRequest.getInt("id"),
+                    jsonRequest.getString("dataHoraSolicitacao"),
+                    jsonRequest.getString("tipo"),
+                    jsonRequest.getInt("quantidade"),
+                    jsonRequest.getDouble("peso"),
+                    jsonRequest.getDouble("tamanho"),
+                    jsonRequest.getString("latitude"),
+                    jsonRequest.getString("longitude"),
+                    jsonRequest.getString("complemento"),
+                    jsonRequest.getInt("numero"),
+                    jsonRequest.getString("enderecoGPS"),
+                    jsonRequest.getString("latitude"),
+                    jsonRequest.getString("longitude"),
+                    jsonRequest.getString("complemento"),
+                    jsonRequest.getInt("numero"),
+                    jsonRequest.getString("enderecoGPS")
+                );
+                requestsList.add(loadedRequest);
+
+        }
+        return requestsList;
+    }
 
 }

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -34,13 +33,21 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import Classes.Deliveryman;
 import Classes.LoadedRequest;
 import Fragments.Deliveries_Fragment;
 import Fragments.Profile_Fragment;
 import Interfaces.onModifyFragment;
+import Interfaces.onRequestAccepted;
 import Interfaces.onRequestClick;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Dell on 05/08/2017.
@@ -51,7 +58,7 @@ import Interfaces.onRequestClick;
 public class Deliverer_Activity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, onModifyFragment,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        ResultCallback<LocationSettingsResult>, onRequestClick {
+        ResultCallback<LocationSettingsResult>, onRequestClick, onRequestAccepted {
     private static final String EXTRA_ORING = "origin";
     private static final String EXTRA_DELIVERYMAN = "customer"; // Primary Key
     private NavigationView navigationView;
@@ -66,7 +73,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
     private boolean shouldExhibitDialog;
     private LatLng origin;
     private GoogleApiClient googleApiClient;
-    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +80,8 @@ public class Deliverer_Activity extends AppCompatActivity implements
         setContentView(R.layout.deliverer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); // we define toolbar as action bar for this activity
-        {
-            //We receive an object that will come from the activity Main Activity or Sign Up
-            Intent intent = getIntent();
-            deliveryman = (Deliveryman) intent.getSerializableExtra(EXTRA_DELIVERYMAN);
-        }
+
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -98,6 +101,50 @@ public class Deliverer_Activity extends AppCompatActivity implements
         } else {
             selectedOption = savedInstanceState.getInt("menuItem");
         }
+
+        if (savedInstanceState == null) {
+            if(deliveryman!= null) {
+                //We receive an object that will come from the activity Main Activity or Sign Up
+                Intent intent = getIntent();
+                deliveryman = (Deliveryman) intent.getSerializableExtra("entregador");
+                String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/getDados/";
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+                params.put("id", deliveryman.getId());
+                client.post(URL, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            if (!response.getBoolean("success"))
+                            {
+                                String errorMsg = response.getString("errorMsg");
+                                Toast.makeText(Deliverer_Activity.this, "Erro: " + errorMsg,Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            deliveryman.setNome(response.getString("nomeCompleto"));
+                            deliveryman.setEmail(response.getString("email"));
+                            deliveryman.setTelefone(response.getString("telefone"));
+                            deliveryman.setPlaca_Veiculo(response.getString("placaVeiculo"));
+                            deliveryman.setTitular_banco(response.getString("titularConta"));
+                            //TODO SET CPF OR CNPJ
+                            deliveryman.setBanco (response.getString("banco"));
+                            deliveryman.setAgencia(response.getString("agencia")+response.getString("digitoAgencia"));
+                            deliveryman.setConta(response.getString("conta")+response.getString("digitoConta"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    }
+                });
+            }
+
+        }
+
+
         selectFromMenu(navigationView.getMenu().findItem(selectedOption));
 
         handler = new Handler();
@@ -167,7 +214,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 fragment = Deliveries_Fragment.newInstance(deliveryman);
                 break;
             case R.id.action_logout:
-                    Intent intent = new Intent(this,MainActivity.class);
+                    Intent intent = new Intent(this,LogInActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     Toast.makeText(this, getString(R.string.sucsses_msg_02,"Fulano"), Toast.LENGTH_SHORT).show();
                     startActivity(intent);
@@ -192,8 +239,44 @@ public class Deliverer_Activity extends AppCompatActivity implements
     }
 
     @Override
-    public void saveAllModifications(Deliveryman deliveryman) {
-        this.deliveryman = deliveryman; //Receives all changes made in the fragment
+    public void saveAllModifications(Deliveryman deliverman) {
+        this.deliveryman = deliverman; //Receives all changes made in the fragment
+        String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/atualizarDados/";
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("idEntregador", deliveryman.getNome());
+        params.put("placaVeiculo", deliveryman.getPlaca_Veiculo());
+        params.put("marcaVeiculo", deliveryman.getMarca_Veiculo());
+        params.put("modeloVeiculo", deliveryman.getModel_Veiculo());
+        params.put("itularConta", deliveryman.getTitular_banco());
+        params.put("banco", deliveryman.getBanco());
+        params.put("agencia", deliveryman.getAgencia()); //Todo
+        params.put("digitoAgencia", deliveryman.getAgencia());
+        params.put("conta", deliveryman.getConta());
+        params.put("digitoConta", deliveryman.getConta()); //Todo conta e digito de conta
+        params.put("telefone", deliveryman.getTelefone());
+        params.put("cpf_cnpj", "89876897861"); //Todo
+
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (!response.getBoolean("success"))
+                    {
+                        String errorMsg = response.getString("errorMsg");
+                        Toast.makeText(Deliverer_Activity.this, "Erro ao atualiza: " + errorMsg,Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            }
+        });
     }
 
     @Override
@@ -312,6 +395,9 @@ public class Deliverer_Activity extends AppCompatActivity implements
             if (location != null) {
                 this.numberOfAttempts = 0;
                 origin = new LatLng(location.getLatitude(), location.getLongitude());
+                if (deliveryman!= null){
+                    deliveryman.setLocal(origin);
+                }
             } else if (this.numberOfAttempts < 10) {
                 this.numberOfAttempts++;
                 handler.postDelayed(new Runnable() {
@@ -372,5 +458,39 @@ public class Deliverer_Activity extends AppCompatActivity implements
     @Override
     public void selectRequest(LoadedRequest loadedRequest) {
         //TODO When a requisition was selected
+
+    }
+
+    @Override
+    public void sendRequestAccepted(LoadedRequest loadedRequest) {
+        // After the request was accepted, send it.
+        String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/aceitarSolicitacao/";
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("idEntregador", deliveryman.getId());
+        params.put("idSolicitacao", loadedRequest.getId());
+        params.put("latitude", origin.latitude);
+        params.put("longitude", origin.longitude);
+
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (!response.getBoolean("success"))
+                    {
+                        String errorMsg = response.getString("errorMsg");
+                        Toast.makeText(Deliverer_Activity.this, "Erro ao aceitar requisição: " + errorMsg,Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            }
+        });
     }
 }

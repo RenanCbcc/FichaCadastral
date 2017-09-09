@@ -8,30 +8,105 @@ import java.io.Serializable;
 
 public class LoadedRequest implements Serializable {
 
-    private String id;
+    private int id;
     private String dataHoraSolicitacao;
+
+    public String getDataHoraSolicitacao() {
+        return dataHoraSolicitacao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public double getTamanho() {
+        return tamanho;
+    }
+
+    public String getLatitude_Coleta() {
+        return latitude_Coleta;
+    }
+
+    public String getLongitude_Coleta() {
+        return longitude_Coleta;
+    }
+
+    public String getComplemento_Coleta() {
+        return complemento_Coleta;
+    }
+
+    public int getNumero_Coleta() {
+        return numero_Coleta;
+    }
+
+    public String getEnderecoGPS_Coleta() {
+        return enderecoGPS_Coleta;
+    }
+
+    public String getLatitude_Entrega() {
+        return latitude_Entrega;
+    }
+
+    public String getLongitude_Entrega() {
+        return longitude_Entrega;
+    }
+
+    public String getComplemento_Entrega() {
+        return complemento_Entrega;
+    }
+
+    public int getNumero_Entrega() {
+        return numero_Entrega;
+    }
+
+    public String getEnderecoGPS_Entrega() {
+        return enderecoGPS_Entrega;
+    }
 
     //pacote
     private String tipo;
-    private String quantidade;
-    private String peso;
-    private String tamanho;
+    private int quantidade;
+    private double peso;
+    private double tamanho;
 
-    public String getId() {
+    //localColeta
+    private String latitude_Coleta;
+    private String longitude_Coleta;
+    private String complemento_Coleta;
+    private int numero_Coleta;
+    private String enderecoGPS_Coleta;
+
+    //localEntrega
+    private String latitude_Entrega;
+    private String longitude_Entrega;
+    private String complemento_Entrega;
+    private int     numero_Entrega;
+    private String enderecoGPS_Entrega;
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public LoadedRequest(){};
 
-    public LoadedRequest(String id, String dataHoraSolicitacao, String tipo, String quantidade,
-                         String peso, String tamanho, String latitude_Coleta, String longitude_Coleta,
-                         String complemento_Coleta, String numero_Coleta, String enderecoGPS_Coleta,
+    public LoadedRequest(int id, String dataHoraSolicitacao, String tipo, int quantidade,
+                         double peso, double tamanho, String latitude_Coleta, String longitude_Coleta,
+                         String complemento_Coleta, int numero_Coleta, String enderecoGPS_Coleta,
                          String latitude_Entrega, String longitude_Entrega, String complemento_Entrega,
-                         String numero_Entrega, String enderecoGPS_Entrega) {
+                         int numero_Entrega, String enderecoGPS_Entrega) {
         this.id = id;
         this.dataHoraSolicitacao = dataHoraSolicitacao;
         this.tipo = tipo;
@@ -50,17 +125,4 @@ public class LoadedRequest implements Serializable {
         this.enderecoGPS_Entrega = enderecoGPS_Entrega;
     }
 
-    //localColeta
-    private String latitude_Coleta;
-    private String longitude_Coleta;
-    private String complemento_Coleta;
-    private String numero_Coleta;
-    private String enderecoGPS_Coleta;
-
-    //localEntrega
-    private String latitude_Entrega;
-    private String longitude_Entrega;
-    private String complemento_Entrega;
-    private String numero_Entrega;
-    private String enderecoGPS_Entrega;
 }

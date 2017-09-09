@@ -1,6 +1,7 @@
 package Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,7 @@ import com.example.dell.fichacadastral.R;
  */
 
 public class Profile_Fragment extends Fragment implements TextWatcher, View.OnClickListener, TextView.OnEditorActionListener {
-    private static final String EXTRA_CUSTOMER = "customer"; // Primary Key
+    private static final String EXTRA_DELIVEYMAN = "deliveryman"; // Primary Key
 
     private EditText edtTelefone;
     private EditText edtNome;
@@ -58,7 +59,7 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
 
     public static Profile_Fragment newInstance(Deliveryman deliveryman) {//METODO CONSTRUTOR
         Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_CUSTOMER, deliveryman);
+        bundle.putSerializable(EXTRA_DELIVEYMAN, deliveryman);
         Profile_Fragment fragment = new Profile_Fragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -67,7 +68,7 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        deliveryman = (Deliveryman) getArguments().getSerializable(EXTRA_CUSTOMER);
+        deliveryman = (Deliveryman) getArguments().getSerializable(EXTRA_DELIVEYMAN);
 
     }
 

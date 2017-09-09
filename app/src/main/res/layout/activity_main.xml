@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.example.dell.fichacadastral.MainActivity">
+    tools:context="com.example.dell.fichacadastral.LogInActivity">
     >
 
     <RelativeLayout
@@ -40,7 +40,7 @@
             android:layout_marginTop="60dp">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/edt_Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -63,7 +63,7 @@
             android:layout_marginTop="10dp">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/edt_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"

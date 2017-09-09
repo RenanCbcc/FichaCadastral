@@ -2,6 +2,8 @@ package Classes;
 
 import android.graphics.Bitmap;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 /**
@@ -19,11 +21,62 @@ public class Deliveryman implements Serializable {
     private String placa_Veiculo;
     private String marca_Veiculo;
     private String model_Veiculo;
+    private int Id;
     private String titular_banco;
     private String banco;
     private String agencia;
     private String conta;
+    private LatLng local;
 
+
+
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+
+    }
+
+
+    public void setLocal(LatLng local) {
+        this.local = local;
+    }
+
+    public Deliveryman(String nome, Bitmap foto, String contato, String email, String senha,
+                       String telefone, LoadedAddress loadedAddress, String placa_Veiculo,
+                       String marca_Veiculo, String model_Veiculo, String titular_banco,
+                       String banco, String agencia, String conta, LatLng local, String feed,
+                       boolean isAvailable, int nivel, int experiencia, float media) {
+
+        this.nome = nome;
+        this.foto = foto;
+        this.contato = contato;
+        this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.loadedAddress = loadedAddress;
+        this.placa_Veiculo = placa_Veiculo;
+        this.marca_Veiculo = marca_Veiculo;
+        this.model_Veiculo = model_Veiculo;
+        this.titular_banco = titular_banco;
+        this.banco = banco;
+        this.agencia = agencia;
+        this.conta = conta;
+        this.local = local;
+        this.feed = feed;
+        this.isAvailable = isAvailable;
+        this.nivel = nivel;
+        this.experiencia = experiencia;
+        this.media = media;
+    }
+
+    public LatLng getLocal() {
+
+        return local;
+    }
 
 
     public void setTelefone(String telefone) {
