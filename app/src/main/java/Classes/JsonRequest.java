@@ -1,4 +1,4 @@
-package com.example.dell.fichacadastral;
+package Classes;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import Classes.LoadedAddress;
+import Classes.LoadedRequest;
 
 /**
  * Created by Dell on 23/07/2017.
@@ -66,7 +71,8 @@ public class JsonRequest {
         return null;
     }
 
-    public static LoadedRequest loadJsonRequest(final String CEP_URL_JSON) {
+    //TODO
+    public static List<LoadedRequest> loadJsonRequest(final String CEP_URL_JSON) {
         try {
             HttpURLConnection connection = toConnect(CEP_URL_JSON);
             int response = connection.getResponseCode();
@@ -74,7 +80,7 @@ public class JsonRequest {
                 InputStream inputStream = connection.getInputStream();
                 JSONObject json = new JSONObject(byteToString(inputStream));
                 connection.disconnect();
-                return new LoadedRequest();
+                return readJsonResquests(json);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +88,9 @@ public class JsonRequest {
         return null;
     }
 
-
+    private static List<LoadedRequest> readJsonResquests(JSONObject jsonObject){
+        return new ArrayList<LoadedRequest>();
+    }
 
     private static String byteToString(InputStream is) throws IOException {
         byte[] buffer = new byte[1024];
@@ -97,6 +105,9 @@ public class JsonRequest {
         }
         return new String(hugeBuffer.toByteArray(), "UTF-8");
     }
+
+
+
 
 
 }

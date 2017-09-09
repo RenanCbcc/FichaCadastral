@@ -1,4 +1,4 @@
-package com.example.dell.fichacadastral;
+package Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,6 +18,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import Classes.Customer;
+import Interfaces.onModifyFragment;
+
+import com.example.dell.fichacadastral.R;
 
 /**
  * Created by Dell on 05/08/2017.
@@ -152,9 +157,9 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     @Override
     public void onClick(View view) {
         Activity activity = getActivity();
-        if (activity instanceof Deliveries_Fragment.onModifyFragment) {
+        if (activity instanceof onModifyFragment) {
             if (view.getId() == R.id.btn_Salvar) {
-                Deliveries_Fragment.onModifyFragment listener = (Deliveries_Fragment.onModifyFragment) activity;
+                onModifyFragment listener = (onModifyFragment) activity;
                 listener.saveAllModifications(customer);
             } else if (view.getId() == R.id.btn_Cancelar) {
                 // TODO implments something here!!!
@@ -234,8 +239,9 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
 
     }
 
+    /*
     public interface onModifyFragment {
         void saveAllModifications(Customer customer);
     }
-
+*/
 }

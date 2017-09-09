@@ -1,4 +1,4 @@
-package com.example.dell.fichacadastral;
+package Classes;
 
 import java.io.Serializable;
 

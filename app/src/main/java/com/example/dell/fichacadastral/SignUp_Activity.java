@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import Fragments.Additional_Fragment;
+import Fragments.Form_Fragment;
+
 /**
  * Created by Dell on 03/08/2017.
  */

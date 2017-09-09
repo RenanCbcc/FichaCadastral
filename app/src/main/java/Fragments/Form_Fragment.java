@@ -1,4 +1,4 @@
-package com.example.dell.fichacadastral;
+package Fragments;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -23,6 +23,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.graphics.Bitmap;
 import android.widget.Toast;
+
+import Classes.Customer;
+import Classes.JsonRequest;
+import Classes.LoadedAddress;
+import com.example.dell.fichacadastral.R;
 
 import java.io.FileNotFoundException;
 

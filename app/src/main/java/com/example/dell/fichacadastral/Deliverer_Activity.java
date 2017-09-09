@@ -34,6 +34,13 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 
+import Classes.Customer;
+import Classes.LoadedRequest;
+import Fragments.Deliveries_Fragment;
+import Fragments.Profile_Fragment;
+import Interfaces.onModifyFragment;
+import Interfaces.onRequestClick;
+
 /**
  * Created by Dell on 05/08/2017.
  * The principal purpose of this Activity is to offer a simple interface, through three fragments,
@@ -41,9 +48,10 @@ import com.google.android.gms.maps.model.LatLng;
  */
 
 public class Deliverer_Activity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener, Deliveries_Fragment.onModifyFragment,
-        Profile_Fragment.onModifyFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        ResultCallback<LocationSettingsResult> {
+        NavigationView.OnNavigationItemSelectedListener, onModifyFragment,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        ResultCallback<LocationSettingsResult>, onRequestClick {
+    private static final String EXTRA_ORING = "origin";
     private static final String EXTRA_CUSTOMER = "customer"; // Primary Key
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -103,9 +111,17 @@ public class Deliverer_Activity extends AppCompatActivity implements
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        origin = savedInstanceState.getParcelable(EXTRA_ORING);
+
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("menuItem", selectedOption);
+        outState.putParcelable(EXTRA_ORING, origin);
     }
 
     @Override
@@ -364,10 +380,10 @@ public class Deliverer_Activity extends AppCompatActivity implements
         }
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
         Toast.makeText(this, "onRequestPermissionsResult", Toast.LENGTH_SHORT).show();
-
         super.onRequestPermissionsResult(requestCode, permission, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
@@ -378,7 +394,9 @@ public class Deliverer_Activity extends AppCompatActivity implements
     }
 
     /**
-     * This method overrides a abstract method of the interface ResultCallback.
+     * This method overrides a abstract method of the interface ResultCallback and verify whether
+     * the settings of location have been activated. After this, whenever the user press any option,
+     * the method below will be called
      *
      * @param locationSettingsResult
      * @see {@link com.example.dell.fichacadastral#onActivityResult(int, int, Intent)}
@@ -390,7 +408,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
         final Status status = locationSettingsResult.getStatus();
         switch (status.getStatusCode()) {
             case LocationSettingsStatusCodes.SUCCESS:
-                getCurrentLocation();
+                getCurrentLocation(); // in this case, we already have the necessary permission
                 break;
             case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                 //Prevent confirmation message from being displayed more than once.
@@ -410,5 +428,8 @@ public class Deliverer_Activity extends AppCompatActivity implements
     }
 
 
-
+    @Override
+    public void selectRequest(LoadedRequest loadedRequest) {
+        //TODO
+    }
 }

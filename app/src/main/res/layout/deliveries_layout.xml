@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/delivery_layout_id"
+    android:id="@+id/deliveries_layout_id"
     >
 
 
@@ -129,18 +129,33 @@
 
 
     <RelativeLayout
-            android:id="@+id/layoutEntregas"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
+        android:id="@+id/layoutEntregas"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:layout_below="@+id/relativeLayout5"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/progressBar"/>
 
 
     </RelativeLayout>
