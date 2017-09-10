@@ -44,16 +44,12 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
         new SendPostRequest().execute();
 
 
-        ListView listaDeSolicitacoes = (ListView) findViewById(R.id.lista_solicitacoes);
 
-        List<Solicitacoes_Entregador> solicitacoes_entregadors = listarSolicitacoes();
-        ArrayAdapter<Solicitacoes_Entregador> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, solicitacoes_entregadors);
-        listaDeSolicitacoes.setAdapter(adapter);
     }
 
-    private List<Solicitacoes_Entregador> listarSolicitacoes() {
+    private List<Solicitacoes_Entregador> listarSolicitacoes(String valor) {
         return new ArrayList<>(Arrays.asList(
-                new Solicitacoes_Entregador("12345", "Teste","Teste","Teste","Teste","Teste","Teste","Teste","Teste","Teste")));
+                new Solicitacoes_Entregador(valor, "Teste","Teste","Teste","Teste","Teste","Teste","Teste","Teste","Teste")));
 
     }
 
@@ -120,6 +116,13 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(String result) {
+            //Todo tratar aqui a string para ser exibida na listview
+            ListView listaDeSolicitacoes = (ListView) findViewById(R.id.lista_solicitacoes);
+
+            List<Solicitacoes_Entregador> solicitacoes_entregadores = listarSolicitacoes(result);
+            ArrayAdapter<Solicitacoes_Entregador> adapter = new ArrayAdapter<>(Exibir_Solicitacoes.this, android.R.layout.simple_list_item_1, solicitacoes_entregadores);
+            listaDeSolicitacoes.setAdapter(adapter);
+
             Toast.makeText(getApplicationContext(), result,
                     Toast.LENGTH_LONG).show();
         }
