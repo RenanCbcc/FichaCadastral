@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,12 +48,12 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
 
     }
 
-    private List<Solicitacoes_Entregador> listarSolicitacoes(String valor) {
+   /* private List<Solicitacoes_Entregador> listarSolicitacoes(Solicitacoes_Entregador solicitacoesEntregador) {
         return new ArrayList<>(Arrays.asList(
-                new Solicitacoes_Entregador("Teste","Teste","Teste","Teste",0,"Teste","Teste","Teste","Teste","Teste",0)));
+                new Solicitacoes_Entregador(solicitacoesEntregador.getId(),"Teste","Teste","Teste",0,"Teste","Teste","Teste","Teste","Teste",0)));
 
     }
-
+*/
     public class SendPostRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute(){}
@@ -117,15 +118,55 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
         @Override
         protected void onPostExecute(String result) {
             //Todo tratar aqui a string para ser exibida na listview
-            ListView listaDeSolicitacoes = (ListView) findViewById(R.id.lista_solicitacoes);
+            /*ListView listaDeSolicitacoes = (ListView) findViewById(R.id.lista_solicitacoes);
+            Solicitacoes_Entregador solicitacoesEntregador = new Solicitacoes_Entregador();
+            solicitacoesEntregador.setId("Junior");
 
-            List<Solicitacoes_Entregador> solicitacoes_entregadores = listarSolicitacoes(result);
+            List<Solicitacoes_Entregador> solicitacoes_entregadores = listarSolicitacoes(solicitacoesEntregador);
             ArrayAdapter<Solicitacoes_Entregador> adapter = new ArrayAdapter<>(Exibir_Solicitacoes.this, android.R.layout.simple_list_item_1, solicitacoes_entregadores);
             listaDeSolicitacoes.setAdapter(adapter);
 
             Toast.makeText(getApplicationContext(), result,
                     Toast.LENGTH_LONG).show();
+                    */
+
+
+            ListView listView = (ListView)findViewById(R.id.lista_solicitacoes);
+
+            List<Solicitacoes_Entregador> obj = null;
+            try {
+                obj = gerarSolicitacoes(result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ArrayAdapter<Solicitacoes_Entregador> solicitacoesAdapter = new ArrayAdapter<Solicitacoes_Entregador>(Exibir_Solicitacoes.this, android.R.layout.simple_list_item_1, obj);
+            listView.setAdapter(solicitacoesAdapter);
         }
+    }
+
+    private List<Solicitacoes_Entregador> gerarSolicitacoes(String result) throws JSONException {
+
+            //Todo implementar aqui o array com os dados
+            JSONObject objetoJSON = new JSONObject(result);
+
+
+
+            String jsonToString = objetoJSON.getString("solicitacoes");//esta linha sera removida
+            Toast.makeText(getApplicationContext(), jsonToString,
+                    Toast.LENGTH_LONG).show();
+
+
+        List<Solicitacoes_Entregador> solicitacoes = new ArrayList<Solicitacoes_Entregador>();
+        for(int i = 0; i<2; i++) {
+            solicitacoes.add(criarSolicitacoes(jsonToString, 1));
+        }
+
+        return solicitacoes;
+    }
+
+    private Solicitacoes_Entregador criarSolicitacoes(String nome, int idade) {
+        Solicitacoes_Entregador obj = new Solicitacoes_Entregador(nome,"Teste","Teste","Teste",0,"Teste","Teste","Teste","Teste","Teste",0);
+        return obj;
     }
 
     public String getPostDataString(JSONObject params) throws Exception {
