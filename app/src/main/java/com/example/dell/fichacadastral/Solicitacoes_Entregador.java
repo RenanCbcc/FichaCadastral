@@ -9,17 +9,18 @@ public class Solicitacoes_Entregador {
     private String status;
     private String nomeSolicitante;
     private String sobrenomeSolicitante;
-    private String valor;
+    private double valor;
     private String dataPrevistaColeta;
     private String dataPrevistaEntrega;
     private String dataRealColeta;
     private String dataRealEntrega;
     private String reclamacao_id;
+    private double valorTaxaServico;
 
     public Solicitacoes_Entregador(){}
 
 
-    public Solicitacoes_Entregador(String id, String status, String nomeSolicitante, String sobrenomeSolicitante, String valor, String dataPrevistaColeta, String dataPrevistaEntrega, String dataRealColeta, String dataRealEntrega, String reclamacao_id) {
+    public Solicitacoes_Entregador(String id, String status, String nomeSolicitante, String sobrenomeSolicitante, double valor, String dataPrevistaColeta, String dataPrevistaEntrega, String dataRealColeta, String dataRealEntrega, String reclamacao_id, double valorTaxaServico) {
         this.id = id;
         this.status = status;
         this.nomeSolicitante = nomeSolicitante;
@@ -30,6 +31,7 @@ public class Solicitacoes_Entregador {
         this.dataRealColeta = dataRealColeta;
         this.dataRealEntrega = dataRealEntrega;
         this.reclamacao_id = reclamacao_id;
+        this.valorTaxaServico = valorTaxaServico;
     }
 
     public String getId() {
@@ -64,11 +66,11 @@ public class Solicitacoes_Entregador {
         this.sobrenomeSolicitante = sobrenomeSolicitante;
     }
 
-    public String getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
@@ -110,6 +112,14 @@ public class Solicitacoes_Entregador {
 
     public void setReclamacao_id(String reclamacao_id) {
         this.reclamacao_id = reclamacao_id;
+    }
+
+    public double getValorTaxaServico() {
+        return valorTaxaServico;
+    }
+
+    public void setValorTaxaServico(double valorTaxaServico) {
+        this.valorTaxaServico = valorTaxaServico;
     }
 
     @Override

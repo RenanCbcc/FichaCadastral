@@ -49,7 +49,7 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
 
     private List<Solicitacoes_Entregador> listarSolicitacoes(String valor) {
         return new ArrayList<>(Arrays.asList(
-                new Solicitacoes_Entregador(valor, "Teste","Teste","Teste","Teste","Teste","Teste","Teste","Teste","Teste")));
+                new Solicitacoes_Entregador("Teste","Teste","Teste","Teste",0,"Teste","Teste","Teste","Teste","Teste",0)));
 
     }
 
