@@ -16,11 +16,12 @@ public class Solicitacoes_Entregador {
     private String dataRealEntrega;
     private String reclamacao_id;
     private double valorTaxaServico;
+    private String tokenConfirmacao;
 
     public Solicitacoes_Entregador(){}
 
 
-    public Solicitacoes_Entregador(String id, String status, String nomeSolicitante, String sobrenomeSolicitante, double valor, String dataPrevistaColeta, String dataPrevistaEntrega, String dataRealColeta, String dataRealEntrega, String reclamacao_id, double valorTaxaServico) {
+    public Solicitacoes_Entregador(String id, String status, String nomeSolicitante, String sobrenomeSolicitante, double valor, String dataPrevistaColeta, String dataPrevistaEntrega, String dataRealColeta, String dataRealEntrega, String reclamacao_id, double valorTaxaServico, String tokenConfirmacao) {
         this.id = id;
         this.status = status;
         this.nomeSolicitante = nomeSolicitante;
@@ -32,6 +33,7 @@ public class Solicitacoes_Entregador {
         this.dataRealEntrega = dataRealEntrega;
         this.reclamacao_id = reclamacao_id;
         this.valorTaxaServico = valorTaxaServico;
+        this.tokenConfirmacao = tokenConfirmacao;
     }
 
     public String getId() {
@@ -122,8 +124,28 @@ public class Solicitacoes_Entregador {
         this.valorTaxaServico = valorTaxaServico;
     }
 
+    public String getTokenConfirmacao() {
+        return tokenConfirmacao;
+    }
+
+    public void setTokenConfirmacao(String tokenConfirmacao) {
+        this.tokenConfirmacao = tokenConfirmacao;
+    }
+
+
     @Override
     public String toString() {
-        return "Id='" + id ;
+        return "Solicitacoes ao Entregador \n\n" +
+                "ID= " + id + "\n" +
+                "Status= " + status + "\n" +
+                "Nome do Solicitante= " + nomeSolicitante + "\n" +
+                "Sobrenome do Solicitante= " + sobrenomeSolicitante + "\n" +
+                "Valor= " + valor + "\n" +
+                "Data Prevista da Coleta= " + dataPrevistaColeta + "\n" +
+                "Data Prevista da Entrega= " + dataPrevistaEntrega + "\n" +
+                "Data Real da Coleta= " + dataRealColeta + "\n" +
+                "Data Real da Entrega= " + dataRealEntrega + "\n" +
+                "ID da Reclamacao (Caso houver)= " + reclamacao_id + "\n" +
+                "Valor da Taxa de Servico= " + valorTaxaServico;
     }
 }

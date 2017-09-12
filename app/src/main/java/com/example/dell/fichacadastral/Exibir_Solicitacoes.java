@@ -148,26 +148,42 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
 
             //Todo implementar aqui o array com os dados
             JSONObject objetoJSON = new JSONObject(result);
+            JSONArray jsonArray = objetoJSON.getJSONArray("solicitacoes");
+
+            Solicitacoes_Entregador solEnt = new Solicitacoes_Entregador();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject e = jsonArray.getJSONObject(i);
+                solEnt.setId(e.getString("id"));
+                solEnt.setStatus(e.getString("status"));
+                solEnt.setNomeSolicitante(e.getString("nomeSolicitante"));
+                solEnt.setSobrenomeSolicitante(e.getString("sobrenomeSolicitante"));
+                solEnt.setValor(e.getDouble("valor"));
+                solEnt.setDataPrevistaColeta(e.getString("dataPrevistaColeta"));
+                solEnt.setDataPrevistaEntrega(e.getString("dataPrevistaColeta"));
+                solEnt.setDataRealColeta(e.getString("dataRealColeta"));
+                solEnt.setDataRealEntrega(e.getString("dataRealEntrega"));
+                solEnt.setReclamacao_id(e.getString("reclamacao_id"));
+                solEnt.setValorTaxaServico(e.getDouble("valorTaxaServico"));
+
+            }
 
 
 
-            String jsonToString = objetoJSON.getString("solicitacoes");//esta linha sera removida
-            Toast.makeText(getApplicationContext(), jsonToString,
-                    Toast.LENGTH_LONG).show();
+            //solEnt.setId(objetoJSON.getString("solicitacoes"));//esta linha sera removida
+
+            /*Toast.makeText(getApplicationContext(), solEnt.getId(),
+                    Toast.LENGTH_LONG).show();*/
 
 
         List<Solicitacoes_Entregador> solicitacoes = new ArrayList<Solicitacoes_Entregador>();
-        for(int i = 0; i<2; i++) {
-            solicitacoes.add(criarSolicitacoes(jsonToString, 1));
+        for(int i = 0; i<1; i++) {
+            solicitacoes.add(solEnt);
         }
 
         return solicitacoes;
     }
 
-    private Solicitacoes_Entregador criarSolicitacoes(String nome, int idade) {
-        Solicitacoes_Entregador obj = new Solicitacoes_Entregador(nome,"Teste","Teste","Teste",0,"Teste","Teste","Teste","Teste","Teste",0);
-        return obj;
-    }
 
     public String getPostDataString(JSONObject params) throws Exception {
 
