@@ -7,19 +7,20 @@ import java.io.Serializable;
  */
 
 public class LoadedRequest implements Serializable{
-    @Override
-    public String toString() {
-        return "LoadedRequest{" +
-                "id=" + id +
-                ", dataHoraSolicitacao='" + dataHoraSolicitacao + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", quantidade=" + quantidade +
-                ", peso=" + peso +
-                '}';
-    }
+
 
     private int id;
     private String dataHoraSolicitacao;
+
+    @Override
+    public String toString() {
+        return "Solicitação Nº" + id +
+                ", Data e hora da solicitacão: '" + dataHoraSolicitacao + '\'' +
+                ", Tipo: '" + tipo + '\'' +
+                ", Quantidade: " + quantidade +
+                ", Peso: " + peso +
+                ", Tamanho: " + tamanho;
+    }
 
     public String getDataHoraSolicitacao() {
         return dataHoraSolicitacao;

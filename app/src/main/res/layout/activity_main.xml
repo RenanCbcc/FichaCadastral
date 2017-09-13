@@ -27,6 +27,21 @@
             android:contentDescription="Logo MarketplaceAPP"
              />
 
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBarLogin"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtprogress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/progressBar"/>
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_email"
             android:layout_width="match_parent"

@@ -97,12 +97,11 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
         if (deliveryman != null) {
             txt_Name.setText(String.format("Nome: %s", deliveryman.getNome()));
-            txt_Nivel.setText(String.format("%s%s", "Nivel: ".toUpperCase(), deliveryman.getNome()));
-            txt_Xp.setText(String.format("XP: %s", deliveryman.getNome()));
-            txt_Feed.setText(String.format("%s%s", "FeedBack: ".toUpperCase(), deliveryman.getNome()));
-            txt_Mean.setText(String.format("%s%s", "Média: ".toUpperCase(), deliveryman.getNome()));
+            txt_Nivel.setText(String.format("%s%s", "Nivel: ".toUpperCase(), deliveryman.getNivel()));
+            txt_Xp.setText(String.format("XP: %s", deliveryman.getExperiencia()));
+            txt_Feed.setText(String.format("%s%s", "FeedBack: ".toUpperCase(), deliveryman.getFeed()));
+            txt_Mean.setText(String.format("%s%s", "Média: ".toUpperCase(), deliveryman.getMedia()));
             toggleButton.setChecked(deliveryman.isAvailable());
-
         }
         return view;
     }
@@ -129,10 +128,8 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
                 if (deliveryman != null) {
                     deliveryman.setAvailable(true);
-
                     LatLng origin = listener.upDatePosition(true);
                     if (origin == null) {
-                        Toast.makeText(getActivity(), /*getString(R.string.gps_error)*/"ERRRO", Toast.LENGTH_SHORT).show();
                     } else {
                         deliveryman.setLocal(origin);
                         Toast.makeText(getActivity(), getString(R.string.sucsses_msg_03), Toast.LENGTH_SHORT).show();
@@ -153,6 +150,7 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         if (loadedRequestList == null) {
             loadedRequestList = new ArrayList<LoadedRequest>();
         }
+        //TODO
         requestArrayAdapter = new ArrayAdapter<LoadedRequest>(getActivity(),
                 android.R.layout.simple_list_item_1, loadedRequestList);
 
@@ -196,8 +194,6 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
 
                             loadedRequestList.addAll(requestList);
                             requestArrayAdapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(getActivity(), "MAS QUE INFEERNO!!!!", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -210,13 +206,14 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 exhibitPogress(false);
-                Toast.makeText(getActivity(), "ERRROOOOO", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.error_msg_01), Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
     @Override
+    //TODO
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Activity activity = getActivity();
         if (activity instanceof onSelectedRequest) {

@@ -26,8 +26,8 @@ import Interfaces.onRequestAccepted;
 
 public class DetailRequests_Fragment extends DialogFragment implements View.OnClickListener {
     private static final String DIALOG_TAG = "detailDialog";
-    private static final String EXTRA_LOADEDREQUEST = "hotel";
-    private TextView txtTipo;
+    private static final String EXTRA_LOADEDREQUEST = "detail";
+    private TextView txt_EnderecoGPS_Coleta;
     private TextView txt_quantidade;
     private TextView txt_peso;
     private TextView txt_tamanho;
@@ -47,38 +47,60 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadedRequest = (LoadedRequest)getArguments().getSerializable(EXTRA_LOADEDREQUEST);
+        loadedRequest = (LoadedRequest) getArguments().getSerializable(EXTRA_LOADEDREQUEST);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.detailrequests_layout, container, false);
-        txtTipo = (TextView)layout.findViewById(R.id.txt_tipo);
-        txt_quantidade = (TextView)layout.findViewById(R.id.txt_quantidade);
-        txt_peso = (TextView)layout.findViewById(R.id.txt_peso);
-        txt_tamanho = (TextView)layout.findViewById(R.id.txt_tamanho);
-        txt_endereco = (TextView)layout.findViewById(R.id.txt_endereco);
+        txt_EnderecoGPS_Coleta = (TextView) layout.findViewById(R.id.txt_EnderecoGPS_Coleta);
+        txt_quantidade = (TextView) layout.findViewById(R.id.txt_quantidade);
+        txt_peso = (TextView) layout.findViewById(R.id.txt_peso);
+        txt_tamanho = (TextView) layout.findViewById(R.id.txt_tamanho);
+        txt_endereco = (TextView) layout.findViewById(R.id.txt_endereco);
         btn_Aceitar = (Button) layout.findViewById(R.id.btn_accept);
         btn_Cancelar = (Button) layout.findViewById(R.id.btn_accept);
 
         btn_Aceitar.setOnClickListener(this);
         btn_Cancelar.setOnClickListener(this);
 
-        txtTipo.requestFocus();
+        getDialog().setTitle("Deseja aceitar esta Solicitação?");
+        Toast.makeText(getActivity(),loadedRequest.toString() , Toast.LENGTH_LONG).show();
 
         if (loadedRequest != null) {
-            txtTipo.setText(loadedRequest.getTipo().toString());
-            txt_quantidade.setText(loadedRequest.getQuantidade());
-            txt_peso.setText(String.valueOf(loadedRequest.getPeso()));
-            txt_tamanho.setText(String.valueOf(loadedRequest.getTamanho()));
+            txt_EnderecoGPS_Coleta.setText(loadedRequest.getEnderecoGPS_Coleta());
+            txt_tamanho.setText(String.valueOf(loadedRequest.getComplemento_Coleta()));
+            txt_quantidade.setText(String.valueOf(loadedRequest.getComplemento_Entrega()));
+            txt_peso.setText(String.valueOf(loadedRequest.getComplemento_Entrega()));
             //txt_endereco.setText(loadedRequest);
 
         }
-           return layout;
+        return layout;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_cancel:
+                dismiss();
+            case R.id.btn_accept:
+                Activity activity = getActivity();
+                if (activity instanceof onRequestAccepted) {
+                    onRequestAccepted listener = (onRequestAccepted) activity;
+                    listener.sendRequestAccepted(this.loadedRequest);
+                }
+        }
+
+
+    }
+    public void open(FragmentManager fragmentManager) {
+        if (fragmentManager.findFragmentByTag(DIALOG_TAG) == null) {
+            show(fragmentManager, DIALOG_TAG);
+        }
     }
 
 
+/*
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -94,6 +116,7 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
         };
 
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+
                 .setTitle("Deseja aceitar esta Solicitação?")
                 .setMessage("Detalhes da Solicitação:")
                 .setPositiveButton("",listener)
@@ -102,25 +125,6 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
         return alertDialog;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-        case R.id.btn_cancel:
-            dismiss();
-            case R.id.btn_accept:
-                Activity activity = getActivity();
-                if ( activity instanceof onRequestAccepted){
-                    onRequestAccepted listener = (onRequestAccepted) activity;
-                    listener.sendRequestAccepted(this.loadedRequest);
-                }
-        }
+*/
 
-
-    }
-
-    public void open(FragmentManager fragmentManager){
-        if(fragmentManager.findFragmentByTag(DIALOG_TAG)==null){
-            show(fragmentManager,DIALOG_TAG);
-        }
-    }
 }

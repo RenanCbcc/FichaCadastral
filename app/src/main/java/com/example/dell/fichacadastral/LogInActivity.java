@@ -6,6 +6,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,9 @@ public class LogInActivity extends AppCompatActivity {
     private EditText edt_senha;
     private EditText edt_email;
     private TextView txt_singup;
+    private ProgressBar progressBar;
+    private TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,9 @@ public class LogInActivity extends AppCompatActivity {
         edt_senha = (EditText) findViewById(R.id.edt_Password);
         edt_email = (EditText) findViewById(R.id.edt_Email);
         button = (Button) findViewById(R.id.btn_login);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
+        textView = (TextView) findViewById(R.id.txtprogress);
+
         if (!JsonRequest.hasConnection(LogInActivity.this)) {
             Toast.makeText(LogInActivity.this, getString(R.string.error_msg_01), Toast.LENGTH_SHORT).show();
         }
@@ -64,6 +71,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void logIn() {
+        exhibitPogress(true);
         String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/login/";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -74,18 +82,33 @@ public class LogInActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     if (!response.getBoolean("success")) {
+                        exhibitPogress(false);
                         String errorMsg = response.getString("errorMsg");
                         Toast.makeText(LogInActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
                         return;
                     }
                     deliveryman = new Deliveryman();
                     deliveryman.setId(response.getInt("idEntregador"));
+                    deliveryman.setNome(response.getString("nomeCompleto"));
+                    deliveryman.setEmail(response.getString("email"));
+                    deliveryman.setTelefone(response.getString("telefone"));
+                    deliveryman.setPlaca_Veiculo(response.getString("placaVeiculo"));
+                    deliveryman.setCEP(response.getString("modeloVeiculo"));
+                    deliveryman.setTitular_banco(response.getString("titularConta"));
+                    deliveryman.setDocumentoCadastral(response.getString("cpf_cnpj"));
+                    deliveryman.setAgencia(response.getString("agencia"));
+                    deliveryman.setDigito_agencia(response.getString("digitoAgencia"));
+                    deliveryman.setConta(response.getString("conta"));
+                    deliveryman.setDigito_conta(response.getString("digitoConta"));
+
+                    deliveryman.setSaldoDevedorTotal(response.getString("saldoDevedorTotal"));
+                    deliveryman.setDiaQuitacaoSaldoDevedor(response.getString("diaQuitacaoSaldoDevedor"));
                     Intent intent = new Intent(LogInActivity.this, Deliverer_Activity.class);
                     intent.putExtra("entregador", deliveryman);
+                    exhibitPogress(false);
                     startActivity(intent);
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    e.printStackTrace();                }
             }
 
             @Override
@@ -93,4 +116,13 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void exhibitPogress(boolean exhibit) {
+        if (exhibit) {
+            textView.setText("Fazengo Login...");
+        }
+        textView.setVisibility(exhibit ? View.VISIBLE : View.GONE);
+        progressBar.setVisibility(exhibit ? View.VISIBLE : View.GONE);
+    }
+
 }

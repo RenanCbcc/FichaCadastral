@@ -25,17 +25,75 @@ public class Deliveryman implements Serializable {
     private String titular_banco;
     private String banco;
     private String agencia;
+    private String digito_agencia;
     private String conta;
+    private String digito_conta;
     private LatLng local;
     private String feed;
+    private String CEP;
+    private String documentoCadastral;
     private boolean isAvailable;
     private int nivel;
     private int experiencia;
+
+    public Deliveryman() {
+        this.nome = "";
+        this.contato = "";
+        this.email = "";
+        this.senha = "";
+        this.telefone = "";
+        this.placa_Veiculo = "";
+        this.marca_Veiculo = "";
+        this.model_Veiculo = "";
+        this.Id = 0;
+        this.titular_banco = "";
+        this.banco = "";
+        this.agencia = "";
+        this.digito_agencia = "";
+        this.conta = "";
+        this.digito_conta = "";
+        this.feed = "neutro";
+        this.CEP = "";
+        this.documentoCadastral = "";
+        this.isAvailable = false;
+        this.nivel = 0;
+        this.experiencia = 0;
+        this.saldoDevedorTotal = "";
+        this.diaQuitacaoSaldoDevedor = "";
+        this.media = 0;
+
+    }
+
+    public void setSaldoDevedorTotal(String saldoDevedorTotal) {
+        this.saldoDevedorTotal = saldoDevedorTotal;
+    }
+
+    public void setDiaQuitacaoSaldoDevedor(String diaQuitacaoSaldoDevedor) {
+        this.diaQuitacaoSaldoDevedor = diaQuitacaoSaldoDevedor;
+    }
+
+    private String saldoDevedorTotal;
+    private String diaQuitacaoSaldoDevedor;
+
+
+    public void setDigito_agencia(String digito_agencia) {
+        this.digito_agencia = digito_agencia;
+    }
+
+    public void setDigito_conta(String digito_conta) {
+        this.digito_conta = digito_conta;
+    }
+
+
+    public void setDocumentoCadastral(String documentoCadastral) {
+        this.documentoCadastral = documentoCadastral;
+    }
+
     private float media;
 
-
-
-
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
+    }
 
     public int getId() {
         return Id;
@@ -77,6 +135,7 @@ public class Deliveryman implements Serializable {
         this.nivel = nivel;
         this.experiencia = experiencia;
         this.media = media;
+
     }
 
     public LatLng getLocal() {
@@ -126,16 +185,6 @@ public class Deliveryman implements Serializable {
     }
 
 
-
-
-    public Deliveryman(){
-
-        isAvailable = false;
-        nivel = 0;
-        experiencia = 0;
-        media = (float)0;
-
-    }
     public Deliveryman(String nome, Bitmap foto, String contato, String email, String senha,
                        LoadedAddress loadedAddress, String placa_Veiculo, String marca_Veiculo,
                        String model_Veiculo, String titular_banco, String banco, String agencia,
@@ -275,5 +324,29 @@ public class Deliveryman implements Serializable {
                 ", email='" + email + '\'' +
                 ", banco='" + banco + '\'' +
                 '}';
+    }
+
+    public String getDigito_agencia() {
+        return digito_agencia;
+    }
+
+    public String getDigito_conta() {
+        return digito_conta;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public String getDocumentoCadastral() {
+        return documentoCadastral;
+    }
+
+    public String getSaldoDevedorTotal() {
+        return saldoDevedorTotal;
+    }
+
+    public String getDiaQuitacaoSaldoDevedor() {
+        return diaQuitacaoSaldoDevedor;
     }
 }

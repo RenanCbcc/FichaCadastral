@@ -110,39 +110,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 //We receive an object that will come from the activity Main Activity or Sign Up
                 Intent intent = getIntent();
                 deliveryman = (Deliveryman) intent.getSerializableExtra("entregador");
-                String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/getDados/";
-                AsyncHttpClient client = new AsyncHttpClient();
-                RequestParams params = new RequestParams();
-                params.put("idEntregador", deliveryman.getId());
-                client.post(URL, params, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            if (!response.getBoolean("success")) {
-                                String errorMsg = response.getString("errorMsg");
-                                Toast.makeText(Deliverer_Activity.this, "Erro: " + errorMsg, Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                            Toast.makeText(Deliverer_Activity.this, "Sucesso3", Toast.LENGTH_LONG).show();
-                            deliveryman.setNome(response.getString("nomeCompleto"));
-                            deliveryman.setEmail(response.getString("email"));
-                            deliveryman.setTelefone(response.getString("telefone"));
-                            deliveryman.setPlaca_Veiculo(response.getString("placaVeiculo"));
-                            deliveryman.setTitular_banco(response.getString("titularConta"));
-                            //TODO SET CPF OR CNPJ
-                            deliveryman.setBanco(response.getString("banco"));
-                            deliveryman.setAgencia(response.getString("agencia") + response.getString("digitoAgencia"));
-                            deliveryman.setConta(response.getString("conta") + response.getString("digitoConta"));
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    }
-                });
             }
 
         }
@@ -219,7 +187,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
             case R.id.action_logout:
                 Intent intent = new Intent(this, LogInActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                Toast.makeText(this, getString(R.string.sucsses_msg_02, "Fulano"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.sucsses_msg_02, deliveryman.getNome()), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 
         }
@@ -314,7 +282,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
 
     /**
      * Soon after any sort of special permission was requested, it verifies the result.
-     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -444,7 +411,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 try {
                     if (!response.getBoolean("success")) {
                         String errorMsg = response.getString("errorMsg");
-                        Toast.makeText(Deliverer_Activity.this, "Erro ao aceitar requisição: " + errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(Deliverer_Activity.this, "Erro ao aceitar requisição: " + errorMsg, Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -471,12 +438,12 @@ public class Deliverer_Activity extends AppCompatActivity implements
         params.put("modeloVeiculo", deliveryman.getModel_Veiculo());
         params.put("itularConta", deliveryman.getTitular_banco());
         params.put("banco", deliveryman.getBanco());
-        params.put("agencia", deliveryman.getAgencia()); //Todo
-        params.put("digitoAgencia", deliveryman.getAgencia());
+        params.put("agencia", deliveryman.getAgencia());
+        params.put("digitoAgencia", deliveryman.getDigito_agencia());
         params.put("conta", deliveryman.getConta());
-        params.put("digitoConta", deliveryman.getConta()); //Todo conta e digito de conta
+        params.put("digitoConta", deliveryman.getDigito_conta());
         params.put("telefone", deliveryman.getTelefone());
-        params.put("cpf_cnpj", "89876897861"); //Todo
+        params.put("cpf_cnpj", deliveryman.getDocumentoCadastral());
 
         client.post(URL, params, new JsonHttpResponseHandler() {
             @Override

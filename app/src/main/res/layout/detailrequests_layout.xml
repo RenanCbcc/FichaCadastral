@@ -1,83 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
 
-    <TextView
+    >
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="tipo_aqui"
-        android:id="@+id/txt_tipo"
-        android:layout_below="@+id/txt_endereco"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="quantidade"
-        android:id="@+id/txt_quantidade"
-        android:layout_below="@+id/txt_tipo" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_EnderecoGPS_Coleta"
+            android:layout_below="@+id/txt_endereco"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_Complemento_Coleta"
+            android:layout_below="@+id/txt_EnderecoGPS_Coleta" />
         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="peso"
-        android:id="@+id/txt_peso"
-        android:layout_below="@+id/txt_tamanho"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="7dp"
-        android:layout_marginEnd="7dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="tamanho"
-        android:id="@+id/txt_tamanho"
-        android:layout_below="@+id/txt_quantidade"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="endereco_aqui"
-        android:id="@+id/txt_endereco"
-        android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_Complemento_Entrega"
+            android:layout_below="@+id/txt_tamanho"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="7dp"
+            android:layout_marginEnd="7dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_tamanho"
+            android:layout_below="@+id/txt_Complemento_Coleta"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_endereco"
+            android:layout_gravity="center_vertical"/>
 
-    <Button
-        android:id="@+id/btn_accept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#B0A9AE"
-        android:shadowDx="0"
-        android:shadowDy="-0"
-        android:shadowRadius="5"
-        android:text="Aceitar"
-        android:layout_alignBaseline="@+id/btn_cancel"
-        android:layout_alignBottom="@+id/btn_cancel"
-        android:layout_toRightOf="@+id/btn_cancel"
-        android:layout_toEndOf="@+id/btn_cancel"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp" />
+        <Button
+            android:id="@+id/btn_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#B0A9AE"
+            android:shadowDx="0"
+            android:shadowDy="-0"
+            android:shadowRadius="5"
+            android:text="Aceitar"
+            android:layout_alignBaseline="@+id/btn_cancel"
+            android:layout_alignBottom="@+id/btn_cancel"
+            android:layout_toRightOf="@+id/btn_cancel"
+            android:layout_toEndOf="@+id/btn_cancel"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
 
-    <Button
-        android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#B0A9AE"
-        android:shadowDx="0"
-        android:shadowDy="-0"
-        android:shadowRadius="5"
-        android:text="Cancelar"
-        android:layout_marginLeft="69dp"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="97dp"
-        android:layout_below="@+id/txt_peso"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#B0A9AE"
+            android:shadowDx="0"
+            android:shadowDy="-0"
+            android:shadowRadius="5"
+            android:text="Cancelar"
+            android:layout_marginLeft="69dp"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="97dp"
+            android:layout_below="@+id/txt_peso"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
+    </RelativeLayout>
 
 
-</RelativeLayout>
+
+
+</ScrollView>
