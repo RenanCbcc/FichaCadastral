@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lyttxtConfirmacaoOpModo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmar "
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/txtConfirmacaoOpModo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        tools:text="coleta/entrega" />
+
+    <Button
+        android:id="@+id/btnconfirmarviaqrcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Via QRCode" />
+
+    <Button
+        android:id="@+id/btnconfirmarviatoken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Via token" />
+
+    <Button
+        android:id="@+id/btnvoltar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voltar" />
+
+    <Button
+        android:id="@+id/btncancelar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancelar confirmação" />
+</LinearLayout>
