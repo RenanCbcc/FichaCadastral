@@ -135,9 +135,8 @@ public class Solicitacoes_Entregador {
 
     @Override
     public String toString() {
-        return "Solicitacoes ao Entregador \n\n" +
+        return "Status= " + status + "\n" +
                 "ID= " + id + "\n" +
-                "Status= " + status + "\n" +
                 "Nome do Solicitante= " + nomeSolicitante + "\n" +
                 "Sobrenome do Solicitante= " + sobrenomeSolicitante + "\n" +
                 "Valor= " + valor + "\n" +

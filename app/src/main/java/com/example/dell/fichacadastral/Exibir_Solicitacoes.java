@@ -201,15 +201,17 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
                 JSONObject jsonObjeto = new JSONObject(result);
                 String tokenEntregador = jsonObjeto.getString("tokenEntrega");
 
-                /*Toast.makeText(getApplicationContext(), tokenEntregador,
+                /*Toast.makeText(getApplicationContext(), obj.get(0).getStatus(),
                         Toast.LENGTH_LONG).show();*/
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Exibir_Solicitacoes.this);//Cria o gerador do AlertDialog
-                builder.setTitle("Token");//define o titulo
-                builder.setMessage(tokenEntregador);//define a mensagem
+                if(obj.get(0).getStatus().equals("PENDENTE_COLETA")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Exibir_Solicitacoes.this);//Cria o gerador do AlertDialog
+                    builder.setTitle("Token");//define o titulo
+                    builder.setMessage(tokenEntregador);//define a mensagem
 
-                alerta = builder.create();//cria o AlertDialog
-                alerta.show();//Exibe
+                    alerta = builder.create();//cria o AlertDialog
+                    alerta.show();//Exibe
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
