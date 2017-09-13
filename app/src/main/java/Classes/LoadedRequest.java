@@ -6,7 +6,17 @@ import java.io.Serializable;
  * Created by Dell on 07/09/2017.
  */
 
-public class LoadedRequest implements Serializable {
+public class LoadedRequest implements Serializable{
+    @Override
+    public String toString() {
+        return "LoadedRequest{" +
+                "id=" + id +
+                ", dataHoraSolicitacao='" + dataHoraSolicitacao + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", quantidade=" + quantidade +
+                ", peso=" + peso +
+                '}';
+    }
 
     private int id;
     private String dataHoraSolicitacao;
@@ -31,11 +41,11 @@ public class LoadedRequest implements Serializable {
         return tamanho;
     }
 
-    public String getLatitude_Coleta() {
+    public int getLatitude_Coleta() {
         return latitude_Coleta;
     }
 
-    public String getLongitude_Coleta() {
+    public int getLongitude_Coleta() {
         return longitude_Coleta;
     }
 
@@ -51,11 +61,11 @@ public class LoadedRequest implements Serializable {
         return enderecoGPS_Coleta;
     }
 
-    public String getLatitude_Entrega() {
+    public int getLatitude_Entrega() {
         return latitude_Entrega;
     }
 
-    public String getLongitude_Entrega() {
+    public int getLongitude_Entrega() {
         return longitude_Entrega;
     }
 
@@ -78,17 +88,17 @@ public class LoadedRequest implements Serializable {
     private double tamanho;
 
     //localColeta
-    private String latitude_Coleta;
-    private String longitude_Coleta;
+    private int latitude_Coleta;
+    private int longitude_Coleta;
     private String complemento_Coleta;
     private int numero_Coleta;
     private String enderecoGPS_Coleta;
 
     //localEntrega
-    private String latitude_Entrega;
-    private String longitude_Entrega;
+    private int latitude_Entrega;
+    private int longitude_Entrega;
     private String complemento_Entrega;
-    private int     numero_Entrega;
+    private int numero_Entrega;
     private String enderecoGPS_Entrega;
 
 
@@ -100,12 +110,75 @@ public class LoadedRequest implements Serializable {
         this.id = id;
     }
 
-    public LoadedRequest(){};
+    public LoadedRequest() {
+    }
+
+    ;
+
+    public void setDataHoraSolicitacao(String dataHoraSolicitacao) {
+        this.dataHoraSolicitacao = dataHoraSolicitacao;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public void setTamanho(double tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public void setLatitude_Coleta(int latitude_Coleta) {
+        this.latitude_Coleta = latitude_Coleta;
+    }
+
+    public void setLongitude_Coleta(int longitude_Coleta) {
+        this.longitude_Coleta = longitude_Coleta;
+    }
+
+    public void setComplemento_Coleta(String complemento_Coleta) {
+        this.complemento_Coleta = complemento_Coleta;
+    }
+
+    public void setNumero_Coleta(int numero_Coleta) {
+        this.numero_Coleta = numero_Coleta;
+    }
+
+    public void setEnderecoGPS_Coleta(String enderecoGPS_Coleta) {
+        this.enderecoGPS_Coleta = enderecoGPS_Coleta;
+    }
+
+    public void setLatitude_Entrega(int latitude_Entrega) {
+        this.latitude_Entrega = latitude_Entrega;
+    }
+
+    public void setLongitude_Entrega(int longitude_Entrega) {
+        this.longitude_Entrega = longitude_Entrega;
+    }
+
+    public void setComplemento_Entrega(String complemento_Entrega) {
+        this.complemento_Entrega = complemento_Entrega;
+    }
+
+    public void setNumero_Entrega(int numero_Entrega) {
+        this.numero_Entrega = numero_Entrega;
+    }
+
+    public void setEnderecoGPS_Entrega(String enderecoGPS_Entrega) {
+        this.enderecoGPS_Entrega = enderecoGPS_Entrega;
+    }
 
     public LoadedRequest(int id, String dataHoraSolicitacao, String tipo, int quantidade,
-                         double peso, double tamanho, String latitude_Coleta, String longitude_Coleta,
+                         double peso, double tamanho, int latitude_Coleta, int longitude_Coleta,
                          String complemento_Coleta, int numero_Coleta, String enderecoGPS_Coleta,
-                         String latitude_Entrega, String longitude_Entrega, String complemento_Entrega,
+                         int latitude_Entrega, int longitude_Entrega, String complemento_Entrega,
                          int numero_Entrega, String enderecoGPS_Entrega) {
         this.id = id;
         this.dataHoraSolicitacao = dataHoraSolicitacao;
@@ -123,6 +196,7 @@ public class LoadedRequest implements Serializable {
         this.complemento_Entrega = complemento_Entrega;
         this.numero_Entrega = numero_Entrega;
         this.enderecoGPS_Entrega = enderecoGPS_Entrega;
+
     }
 
 }

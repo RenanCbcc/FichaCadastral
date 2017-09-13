@@ -78,6 +78,7 @@
 
     <!-- Mensagens.  -->
     <string name="error_msg_01">Erro ao tentar conexão</string>
+    <string name="error_msg_02">Erro ao gravar valor</string>
     <string name="gps_error">Its necessary to enable the G.P.S. </string>
     <string name="error_msg_email">Email Inválido</string>
     <string name="error_msg_senha">Senha Inválida</string>
@@ -88,6 +89,9 @@
 
     <string name="sucsses_msg_01">Usuário %1$s com email %2$s cadastrado com sucesso</string>
     <string name="sucsses_msg_02">Até breve %1$s</string>
+    <string name="sucsses_msg_03">Estou disponível para realizar Entregas</string>
+    <string name="sucsses_msg_04">Estou indisponível para realizar Entregas</string>
+
 
     <string name="option_dados">Editar dados</string>
 '   <string name="option_entregas">Entregas</string>

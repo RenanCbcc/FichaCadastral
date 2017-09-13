@@ -19,11 +19,20 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import Classes.Deliveryman;
 import Interfaces.onModifyFragment;
+import cz.msebera.android.httpclient.Header;
 
+import com.example.dell.fichacadastral.Deliverer_Activity;
 import com.example.dell.fichacadastral.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Dell on 05/08/2017.
@@ -163,11 +172,12 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
                 onModifyFragment listener = (onModifyFragment) activity;
                 listener.saveAllModifications(deliveryman);
             } else if (view.getId() == R.id.btn_Cancelar) {
-                // TODO implments something here!!!
+                return;
             }
 
         }
     }
+
 
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -240,9 +250,5 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
 
     }
 
-    /*
-    public interface onModifyFragment {
-        void saveAllModifications(Customer customer);
-    }
-*/
+
 }

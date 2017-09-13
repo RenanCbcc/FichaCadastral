@@ -1,6 +1,6 @@
 package Fragments;
+
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,16 +15,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
 import Classes.Deliveryman;
 import Classes.JsonRequest;
 import Classes.LoadedRequest;
 import Interfaces.onModifyFragment;
-import Interfaces.onRequestClick;
+import Interfaces.onPositionUpdated;
+import Interfaces.onSelectedRequest;
+
 import com.example.dell.fichacadastral.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import cz.msebera.android.httpclient.Header;
 
 import org.json.JSONArray;
@@ -38,7 +42,8 @@ import java.util.List;
  * Created by Dell on 05/08/2017.
  */
 
-public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemClickListener {
+public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCheckedChangeListener
+        , AdapterView.OnItemClickListener {
     private static final String EXTRA_DELIVEYMAN = "deliveryman"; // tuple{Key,value}
     private static final String EXTRA_ORIGIN = "origin"; // tuple{Key,value}
 
@@ -56,7 +61,7 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
     private ProgressBar progressBar;
     private LatLng origin;
 
-    public static Deliveries_Fragment newInstance(Deliveryman deliveryman ) {
+    public static Deliveries_Fragment newInstance(Deliveryman deliveryman) {
         Bundle parametros = new Bundle();
         parametros.putSerializable(EXTRA_DELIVEYMAN, deliveryman);
         Deliveries_Fragment fragment = new Deliveries_Fragment();
@@ -70,7 +75,7 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         super.onCreate(savedInstanceState);
         deliveryman = (Deliveryman) getArguments().getSerializable(EXTRA_DELIVEYMAN);
     }
-    
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -82,12 +87,10 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
         txt_Feed = view.findViewById(R.id.feedbad_id);
         txt_Mean = view.findViewById(R.id.media_id);
         toggleButton = view.findViewById(R.id.tgb_isAvailable);
-        textView = (TextView)view.findViewById(android.R.id.empty);
-        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
-        listView = (ListView)view.findViewById(R.id.list);
-
+        textView = (TextView) view.findViewById(android.R.id.empty);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        listView = (ListView) view.findViewById(R.id.list);
         listView.setEmptyView(textView);
-        textView.setText("Habilite a disponibilidade");
         listView.setOnItemClickListener(this);
 
         toggleButton.setOnCheckedChangeListener(this);
@@ -105,58 +108,60 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         Activity activity = getActivity();
-        if (activity instanceof onModifyFragment) {
+        if (activity instanceof onPositionUpdated) {
+            onPositionUpdated listener = (onPositionUpdated) activity;
             if (toggleButton.getText().toString().equals("Disponivel")) {
                 toggleButton.setChecked(false);
                 if (deliveryman != null) {
                     deliveryman.setAvailable(false);
-                    Toast.makeText(getActivity(), "Estou indisponível para realizar Entregas",
+                    listener.upDatePosition(false);
+                    Toast.makeText(getActivity(), getString(R.string.sucsses_msg_04),
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "Impossivel atribuir valor",
+                    Toast.makeText(getActivity(), getString(R.string.error_msg_02),
                             Toast.LENGTH_SHORT).show();
                 }
 
             } else {
                 toggleButton.setChecked(true);
-                getResquests();
 
                 if (deliveryman != null) {
                     deliveryman.setAvailable(true);
-                    Toast.makeText(getActivity(), "Estou disponível para realizar Entregas", Toast.LENGTH_SHORT).show();
+
+                    LatLng origin = listener.upDatePosition(true);
+                    if (origin == null) {
+                        Toast.makeText(getActivity(), /*getString(R.string.gps_error)*/"ERRRO", Toast.LENGTH_SHORT).show();
+                    } else {
+                        deliveryman.setLocal(origin);
+                        Toast.makeText(getActivity(), getString(R.string.sucsses_msg_03), Toast.LENGTH_SHORT).show();
+                        getResquests();
+                    }
                 } else {
-                    Toast.makeText(getActivity(), "Impossivel atribuir valor", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.error_msg_02), Toast.LENGTH_SHORT).show();
                 }
 
             }
-            onModifyFragment listener = (onModifyFragment) activity;
-            listener.saveAllModifications(deliveryman);
         }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        Toast.makeText(getActivity(), "onActivityCreated", Toast.LENGTH_SHORT).show();
         super.onActivityCreated(savedInstanceState);
         if (loadedRequestList == null) {
             loadedRequestList = new ArrayList<LoadedRequest>();
         }
-        requestArrayAdapter = new ArrayAdapter<LoadedRequest>(getActivity(),android.R.layout.simple_list_item_1);
+        requestArrayAdapter = new ArrayAdapter<LoadedRequest>(getActivity(),
+                android.R.layout.simple_list_item_1, loadedRequestList);
 
         listView.setAdapter(requestArrayAdapter);
 
-       if(!JsonRequest.hasConnection(getActivity())) {
-            textView.setText("Sem conexão");
-       }
+        if (!JsonRequest.hasConnection(getActivity())) {
+            textView.setText(getString(R.string.error_msg_01));
+        }
     }
-
 
     private void exhibitPogress(boolean exhibit) {
         if (exhibit) {
@@ -167,79 +172,101 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
     }
 
     public void getResquests() {
+        Toast.makeText(getActivity(), "getResquests", Toast.LENGTH_SHORT).show();
+        exhibitPogress(true);
         String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/procurarNovasSolicitacoes/";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        if (deliveryman!=null) {
-            params.put("idEntregador", deliveryman.getId());
-            params.put("latitude", deliveryman.getLocal().latitude);
-            params.put("longitude", deliveryman.getLocal().longitude);
-            client.post(URL, params, new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    try {
-                        if (!response.getBoolean("success")) {
-                            String errorMsg = response.getString("errorMsg");
-                            Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        else{
-                            loadedRequestList.clear();
-                            loadedRequestList.addAll(readRequests(response));
+
+        params.put("idEntregador", 1);
+        params.put("latitude", -1.47439601);
+        params.put("longitude", -48.4532220);
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                exhibitPogress(false);
+                try {
+                    if (!response.getBoolean("success")) {
+                        String errorMsg = response.getString("errorMsg");
+                        Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
+                        loadedRequestList.clear();
+                        List<LoadedRequest> requestList = readRequests(response);
+                        if (requestList != null) {
+                            Toast.makeText(getActivity(), "OK2", Toast.LENGTH_SHORT).show();
+
+                            loadedRequestList.addAll(requestList);
                             requestArrayAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(getActivity(), "MAS QUE INFEERNO!!!!", Toast.LENGTH_SHORT).show();
                         }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
 
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
-        }else{Toast.makeText(getActivity(), "Erro null pointer", Toast.LENGTH_LONG).show();}
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                exhibitPogress(false);
+                Toast.makeText(getActivity(), "ERRROOOOO", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Activity activity = getActivity();
-        if(activity instanceof onRequestClick){
+        if (activity instanceof onSelectedRequest) {
             LoadedRequest loadedRequest = (LoadedRequest) adapterView.getItemAtPosition(i);
-            onRequestClick requestClick = (onRequestClick) activity;
-            requestClick.selectRequest(loadedRequest);
+            onSelectedRequest requestClick = (onSelectedRequest) activity;
+            requestClick.showSelectRequestDetail(loadedRequest);
         }
     }
 
-    public static List<LoadedRequest> readRequests (JSONObject json) throws JSONException {
+    public List<LoadedRequest> readRequests(JSONObject json) throws JSONException {
+        Toast.makeText(getActivity(), "readRequests", Toast.LENGTH_SHORT).show();
+
         List<LoadedRequest> requestsList = new ArrayList<LoadedRequest>();
         JSONArray jsonResquestsArray = json.getJSONArray("solicitacoes");
 
         for (int i = 0; i < jsonResquestsArray.length(); i++) {
             JSONObject jsonRequest = jsonResquestsArray.getJSONObject(i);
+            LoadedRequest loadedRequest = new LoadedRequest();
 
-            LoadedRequest loadedRequest = new LoadedRequest(
-                    jsonRequest.getInt("id"),
-                    jsonRequest.getString("dataHoraSolicitacao"),
-                    jsonRequest.getString("tipo"),
-                    jsonRequest.getInt("quantidade"),
-                    jsonRequest.getDouble("peso"),
-                    jsonRequest.getDouble("tamanho"),
-                    jsonRequest.getString("latitude"),
-                    jsonRequest.getString("longitude"),
-                    jsonRequest.getString("complemento"),
-                    jsonRequest.getInt("numero"),
-                    jsonRequest.getString("enderecoGPS"),
-                    jsonRequest.getString("latitude"),
-                    jsonRequest.getString("longitude"),
-                    jsonRequest.getString("complemento"),
-                    jsonRequest.getInt("numero"),
-                    jsonRequest.getString("enderecoGPS")
-                );
-                requestsList.add(loadedRequest);
+            loadedRequest.setId(jsonRequest.getInt("id"));
+            loadedRequest.setDataHoraSolicitacao(jsonRequest.getString("dataHoraSolicitacao"));
+            loadedRequest.setTipo(jsonRequest.getString("tipo"));
+            loadedRequest.setQuantidade(jsonRequest.getInt("quantidade"));
+            loadedRequest.setPeso(jsonRequest.getDouble("peso"));
+            loadedRequest.setTamanho(jsonRequest.getDouble("tamanho"));
+
+            JSONObject localColeta = jsonRequest.getJSONObject("localColeta");
+            loadedRequest.setLatitude_Coleta(localColeta.getInt("latitude"));
+            loadedRequest.setLongitude_Coleta(localColeta.getInt("longitude"));
+            loadedRequest.setLongitude_Coleta(localColeta.getInt("longitude"));
+            loadedRequest.setComplemento_Coleta(localColeta.getString("complemento"));
+            loadedRequest.setNumero_Coleta(localColeta.getInt("numero"));
+            loadedRequest.setEnderecoGPS_Coleta(localColeta.getString("enderecoGPS"));
+
+            JSONObject localEntrega = jsonRequest.getJSONObject("localEntrega");
+
+            loadedRequest.setLatitude_Entrega(localEntrega.getInt("latitude"));
+            loadedRequest.setLongitude_Entrega(localEntrega.getInt("longitude"));
+            loadedRequest.setLongitude_Entrega(localEntrega.getInt("longitude"));
+            loadedRequest.setComplemento_Entrega(localEntrega.getString("complemento"));
+            loadedRequest.setNumero_Entrega(localEntrega.getInt("numero"));
+            loadedRequest.setEnderecoGPS_Entrega(localEntrega.getString("enderecoGPS"));
+
+            requestsList.add(loadedRequest);
 
         }
+
         return requestsList;
     }
 

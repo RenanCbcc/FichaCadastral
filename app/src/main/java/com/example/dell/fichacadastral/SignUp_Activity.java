@@ -104,6 +104,7 @@ public class SignUp_Activity extends AppCompatActivity {
             return fragment;
         }
 
+        /*
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -112,6 +113,7 @@ public class SignUp_Activity extends AppCompatActivity {
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
+        */
     }
 
     /**

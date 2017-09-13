@@ -27,6 +27,12 @@ public class Deliveryman implements Serializable {
     private String agencia;
     private String conta;
     private LatLng local;
+    private String feed;
+    private boolean isAvailable;
+    private int nivel;
+    private int experiencia;
+    private float media;
+
 
 
 
@@ -119,15 +125,17 @@ public class Deliveryman implements Serializable {
         return media;
     }
 
-    private String feed;
-    private boolean isAvailable;
-    private int nivel = 0;
-    private int experiencia = 0;
-    private float media = (float)0;
 
 
 
-    public Deliveryman(){}
+    public Deliveryman(){
+
+        isAvailable = false;
+        nivel = 0;
+        experiencia = 0;
+        media = (float)0;
+
+    }
     public Deliveryman(String nome, Bitmap foto, String contato, String email, String senha,
                        LoadedAddress loadedAddress, String placa_Veiculo, String marca_Veiculo,
                        String model_Veiculo, String titular_banco, String banco, String agencia,
@@ -261,11 +269,11 @@ public class Deliveryman implements Serializable {
 
     @Override
     public String toString() {
-        return "Costumer{" +
+        return "Deliveryman{" +
                 "nome='" + nome + '\'' +
                 ", contato='" + contato + '\'' +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
+                ", banco='" + banco + '\'' +
                 '}';
     }
 }
