@@ -110,10 +110,7 @@ public class LoadedRequest implements Serializable{
         this.id = id;
     }
 
-    public LoadedRequest() {
-    }
 
-    ;
 
     public void setDataHoraSolicitacao(String dataHoraSolicitacao) {
         this.dataHoraSolicitacao = dataHoraSolicitacao;
@@ -175,27 +172,23 @@ public class LoadedRequest implements Serializable{
         this.enderecoGPS_Entrega = enderecoGPS_Entrega;
     }
 
-    public LoadedRequest(int id, String dataHoraSolicitacao, String tipo, int quantidade,
-                         double peso, double tamanho, int latitude_Coleta, int longitude_Coleta,
-                         String complemento_Coleta, int numero_Coleta, String enderecoGPS_Coleta,
-                         int latitude_Entrega, int longitude_Entrega, String complemento_Entrega,
-                         int numero_Entrega, String enderecoGPS_Entrega) {
-        this.id = id;
-        this.dataHoraSolicitacao = dataHoraSolicitacao;
-        this.tipo = tipo;
-        this.quantidade = quantidade;
-        this.peso = peso;
-        this.tamanho = tamanho;
-        this.latitude_Coleta = latitude_Coleta;
-        this.longitude_Coleta = longitude_Coleta;
-        this.complemento_Coleta = complemento_Coleta;
-        this.numero_Coleta = numero_Coleta;
-        this.enderecoGPS_Coleta = enderecoGPS_Coleta;
-        this.latitude_Entrega = latitude_Entrega;
-        this.longitude_Entrega = longitude_Entrega;
-        this.complemento_Entrega = complemento_Entrega;
-        this.numero_Entrega = numero_Entrega;
-        this.enderecoGPS_Entrega = enderecoGPS_Entrega;
+    public LoadedRequest() {
+        this.id = 0;
+        this.dataHoraSolicitacao = "";
+        this.tipo = "";
+        this.quantidade = 0;
+        this.peso = 0.0;
+        this.tamanho = 0.0;
+        this.latitude_Coleta = 0;
+        this.longitude_Coleta = 0;
+        this.complemento_Coleta = "";
+        this.numero_Coleta = 0;
+        this.enderecoGPS_Coleta = "";
+        this.latitude_Entrega = 0;
+        this.longitude_Entrega = 0;
+        this.complemento_Entrega = "";
+        this.numero_Entrega = 0;
+        this.enderecoGPS_Entrega = "";
 
     }
 

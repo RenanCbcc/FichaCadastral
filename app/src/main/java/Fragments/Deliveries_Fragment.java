@@ -172,7 +172,6 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
     }
 
     public void getResquests() {
-        Toast.makeText(getActivity(), "getResquests", Toast.LENGTH_SHORT).show();
         exhibitPogress(true);
         String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/procurarNovasSolicitacoes/";
         AsyncHttpClient client = new AsyncHttpClient();
@@ -191,11 +190,9 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
                         Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
                         loadedRequestList.clear();
                         List<LoadedRequest> requestList = readRequests(response);
                         if (requestList != null) {
-                            Toast.makeText(getActivity(), "OK2", Toast.LENGTH_SHORT).show();
 
                             loadedRequestList.addAll(requestList);
                             requestArrayAdapter.notifyDataSetChanged();
@@ -230,8 +227,6 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
     }
 
     public List<LoadedRequest> readRequests(JSONObject json) throws JSONException {
-        Toast.makeText(getActivity(), "readRequests", Toast.LENGTH_SHORT).show();
-
         List<LoadedRequest> requestsList = new ArrayList<LoadedRequest>();
         JSONArray jsonResquestsArray = json.getJSONArray("solicitacoes");
 
@@ -239,29 +234,80 @@ public class Deliveries_Fragment extends Fragment implements CompoundButton.OnCh
             JSONObject jsonRequest = jsonResquestsArray.getJSONObject(i);
             LoadedRequest loadedRequest = new LoadedRequest();
 
-            loadedRequest.setId(jsonRequest.getInt("id"));
-            loadedRequest.setDataHoraSolicitacao(jsonRequest.getString("dataHoraSolicitacao"));
-            loadedRequest.setTipo(jsonRequest.getString("tipo"));
-            loadedRequest.setQuantidade(jsonRequest.getInt("quantidade"));
-            loadedRequest.setPeso(jsonRequest.getDouble("peso"));
-            loadedRequest.setTamanho(jsonRequest.getDouble("tamanho"));
 
-            JSONObject localColeta = jsonRequest.getJSONObject("localColeta");
-            loadedRequest.setLatitude_Coleta(localColeta.getInt("latitude"));
-            loadedRequest.setLongitude_Coleta(localColeta.getInt("longitude"));
-            loadedRequest.setLongitude_Coleta(localColeta.getInt("longitude"));
-            loadedRequest.setComplemento_Coleta(localColeta.getString("complemento"));
-            loadedRequest.setNumero_Coleta(localColeta.getInt("numero"));
-            loadedRequest.setEnderecoGPS_Coleta(localColeta.getString("enderecoGPS"));
+            if (jsonRequest.has("id") && !jsonRequest.isNull("id")) {
+                loadedRequest.setId(jsonRequest.getInt("id"));
+            }
+
+            if (jsonRequest.has("dataHoraSolicitacao") && !jsonRequest.isNull("dataHoraSolicitacao")) {
+                loadedRequest.setDataHoraSolicitacao(jsonRequest.getString("dataHoraSolicitacao"));
+            }
+
+            if (jsonRequest.has("tipo") && !jsonRequest.isNull("tipo")) {
+                loadedRequest.setTipo(jsonRequest.getString("tipo"));
+            }
+
+            if (jsonRequest.has("quantidade") && !jsonRequest.isNull("quantidade")) {
+                loadedRequest.setQuantidade(jsonRequest.getInt("quantidade"));
+            }
+
+            if (jsonRequest.has("peso") && !jsonRequest.isNull("peso"))
+                loadedRequest.setPeso(jsonRequest.getDouble("peso"));
+
+            if (jsonRequest.has("tamanho") && !jsonRequest.isNull("tamanho"))
+                loadedRequest.setTamanho(jsonRequest.getDouble("tamanho"));
+
+            if (jsonRequest.has("localColeta") && !jsonRequest.isNull("localColeta")) {
+                JSONObject localColeta = jsonRequest.getJSONObject("localColeta");
+
+                if (jsonRequest.has("latitude") && !jsonRequest.isNull("latitude")) {
+                    loadedRequest.setLatitude_Coleta(localColeta.getInt("latitude"));
+                }
+
+                if (jsonRequest.has("longitude") && !jsonRequest.isNull("longitude")) {
+                    loadedRequest.setLongitude_Coleta(localColeta.getInt("longitude"));
+                }
+                if (jsonRequest.has("longitude") && !jsonRequest.isNull("longitude")) {
+                    loadedRequest.setLongitude_Coleta(localColeta.getInt("longitude"));
+                }
+
+                if (jsonRequest.has("complemento") && !jsonRequest.isNull("complemento")) {
+                    loadedRequest.setComplemento_Coleta(localColeta.getString("complemento"));
+                }
+                if (jsonRequest.has("numero") && !jsonRequest.isNull("numero")) {
+                    loadedRequest.setNumero_Coleta(localColeta.getInt("numero"));
+                }
+
+                if (jsonRequest.has("enderecoGPS") && !jsonRequest.isNull("enderecoGPS")) {
+                    loadedRequest.setEnderecoGPS_Coleta(localColeta.getString("enderecoGPS"));
+                }
+            }
 
             JSONObject localEntrega = jsonRequest.getJSONObject("localEntrega");
+            if (jsonRequest.has("localEntrega") && !jsonRequest.isNull("localEntrega")) {
 
-            loadedRequest.setLatitude_Entrega(localEntrega.getInt("latitude"));
-            loadedRequest.setLongitude_Entrega(localEntrega.getInt("longitude"));
-            loadedRequest.setLongitude_Entrega(localEntrega.getInt("longitude"));
-            loadedRequest.setComplemento_Entrega(localEntrega.getString("complemento"));
-            loadedRequest.setNumero_Entrega(localEntrega.getInt("numero"));
-            loadedRequest.setEnderecoGPS_Entrega(localEntrega.getString("enderecoGPS"));
+                if (jsonRequest.has("latitude") && !jsonRequest.isNull("latitude")) {
+                    loadedRequest.setLatitude_Entrega(localEntrega.getInt("latitude"));
+                }
+
+
+                if (jsonRequest.has("longitude") && !jsonRequest.isNull("longitude")) {
+                    loadedRequest.setLongitude_Entrega(localEntrega.getInt("longitude"));
+
+                }
+
+                if (jsonRequest.has("complemento") && !jsonRequest.isNull("complemento")) {
+                    loadedRequest.setComplemento_Entrega(localEntrega.getString("complemento"));
+                }
+
+                if (jsonRequest.has("numero") && !jsonRequest.isNull("numero")) {
+                    loadedRequest.setNumero_Entrega(localEntrega.getInt("numero"));
+                }
+
+                if (jsonRequest.has("enderecoGPS") && !jsonRequest.isNull("enderecoGPS")) {
+                    loadedRequest.setEnderecoGPS_Entrega(localEntrega.getString("enderecoGPS"));
+                }
+            }
 
             requestsList.add(loadedRequest);
 
