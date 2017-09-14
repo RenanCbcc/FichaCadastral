@@ -59,22 +59,50 @@
         <item>"Tocantins (TO)"</item>
     </string-array>
 
+
+    <string-array name="string_array_dias">
+        <item>"*Dias da Semana"</item>
+        <item>"Segunda-feira"</item>
+        <item>"Terça-feira"</item>
+        <item>"Quarta-feira"</item>
+        <item>"Quinta-feira"</item>
+        <item>"Sexta-feira"</item>
+        <item>"Sabado"</item>
+        <item>"Domingo"</item>
+            </string-array>
+
+
     <string name="hint_cidade">Cidade</string>
     <string name="hint_bairro">Bairro</string>
 
 
     <!-- Mensagens.  -->
-
+    <string name="error_msg_01">Erro ao tentar conexão</string>
+    <string name="error_msg_02">Erro ao gravar valor</string>
+    <string name="gps_error">Its necessary to enable the G.P.S. </string>
     <string name="error_msg_email">Email Inválido</string>
     <string name="error_msg_senha">Senha Inválida</string>
     <string name="error_msg_senharp">Senhas Diferem</string>
     <string name="error_msg_image">Imagem Inválida</string>
+    <string name="error_msg_vazio">Campo não pode ser vazio</string>
+    <string name="error_msg_invalido">Informação insuficiente</string>
 
     <string name="sucsses_msg_01">Usuário %1$s com email %2$s cadastrado com sucesso</string>
+    <string name="sucsses_msg_02">Até breve %1$s</string>
+    <string name="sucsses_msg_03">Estou disponível para realizar Entregas</string>
+    <string name="sucsses_msg_04">Estou indisponível para realizar Entregas</string>
+
 
     <string name="option_dados">Editar dados</string>
 '   <string name="option_entregas">Entregas</string>
     <string name="option_outros">Outros</string>
+    <string name="option_log">Fazer Logout</string>
+
     <!-- Fim Mensagens.  -->
+
+    <string name="expedienteInicio">Horário do início de expediente</string>
+    <string name="expedienteFim">Horário do fim de expediente</string>
+    <string name="expedienteSemana">Dias da semana</string>
+
 
 </resources>

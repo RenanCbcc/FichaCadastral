@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.example.dell.fichacadastral.MainActivity">
+    tools:context="com.example.dell.fichacadastral.LogInActivity">
     >
 
     <RelativeLayout
@@ -27,6 +27,21 @@
             android:contentDescription="Logo MarketplaceAPP"
              />
 
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBarLogin"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtprogress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/progressBar"/>
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_email"
             android:layout_width="match_parent"
@@ -40,7 +55,7 @@
             android:layout_marginTop="60dp">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/edt_Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -63,7 +78,7 @@
             android:layout_marginTop="10dp">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/edt_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -77,22 +92,30 @@
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/til_password"
-            android:layout_centerHorizontal="true"
             android:text="Login"
-            android:layout_marginTop="16dp" />
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#B0A9AE"
+            android:shadowDx="0"
+            android:shadowDy="-0"
+            android:shadowRadius="5"
+            android:layout_above="@+id/txt_singup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="29dp" />
 
         <TextView
             android:id="@+id/txt_singup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:onClick="signUp"
             android:text="Ainda não tem conta? Cadastre-se!"
             android:textSize="18sp"
             android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/imageView"
             android:layout_alignStart="@+id/imageView"
-            android:layout_marginBottom="9dp" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            />
+
     </RelativeLayout>
 </ScrollView>

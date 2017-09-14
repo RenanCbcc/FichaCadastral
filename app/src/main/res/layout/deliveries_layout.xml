@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/deliveries_layout_id"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/relativeLayout5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/txt_expeRIENCIA"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="EXPERIÊNCIA"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:layout_marginBottom="13dp" />
+
+
+        <TextView
+            android:id="@+id/nome_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name Here"
+            android:textSize="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="23dp" />
+
+        <TextView
+            android:id="@+id/nivel_id"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Nivel: "
+            android:textColor="@color/color_dark_gray"
+            android:textSize="15dp"
+            android:layout_below="@+id/nome_id"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/xp_id"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Xp:"
+            android:textSize="15dp"
+            android:textColor="@color/color_dark_gray"
+            android:layout_alignBaseline="@+id/nivel_id"
+            android:layout_alignBottom="@+id/nivel_id"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="17dp"
+            android:layout_marginEnd="17dp" />
+        <TextView
+            android:id="@+id/feedbad_id"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_dark_gray"
+            android:text="Feedback: "
+            android:textSize="15dp"
+            android:layout_below="@+id/nivel_id"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/media_id"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_dark_gray"
+            android:text="Média:"
+            android:textSize="15dp"
+            android:layout_alignBaseline="@+id/feedbad_id"
+            android:layout_alignBottom="@+id/feedbad_id"
+            android:layout_alignLeft="@+id/xp_id"
+            android:layout_alignStart="@+id/xp_id" />
+
+        <TextView
+            android:id="@+id/txt_expediente"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="EXPEDIENTE"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_below="@+id/feedbad_id"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/txt_id"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_dark_gray"
+            android:text="Informe sua disponibilidade"
+            android:textSize="15dp"
+            android:layout_below="@+id/txt_expediente"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ToggleButton
+            android:id="@+id/tgb_isAvailable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="Disponivel"
+            android:textOff="Descansando"
+            android:layout_marginRight="9dp"
+            android:layout_marginEnd="9dp"
+            android:shadowColor="#B0A9AE"
+            android:shadowDx="0"
+            android:shadowDy="-0"
+            android:shadowRadius="5"
+            android:layout_alignTop="@+id/txt_expediente"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/layoutEntregas"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/relativeLayout5"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/progressBar"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

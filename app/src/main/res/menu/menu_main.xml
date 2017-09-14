@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".LogInActivity">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/action_dados"
@@ -15,4 +15,9 @@
             android:icon="@android:drawable/ic_menu_delete"
             android:title="@string/option_outros" />
     </group>
+
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/option_log" />
 </menu>
