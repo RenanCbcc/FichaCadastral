@@ -108,14 +108,16 @@ public class SignUp_Activity extends AppCompatActivity {
             return fragment;
         }
 
+        /*
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-             rootView = inflater.inflate(R.layout.fragment_dias, container, false); // Todo: pra que serve esse fragment_dias?
+             rootView = inflater.inflate(R.layout.fragment_dias, container, false); // Todo: fragment_dias faz falta?
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
+        */
     }
 
     /**

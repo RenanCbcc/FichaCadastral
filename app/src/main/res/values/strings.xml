@@ -1,5 +1,7 @@
 <resources>
     <!-- Dados do Cliente. -->
+    <string name="hint_cpf">CPF</string>
+    <string name="hint_cnpj">CNPJ</string>
     <string name="app_aba_name">Ficha Cadastral</string>
     <string name="app_name">Smart Delivery</string>
     <string name="section_format">Hello World from section: %1$d</string>

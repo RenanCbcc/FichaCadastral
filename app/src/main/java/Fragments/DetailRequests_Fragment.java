@@ -54,7 +54,7 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.detailrequests_layout, container, false);
         txt_EnderecoGPS_Coleta = (TextView) layout.findViewById(R.id.txt_EnderecoGPS_Coleta);
-        txt_quantidade = (TextView) layout.findViewById(R.id.txt_quantidade);
+        txt_quantidade = (TextView) layout.findViewById(R.id.txt_quantidade); //Todo: Corrigir esse erro
         txt_peso = (TextView) layout.findViewById(R.id.txt_peso);
         txt_tamanho = (TextView) layout.findViewById(R.id.txt_tamanho);
         txt_endereco = (TextView) layout.findViewById(R.id.txt_endereco);
