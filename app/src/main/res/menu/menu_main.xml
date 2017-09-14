@@ -14,6 +14,10 @@
             android:id="@+id/action_verificar"
             android:icon="@android:drawable/ic_menu_delete"
             android:title="@string/option_verificar" />
+        <item
+            android:id="@+id/action_confirmacao"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:title="@string/option_confirma" />
     </group>
 
     <item

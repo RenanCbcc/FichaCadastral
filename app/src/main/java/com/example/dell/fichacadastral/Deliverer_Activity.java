@@ -34,6 +34,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -71,6 +72,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
     private Deliveryman deliveryman;
     private static final int REQUEST_ERRO_PLAY_SERVICES = 1;
     private static final int REQUEST_CHECK_GPS = 2;
+    static final int CODE_CONFIRMATION_ACTIVITY = 0;
     private Handler handler;
     private int numberOfAttempts;
     private boolean shouldExhibitDialog;
@@ -190,6 +192,14 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 it.putExtra("entregador", deliveryman);
                 startActivity(it);
                 break;
+
+            case R.id.action_confirmacao:
+                Intent intentConfirmation = new Intent(this, Confirmation_Activity.class);
+                intentConfirmation.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intentConfirmation.putExtra("deliveryman", new Gson().toJson(deliveryman));
+                startActivity(intentConfirmation);
+                break;
+
 
             case R.id.action_logout:
                 Intent intent = new Intent(this, LogInActivity.class);
