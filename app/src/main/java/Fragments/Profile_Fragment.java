@@ -135,12 +135,15 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
         if (deliveryman != null) {
             edtNome.setText(deliveryman.getNome());
             edtTelefone.setText(deliveryman.getTelefone());
-            edtCep.setText(deliveryman.getLoadedAddress().getCep());
-            edtRua.setText(deliveryman.getLoadedAddress().getLogradouro());
-            edtCidade.setText(deliveryman.getLoadedAddress().getLocalidade());
-            edtComplemento.setText(deliveryman.getLoadedAddress().getComplemento());
-            edtBairro.setText(deliveryman.getLoadedAddress().getBairro());
-            spnEstado.setSelection(0); //TODO costumer.getLoadedAddress().getUf()
+            if(deliveryman.getLoadedAddress()!=null){
+                edtCep.setText(deliveryman.getLoadedAddress().getCep());
+                edtRua.setText(deliveryman.getLoadedAddress().getLogradouro());
+                edtCidade.setText(deliveryman.getLoadedAddress().getLocalidade());
+                edtComplemento.setText(deliveryman.getLoadedAddress().getComplemento());
+                edtBairro.setText(deliveryman.getLoadedAddress().getBairro());
+                spnEstado.setSelection(0); //TODO costumer.getLoadedAddress().getUf()
+            }
+
             edtSenha.setText(deliveryman.getSenha());
             edtSenha.setEnabled(true);
             EdtSenhaRep.setText(deliveryman.getSenha());

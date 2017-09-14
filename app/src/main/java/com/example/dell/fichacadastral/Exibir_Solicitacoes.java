@@ -67,7 +67,7 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
                 URL url = new URL("https://smart-delivery-labes.herokuapp.com/api/entregador/listarSolicitacoes/"); // here is your URL path
 
                 JSONObject postDataParams = new JSONObject();
-                //TODO fazer a classe obter automaticamente o id do entregador
+
                 postDataParams.put("idEntregador", idEntregador);
                 Log.e("params",postDataParams.toString());
 
