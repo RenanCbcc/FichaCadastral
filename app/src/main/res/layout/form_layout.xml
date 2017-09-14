@@ -106,13 +106,64 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="INFORMAÇÕS CADASTRAIS"
+                android:text="INFORMAÇÕES CADASTRAIS"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/activity_horizontal_margin"
-                android:layout_below="@+id/docFical"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
+            <RadioGroup
+                android:id="@+id/docFical"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/textView"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioBtnPJ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pessoa Jurídica"
+                    android:layout_above="@+id/radioBtnPF"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="12dp" />
+
+                <RadioButton
+                    android:id="@+id/radioBtnPF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pessoa Física"
+                    android:layout_marginBottom="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/edt_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_cpf"
+                android:imeOptions="actionNext"
+                android:layout_below="@+id/docFical"
+                android:layout_alignParentLeft="true"
+                android:inputType="number"
+                android:digits="1234567890"
+                />
+
+            <EditText
+                android:id="@+id/edt_cnpj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_cnpj"
+                android:imeOptions="actionNext"
+                android:layout_below="@+id/docFical"
+                android:layout_alignParentLeft="true"
+                android:inputType="number"
+                android:digits="1234567890"
+                />
 
             <EditText
                 android:id="@+id/edt_nome"
@@ -120,10 +171,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_nome"
                 android:imeOptions="actionNext"
-                android:inputType="textPersonName|textCapWords"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/edt_cnpj"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvxwyz"/>
 
 
             <TextView
@@ -147,38 +199,15 @@
                 android:layout_toRightOf="@+id/textView2"
                 android:layout_toEndOf="@+id/textView2" />
 
-            <RadioGroup
-                android:id="@+id/docFical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/radioBtnPJ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pessoas Jurídica"
-                android:layout_above="@+id/radioBtnPF"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="12dp" />
 
-            <RadioButton
-                android:id="@+id/radioBtnPF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pessoas Física"
-                android:layout_marginBottom="15dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
 
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
             android:id="@+id/relativeLayout3"
             android:layout_below="@+id/relativeLayout4"
             android:layout_alignParentLeft="true"
@@ -239,7 +268,7 @@
                 android:inputType="number|text"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_numero"
-                android:layout_above="@+id/edt_bairro"
+                android:layout_below="@+id/edt_complemento"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -250,11 +279,9 @@
                 android:inputType="text"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_complemento"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/textView4"
-                android:layout_toEndOf="@+id/textView4" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/edt_rua" />
 
             <EditText
                 android:id="@+id/edt_bairro"
@@ -263,11 +290,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_bairro"
                 android:imeOptions="actionNext"
-                android:layout_above="@+id/edt_cidade"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                android:layout_below="@+id/edt_numero"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentStart="true" />
 
             <EditText
                 android:id="@+id/edt_cidade"
@@ -276,11 +302,10 @@
                 android:inputType="textCapWords"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_cidade"
-                android:layout_above="@+id/edt_pais"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                android:layout_below="@+id/edt_bairro"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentStart="true" />
 
             <EditText
                 android:id="@+id/edt_pais"
@@ -289,13 +314,180 @@
                 android:inputType="textCapWords"
                 android:imeOptions="actionNext"
                 android:hint="@string/hint_pais"
-                android:layout_alignParentBottom="true"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                android:layout_below="@+id/edt_cidade"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/relativeLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout2">
+
+            <TextView
+                android:id="@+id/textViewVeiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMAÇÕES DO VEÍCULO"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:id="@+id/edt_placaVeiculo"
+                android:hint="@string/hint_placa_veiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:inputType="number"
+                android:digits="1234567890abcdefghijklmnopqrstuvwxyz"
+                android:layout_centerVertical="true"
+                android:layout_alignLeft="@+id/textViewVeiculo"
+                android:layout_alignStart="@+id/textViewVeiculo" />
+
+            <EditText
+                android:id="@+id/edt_marca"
+                android:hint="@string/hint_marca_veiculo"
+                android:inputType="text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edt_placaVeiculo"
+                android:layout_alignLeft="@+id/edt_placaVeiculo"
+                android:layout_alignStart="@+id/edt_placaVeiculo"
+                android:layout_marginTop="9dp"
+                android:digits="abcdefghijklmnopqrstuvxwyz"/>
+
+            <EditText
+
+                android:id="@+id/edt_modelo"
+                android:hint="@string/hint_modelo_veiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edt_marca"
+                android:layout_alignBottom="@+id/edt_marca"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="24dp"
+                android:layout_marginEnd="24dp"
+                />
 
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="600px"
+            android:id="@+id/relativeLayout"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+
+            <TextView
+                android:id="@+id/txtView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMAÇÕES BANCÁRIAS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="19dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp" />
+
+            <EditText
+                android:id="@+id/edt_titular"
+                android:hint="@string/hint_titular_conta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:layout_below="@+id/txtView2"
+                android:layout_alignLeft="@+id/txtView2"
+                android:layout_alignStart="@+id/txtView2"
+                android:layout_marginTop="15dp"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                />
+
+            <EditText
+                android:id="@+id/edt_banco"
+                android:hint="@string/hint_banco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:layout_below="@+id/edt_titular"
+                android:layout_alignLeft="@+id/edt_titular"
+                android:layout_alignStart="@+id/edt_titular"
+                android:layout_marginTop="15dp"
+                android:digits="abcdefghijklmnopqrstuvxwyz"
+                />
+
+            <EditText
+                android:id="@+id/edt_agencia"
+                android:hint="@string/hint_agencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:digits="1234567890"
+                android:layout_alignBaseline="@+id/edt_banco"
+                android:layout_alignBottom="@+id/edt_banco"
+                android:layout_alignRight="@+id/txtView2"
+                android:layout_alignEnd="@+id/txtView2"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp" />
+
+            <EditText
+                android:id="@+id/edt_DigAgencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="1234567890"
+                android:hint="@string/hint_DigAgencia"
+                android:inputType="number"
+                android:layout_alignBaseline="@+id/edt_agencia"
+                android:layout_alignBottom="@+id/edt_agencia"
+                android:layout_toRightOf="@+id/txtView2"
+                android:layout_toEndOf="@+id/txtView2"
+                android:layout_marginLeft="38dp"
+                android:layout_marginStart="38dp" />
+
+            <EditText
+                android:id="@+id/edt_conta"
+                android:hint="@string/hint_conta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:digits="1234567890"
+                android:layout_below="@+id/edt_agencia"
+                android:layout_alignLeft="@+id/edt_agencia"
+                android:layout_alignStart="@+id/edt_agencia"
+                android:layout_marginTop="14dp" />
+
+            <EditText
+                android:id="@+id/edt_DigConta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="1234567890"
+                android:hint="@string/hint_DigConta"
+                android:inputType="number"
+                android:layout_alignBaseline="@+id/edt_conta"
+                android:layout_alignBottom="@+id/edt_conta"
+                android:layout_alignRight="@+id/edt_DigAgencia"
+                android:layout_alignEnd="@+id/edt_DigAgencia" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FINALIZAR CADASTRO"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="19dp" />
 
         </RelativeLayout>
 
