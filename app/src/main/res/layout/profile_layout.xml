@@ -9,26 +9,36 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout_pai">
+        android:id="@+id/layout_Profile"
+        >
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="220dp"
+            android:layout_height="240dp"
             android:id="@+id/relativeLayout4"
             android:layout_below="@+id/layout_pic"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="17dp">
+            <TextView
+                android:id="@+id/txtprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/til_password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="44dp" />
+
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edt_nCelular"
-                android:layout_alignStart="@+id/edt_nCelular"
                 android:text="CONTATO"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/activity_horizontal_margin" />
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <ProgressBar
                 android:id="@+id/pgb_progress"
@@ -44,41 +54,64 @@
                 android:id="@+id/edt_nCelular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView3"
-                android:layout_marginTop="12dp"
                 android:hint="@string/hint_numero_celular"
                 android:imeOptions="actionDone"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:layout_above="@+id/edt_email"
+                android:layout_toRightOf="@+id/pgb_progress"
+                android:layout_toEndOf="@+id/pgb_progress" />
 
 
             <EditText
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edt_nCelular"
                 android:hint="@string/hint_email"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/pgb_progress"
+                android:layout_toEndOf="@+id/pgb_progress" />
 
             <EditText
-                android:id="@+id/edt_senha"
+                android:id="@+id/edt_at_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edt_email"
-                android:hint="@string/hint_senha"
+                android:hint="@string/hint_sa_senha"
                 android:imeOptions="actionNext"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:layout_above="@+id/btn_Alterar"
+                android:layout_toRightOf="@+id/pgb_progress"
+                android:layout_toEndOf="@+id/pgb_progress" />
 
             <EditText
-                android:id="@+id/edt_rp_senha"
+                android:id="@+id/edt_nv_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_rp_senha"
+                android:hint="@string/hint_nv_senha"
                 android:inputType="textPassword"
                 android:imeOptions="actionNext"
-                android:layout_below="@+id/edt_senha">
+                android:layout_below="@+id/textView3"
+                android:layout_toRightOf="@+id/pgb_progress">
 
             </EditText>
+
+            <Button
+                android:id="@+id/btn_Alterar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alterar"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#B0A9AE"
+                android:shadowDx="0"
+                android:shadowDy="-0"
+                android:shadowRadius="5"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="22dp"
+                android:layout_marginEnd="22dp" />
+
 
 
         </RelativeLayout>
@@ -431,33 +464,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Salvar"
-                    android:layout_alignBaseline="@+id/btn_Cancelar"
                     android:layout_alignBottom="@+id/btn_Cancelar"
-                    android:layout_toLeftOf="@+id/edt_modelo"
-                    android:layout_toStartOf="@+id/edt_modelo"
                     android:background="@drawable/buttonshape"
                     android:shadowColor="#B0A9AE"
                     android:shadowDx="0"
                     android:shadowDy="-0"
                     android:shadowRadius="5"
-                    />
-
-                <Button
-                    android:id="@+id/btn_Cancelar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cancelar"
-                    android:layout_below="@+id/edt_modelo"
-                    android:layout_toEndOf="@+id/btn_Salvar"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/buttonshape"
-                    android:shadowColor="#B0A9AE"
-                    android:shadowDx="0"
-                    android:shadowDy="-0"
-                    android:shadowRadius="5"
-                    android:layout_toRightOf="@+id/btn_Salvar" />
-
-
+                    android:layout_alignParentTop="true"
+                    android:layout_alignLeft="@+id/edt_modelo"
+                    android:layout_alignStart="@+id/edt_modelo" />
 
 
 

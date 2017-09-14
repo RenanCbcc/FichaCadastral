@@ -8,7 +8,9 @@
     <string name="hint_nome">Nome completo</string>
     <string name="hint_email">E-Mail</string>
     <string name="hint_senha">Senha</string>
+    <string name="hint_nv_senha">Nova Senha</string>
     <string name="hint_rp_senha">Repita a Senha</string>
+    <string name="hint_sa_senha">Senha antiga</string>
     <string name="hint_numero_celular">Número do celular</string>
     <string name="hint_CEP">CEP</string>
     <string name="hint_endereco">Endereço</string>

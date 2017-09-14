@@ -283,7 +283,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
 
         } else {
             //exhibitErrorMessage(this,connectionResult.getErrorCode());
-            Toast.makeText(this, "Erro unsolved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error unsolved", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -459,6 +459,35 @@ public class Deliverer_Activity extends AppCompatActivity implements
                     if (!response.getBoolean("success")) {
                         String errorMsg = response.getString("errorMsg");
                         Toast.makeText(Deliverer_Activity.this, "Erro ao atualiza: " + errorMsg, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            }
+        });
+    }
+
+    public void saveModifications(Deliveryman deliveryman){
+        String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/mudarSenha/";
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("idEntregador", deliveryman.getId());
+        params.put("senhaAntiga", deliveryman.getSenhaAntiga());
+        params.put("senhaNova", deliveryman.getSenha());
+
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (!response.getBoolean("success")) {
+                        String errorMsg = response.getString("errorMsg");
+                        Toast.makeText(Deliverer_Activity.this, "Erro ao alterar senha: " + errorMsg, Toast.LENGTH_LONG).show();
                         return;
                     }
 

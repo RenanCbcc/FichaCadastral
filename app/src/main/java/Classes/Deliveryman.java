@@ -37,6 +37,7 @@ public class Deliveryman implements Serializable {
     private boolean isAvailable;
     private int nivel;
     private int experiencia;
+    private String senhaAntiga;
 
     public Deliveryman() {
         this.nome = "";
@@ -67,6 +68,15 @@ public class Deliveryman implements Serializable {
         this.pais = "";
 
     }
+
+    public String getSenhaAntiga() {
+               return senhaAntiga;
+            }
+
+             public void setSenhaAntiga(String senhaAntiga) {
+                this.senhaAntiga = senhaAntiga;
+
+                    }
 
     public void setSaldoDevedorTotal(String saldoDevedorTotal) {
         this.saldoDevedorTotal = saldoDevedorTotal;
