@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_EnderecoGPS_Coleta"
-            android:layout_below="@+id/txt_endereco"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
         <TextView
@@ -24,26 +23,19 @@
             android:layout_below="@+id/txt_EnderecoGPS_Coleta" />
         />
         <TextView
+            android:id="@+id/txt_enderecoGPS_Entrega"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_Complemento_Entrega"
-            android:layout_below="@+id/txt_tamanho"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="7dp"
-            android:layout_marginEnd="7dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_tamanho"
             android:layout_below="@+id/txt_Complemento_Coleta"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="7dp" />
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/txt_complemento_Entrega"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_endereco"
-            android:layout_gravity="center_vertical"/>
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/btn_accept"
@@ -75,7 +67,6 @@
             android:layout_marginLeft="69dp"
             android:layout_marginStart="69dp"
             android:layout_marginTop="97dp"
-            android:layout_below="@+id/txt_peso"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 

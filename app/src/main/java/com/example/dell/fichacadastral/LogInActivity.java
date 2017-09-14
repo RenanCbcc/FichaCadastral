@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class LogInActivity extends AppCompatActivity {
     private TextView txt_singup;
     private ProgressBar progressBar;
     private TextView textView;
+    private RelativeLayout background;
 
 
     @Override
@@ -41,6 +43,7 @@ public class LogInActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.btn_login);
         progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
         textView = (TextView) findViewById(R.id.txtprogress);
+        background = (RelativeLayout) findViewById(R.id.activity_main);
 
         if (!JsonRequest.hasConnection(LogInActivity.this)) {
             Toast.makeText(LogInActivity.this, getString(R.string.error_msg_01), Toast.LENGTH_SHORT).show();
@@ -120,9 +123,12 @@ public class LogInActivity extends AppCompatActivity {
     private void exhibitPogress(boolean exhibit) {
         if (exhibit) {
             textView.setText("Fazengo Login...");
+            background.setBackgroundColor(getResources().getColor(R.color.background_color_loading));
         }
         textView.setVisibility(exhibit ? View.VISIBLE : View.GONE);
         progressBar.setVisibility(exhibit ? View.VISIBLE : View.GONE);
+        background.setBackgroundColor(getResources().getColor(R.color.color_whight));
+
     }
 
 }

@@ -7,6 +7,7 @@
     <string name="hint_email">E-Mail</string>
     <string name="hint_senha">Senha</string>
     <string name="hint_rp_senha">Repita a Senha</string>
+    <string name="hint_sa_senha">Senha antiga</string>
     <string name="hint_numero_celular">Número do celular</string>
     <string name="hint_CEP">CEP</string>
     <string name="hint_endereco">Endereço</string>
@@ -91,7 +92,6 @@
     <string name="sucsses_msg_02">Até breve %1$s</string>
     <string name="sucsses_msg_03">Estou disponível para realizar Entregas</string>
     <string name="sucsses_msg_04">Estou indisponível para realizar Entregas</string>
-
 
     <string name="option_dados">Editar dados</string>
 '   <string name="option_entregas">Entregas</string>

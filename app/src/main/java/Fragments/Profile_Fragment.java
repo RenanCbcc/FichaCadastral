@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,7 +39,7 @@ import org.json.JSONObject;
  * Created by Dell on 05/08/2017.
  */
 
-public class Profile_Fragment extends Fragment implements TextWatcher, View.OnClickListener, TextView.OnEditorActionListener {
+public class Profile_Fragment extends Fragment implements TextWatcher, View.OnClickListener {
     private static final String EXTRA_DELIVEYMAN = "deliveryman"; // Primary Key
 
     private EditText edtTelefone;
@@ -63,7 +64,6 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     private EditText edtAgencia;
     private EditText edtConta;
     private Button btnSalvar;
-    private Button btnCancelar;
     private Deliveryman deliveryman;
 
     public static Profile_Fragment newInstance(Deliveryman deliveryman) {//METODO CONSTRUTOR
@@ -106,58 +106,50 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
         edtConta = view.findViewById(R.id.edt_conta);
         foto = view.findViewById(R.id.img_Foto);
         btnSalvar = view.findViewById(R.id.btn_Salvar);
-        btnCancelar = view.findViewById(R.id.btn_Cancelar);
 
-        edtSenha.setOnEditorActionListener(this);
-        EdtSenhaRep.setOnEditorActionListener(this);
-        edtEmail.setOnEditorActionListener(this);
         btnSalvar.setOnClickListener(this);
-        edtTitular.setOnEditorActionListener(this);
-        edtBanco.setOnEditorActionListener(this);
-        edtAgencia.setOnEditorActionListener(this);
-        edtConta.setOnEditorActionListener(this);
-        btnCancelar.setOnClickListener(this);
+        edtTitular.addTextChangedListener(this);
+        edtBanco.addTextChangedListener(this);
+        edtPlacaViculo.setOnClickListener(this);
+        edtMArcaViculo.setOnClickListener(this);
+        edtModelViculo.setOnClickListener(this);
+        edtTitular.setOnClickListener(this);
+        edtBanco.setOnClickListener(this);
+        edtAgencia.setOnClickListener(this);
+        edtConta.setOnClickListener(this);
+        edtTelefone.setOnClickListener(this);
+        edtTelefone.addTextChangedListener(this);
 
         edtNome.setEnabled(false);
-        edtTelefone.setEnabled(false);
         edtRua.setEnabled(false);
-        edtCep.setEnabled(false);
         edtCep.setEnabled(false);
         edtCidade.setEnabled(false);
         edtComplemento.setEnabled(false);
         edtBairro.setEnabled(false);
         spnEstado.setEnabled(false);
         edtEmail.setEnabled(false);
-        edtPlacaViculo.setEnabled(false);
-        edtMArcaViculo.setEnabled(false);
-        edtModelViculo.setEnabled(false);
 
         if (deliveryman != null) {
             edtNome.setText(deliveryman.getNome());
             edtTelefone.setText(deliveryman.getTelefone());
-            edtCep.setText(deliveryman.getLoadedAddress().getCep());
-            edtRua.setText(deliveryman.getLoadedAddress().getLogradouro());
-            edtCidade.setText(deliveryman.getLoadedAddress().getLocalidade());
-            edtComplemento.setText(deliveryman.getLoadedAddress().getComplemento());
-            edtBairro.setText(deliveryman.getLoadedAddress().getBairro());
+            if (deliveryman.getLoadedAddress() != null) {
+                edtCep.setText(deliveryman.getLoadedAddress().getCep());
+                edtRua.setText(deliveryman.getLoadedAddress().getLogradouro());
+                edtCidade.setText(deliveryman.getLoadedAddress().getLocalidade());
+                edtComplemento.setText(deliveryman.getLoadedAddress().getComplemento());
+                edtBairro.setText(deliveryman.getLoadedAddress().getBairro());
+            }
             spnEstado.setSelection(0); //TODO costumer.getLoadedAddress().getUf()
-            edtSenha.setText(deliveryman.getSenha());
-            edtSenha.setEnabled(true);
-            EdtSenhaRep.setText(deliveryman.getSenha());
-            EdtSenhaRep.setEnabled(true);
+
             edtEmail.setText(deliveryman.getEmail());
             edtPlacaViculo.setText(deliveryman.getPlaca_Veiculo());
             edtMArcaViculo.setText(deliveryman.getMarca_Veiculo());
             edtModelViculo.setText(deliveryman.getModel_Veiculo());
-            foto.setImageBitmap(deliveryman.getFoto());
             edtTitular.setText(deliveryman.getTitular_banco());
-            edtTitular.setEnabled(true);
             edtBanco.setText(deliveryman.getBanco());
-            edtBanco.setEnabled(true);
             edtAgencia.setText(deliveryman.getAgencia());
-            edtAgencia.setEnabled(true);
             edtConta.setText(deliveryman.getConta());
-            edtConta.setEnabled(true);
+            edtTelefone.setText(deliveryman.getTelefone());
 
         }
 
@@ -171,24 +163,77 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
             if (view.getId() == R.id.btn_Salvar) {
                 onModifyFragment listener = (onModifyFragment) activity;
                 listener.saveAllModifications(deliveryman);
-            } else if (view.getId() == R.id.btn_Cancelar) {
-                return;
             }
 
         }
     }
 
+    @Override
+    public void afterTextChanged(Editable editable) {
 
+        if (editable == edtPlacaViculo.getEditableText()) {
+
+            if (edtPlacaViculo.getText().length() == 0) {
+                edtPlacaViculo.setError(getString(R.string.error_msg_vazio));
+            } else {
+                deliveryman.setPlaca_Veiculo(edtPlacaViculo.getText().toString());
+            }
+
+        } else if (editable == edtMArcaViculo.getEditableText()) {
+            if (edtMArcaViculo.getText().length() == 0) {
+                edtMArcaViculo.setError(getString(R.string.error_msg_vazio));
+            } else {
+                deliveryman.setMarca_Veiculo(edtMArcaViculo.getText().toString());
+            }
+
+        } else if (editable == edtModelViculo.getEditableText()) {
+            if (edtModelViculo.getText().length() == 0) {
+                edtModelViculo.setError(getString(R.string.error_msg_vazio));
+            } else {
+                deliveryman.setModel_Veiculo(edtModelViculo.getText().toString());
+            }
+
+        } else if (editable == edtTitular.getEditableText()) {
+            if (edtTitular.getText().length() == 0) {
+                edtTitular.setError(getString(R.string.error_msg_vazio));
+            } else {
+                deliveryman.setTitular_banco(edtTitular.getText().toString());
+            }
+
+        } else if (editable == edtBanco.getEditableText()) {
+            if (edtBanco.getText().length() == 0) {
+                edtBanco.setError(getString(R.string.error_msg_vazio));
+            } else {
+                deliveryman.setBanco(edtBanco.getText().toString());
+
+
+            }
+        } else if (editable == edtTelefone.getEditableText()) {
+            if (edtTelefone.getText().length() == 0) {
+                edtTelefone.setError(getString(R.string.error_msg_vazio));
+            } else {
+                deliveryman.setTelefone(edtTelefone.getText().toString());
+            }
+        }
+
+
+    }
+
+    /*
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         if (textView == edtSenha || textView == EdtSenhaRep || textView == edtEmail
                 || textView == edtTitular || textView == edtBanco || textView == edtAgencia
-                || textView == edtConta) {
+                || textView == edtConta || textView == edtPlacaViculo || textView == edtMArcaViculo
+                || textView == edtModelViculo) {
             boolean ok = true;
             if (!Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) {
                 edtEmail.setError(getString(R.string.error_msg_email));
                 ok = false;
+            } else {
+                deliveryman.setEmail(edtEmail.getText().toString());
             }
+
             if (!edtSenha.getText().toString().equals(EdtSenhaRep.getText().toString())) {
                 EdtSenhaRep.setError(getString(R.string.error_msg_senharp));
 
@@ -201,6 +246,8 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
                     edtTitular.setError(getString(R.string.error_msg_vazio));
                     ok = false;
                 }
+            } else {
+                deliveryman.setTitular_banco(edtTitular.getText().toString());
             }
 
             if (edtBanco.getText().length() <= 10) {
@@ -209,8 +256,11 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
                 if (edtBanco.getText().length() == 0) {
                     edtBanco.setError(getString(R.string.error_msg_vazio));
                     ok = false;
+                } else {
+                    deliveryman.setTitular_banco(edtBanco.getText().toString());
                 }
             }
+
             if (edtAgencia.getText().length() <= 10) {
                 edtAgencia.setError(getString(R.string.error_msg_invalido));
                 ok = false;
@@ -227,6 +277,46 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
                     ok = false;
                 }
             }
+            if (edtPlacaViculo.getText().length() <= 10) {
+                edtPlacaViculo.setError(getString(R.string.error_msg_invalido));
+                ok = false;
+                if (edtPlacaViculo.getText().length() == 0) {
+                    edtPlacaViculo.setError(getString(R.string.error_msg_vazio));
+                    ok = false;
+                } else {
+                    deliveryman.setPlaca_Veiculo(edtPlacaViculo.getText().toString());
+                }
+            }
+            if (edtMArcaViculo.getText().length() <= 10) {
+                edtMArcaViculo.setError(getString(R.string.error_msg_invalido));
+                ok = false;
+                if (edtMArcaViculo.getText().length() == 0) {
+                    edtMArcaViculo.setError(getString(R.string.error_msg_vazio));
+                    ok = false;
+                } else {
+                    deliveryman.setMarca_Veiculo(edtMArcaViculo.getText().toString());
+                }
+            }
+            if (edtModelViculo.getText().length() <= 10) {
+                edtModelViculo.setError(getString(R.string.error_msg_invalido));
+                ok = false;
+                if (edtModelViculo.getText().length() == 0) {
+                    edtModelViculo.setError(getString(R.string.error_msg_vazio));
+                    ok = false;
+                } else {
+                    deliveryman.setModel_Veiculo(edtModelViculo.getText().toString());
+                }
+            }
+            if (edtTelefone.getText().length() <= 10) {
+                edtTelefone.setError(getString(R.string.error_msg_invalido));
+                ok = false;
+                if (edtTelefone.getText().length() == 0) {
+                    edtTelefone.setError(getString(R.string.error_msg_vazio));
+                    ok = false;
+                } else {
+                    deliveryman.setTelefone(edtTelefone.getText().toString());
+                }
+            }
             if (ok) {
                 //Toast.makeText(this,getString(R.string.sucsses_msg_01),Toast.LENGTH_SHORT).show();
             }
@@ -234,7 +324,7 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
         }
         return false;
     }
-
+*/
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -242,11 +332,6 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
 
     }
 

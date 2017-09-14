@@ -28,10 +28,9 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
     private static final String DIALOG_TAG = "detailDialog";
     private static final String EXTRA_LOADEDREQUEST = "detail";
     private TextView txt_EnderecoGPS_Coleta;
-    private TextView txt_quantidade;
-    private TextView txt_peso;
-    private TextView txt_tamanho;
-    private TextView txt_endereco;
+    private TextView txt_Complemento_Coleta;
+    private TextView txt_enderecoGPS_Entrega;
+    private TextView txt_complemento_Entrega;
     private Button btn_Aceitar;
     private Button btn_Cancelar;
     private LoadedRequest loadedRequest;
@@ -51,13 +50,12 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.detailrequests_layout, container, false);
         txt_EnderecoGPS_Coleta = (TextView) layout.findViewById(R.id.txt_EnderecoGPS_Coleta);
-        txt_quantidade = (TextView) layout.findViewById(R.id.txt_quantidade);
-        txt_peso = (TextView) layout.findViewById(R.id.txt_peso);
-        txt_tamanho = (TextView) layout.findViewById(R.id.txt_tamanho);
-        txt_endereco = (TextView) layout.findViewById(R.id.txt_endereco);
+        txt_Complemento_Coleta = (TextView) layout.findViewById(R.id.txt_Complemento_Coleta);
+        txt_enderecoGPS_Entrega = (TextView) layout.findViewById(R.id.txt_enderecoGPS_Entrega);
+        txt_complemento_Entrega = (TextView) layout.findViewById(R.id.txt_complemento_Entrega);
         btn_Aceitar = (Button) layout.findViewById(R.id.btn_accept);
         btn_Cancelar = (Button) layout.findViewById(R.id.btn_accept);
 
@@ -65,16 +63,21 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
         btn_Cancelar.setOnClickListener(this);
 
         getDialog().setTitle("Deseja aceitar esta Solicitação?");
-        Toast.makeText(getActivity(),loadedRequest.toString() , Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), loadedRequest.toString(), Toast.LENGTH_LONG).show();
 
         if (loadedRequest != null) {
             txt_EnderecoGPS_Coleta.setText(loadedRequest.getEnderecoGPS_Coleta());
-            txt_tamanho.setText(String.valueOf(loadedRequest.getComplemento_Coleta()));
-            txt_quantidade.setText(String.valueOf(loadedRequest.getComplemento_Entrega()));
-            txt_peso.setText(String.valueOf(loadedRequest.getComplemento_Entrega()));
-            //txt_endereco.setText(loadedRequest);
+            txt_Complemento_Coleta.setText(loadedRequest.getComplemento_Coleta());
+            txt_enderecoGPS_Entrega.setText(loadedRequest.getComplemento_Entrega());
+            txt_complemento_Entrega.setText(loadedRequest.getComplemento_Entrega());
 
         }
+
+        txt_EnderecoGPS_Coleta.setText(loadedRequest.getEnderecoGPS_Coleta());
+        txt_Complemento_Coleta.setText(loadedRequest.getComplemento_Coleta());
+        txt_enderecoGPS_Entrega.setText(loadedRequest.getComplemento_Entrega());
+        txt_complemento_Entrega.setText(loadedRequest.getComplemento_Entrega());
+
         return layout;
     }
 
@@ -88,11 +91,13 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
                 if (activity instanceof onRequestAccepted) {
                     onRequestAccepted listener = (onRequestAccepted) activity;
                     listener.sendRequestAccepted(this.loadedRequest);
+                    dismiss();
                 }
         }
 
 
     }
+
     public void open(FragmentManager fragmentManager) {
         if (fragmentManager.findFragmentByTag(DIALOG_TAG) == null) {
             show(fragmentManager, DIALOG_TAG);

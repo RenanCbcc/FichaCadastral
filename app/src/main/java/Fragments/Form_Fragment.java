@@ -67,7 +67,7 @@ public class Form_Fragment extends Fragment implements TextWatcher, TextView.OnE
         EdtSenhaRep = (EditText) view.findViewById(R.id.edt_rp_senha);
         foto = (ImageView) view.findViewById(R.id.imageView);
         edtEmail = (EditText) view.findViewById(R.id.edt_email);
-        layout_pai = (RelativeLayout) view.findViewById(R.id.layout_pai);
+        layout_pai = (RelativeLayout) view.findViewById(R.id.form_layout);
         edtCep.addTextChangedListener(this);
         foto.setOnClickListener(this);
         costumer = new Deliveryman();

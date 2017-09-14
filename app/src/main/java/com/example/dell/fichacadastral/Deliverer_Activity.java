@@ -1,5 +1,4 @@
 package com.example.dell.fichacadastral;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -22,7 +21,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -189,7 +187,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 Toast.makeText(this, getString(R.string.sucsses_msg_02, deliveryman.getNome()), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
-
+                break;
         }
 
         //replacing the fragment
@@ -428,7 +426,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
 
 
     public void saveAllModifications(Deliveryman deliverman) {
-        this.deliveryman = deliverman; //Receives all changes made in the fragment
         String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/atualizarDados/";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -436,6 +433,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
         params.put("placaVeiculo", deliveryman.getPlaca_Veiculo());
         params.put("marcaVeiculo", deliveryman.getMarca_Veiculo());
         params.put("modeloVeiculo", deliveryman.getModel_Veiculo());
+        Toast.makeText(Deliverer_Activity.this, deliveryman.getTitular_banco(), Toast.LENGTH_SHORT).show();
         params.put("itularConta", deliveryman.getTitular_banco());
         params.put("banco", deliveryman.getBanco());
         params.put("agencia", deliveryman.getAgencia());
