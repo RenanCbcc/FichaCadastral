@@ -9,15 +9,15 @@
         android:text="Selecione uma das solicitações abaixo"
         android:textColor="@color/colorPrimary" />
 
-    <ListView
-        android:id="@+id/lvSolicitacoes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <Button
         android:id="@+id/btnvoltar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="voltar" />
+
+    <ListView
+        android:id="@+id/lvSolicitacoes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

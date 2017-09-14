@@ -33,5 +33,19 @@
         android:textStyle="bold"
         tools:text="STATUS" />
 
+    <Button
+        android:id="@+id/btnvoltartudo3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voltar ao início" />
+
+    <TextView
+        android:id="@+id/txtstring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        tools:text="String resultado" />
+
 
 </LinearLayout>

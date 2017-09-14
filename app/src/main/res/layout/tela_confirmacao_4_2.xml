@@ -29,6 +29,12 @@
         tools:text="token de confirmação" />
 
     <Button
+        android:id="@+id/btnavancar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Avançar" />
+
+    <Button
         android:id="@+id/btnvoltar32"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

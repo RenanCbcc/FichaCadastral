@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -84,6 +85,7 @@ public class Deliverer_Activity extends AppCompatActivity implements
         setContentView(R.layout.deliverer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); // we define toolbar as action bar for this activity
+
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -224,6 +226,10 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 startActivity(intent);
                 break;
             case R.id.action_confirmacao:
+                Intent intentConfirmation = new Intent(this, Confirmation_Activity.class);
+                intentConfirmation.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intentConfirmation.putExtra("deliveryman", new Gson().toJson(deliveryman));
+                startActivity(intentConfirmation);
                 break;
         }
 
