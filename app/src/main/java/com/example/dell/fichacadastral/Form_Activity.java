@@ -11,17 +11,20 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -30,7 +33,21 @@ import android.widget.TextView;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Iterator;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import static android.app.Activity.RESULT_CANCELED;
 
@@ -72,8 +89,10 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
     private EditText edtBanco;
     private EditText edtAgencia;
     private EditText edtConta;
-    private boolean boolCPF;
-    private boolean boolCNPJ;
+    private EditText edtDigConta;
+    private EditText edtDigAgencia;
+    private boolean boolCPF = false;
+    private boolean boolCNPJ = false;
     private boolean boolEmail;
     private boolean senhasIguais;
     //private Costumer costumer;
@@ -128,10 +147,13 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
         edtBanco = (EditText) view.findViewById(R.id.edt_banco);
         edtAgencia = (EditText) view.findViewById(R.id.edt_agencia);
         edtConta = (EditText) view.findViewById(R.id.edt_conta);
+        edtDigConta = (EditText) view.findViewById(R.id.edt_DigConta);
+        edtDigAgencia = (EditText) view.findViewById(R.id.edt_DigAgencia);
         //
 
 
         radioCPF.setChecked(true);
+        boolCPF = true;
         radioCPF.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -139,6 +161,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     edtCPF.setVisibility(View.VISIBLE);
                     edtCNPJ.setVisibility(View.INVISIBLE);
                     boolCPF = true;
+                    boolCNPJ = false;
                 }
             }
         });
@@ -149,6 +172,7 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     edtCNPJ.setVisibility(View.VISIBLE);
                     edtCPF.setVisibility(View.INVISIBLE);
                     boolCNPJ = true;
+                    boolCPF = false;
                 }
             }
         });
@@ -183,6 +207,8 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                 Validator.validateNotNull(edtBanco,"Preencha o campo banco");
                 Validator.validateNotNull(edtAgencia,"Preencha o campo agencia");
                 Validator.validateNotNull(edtConta,"Preencha o campo conta");
+                Validator.validateNotNull(edtDigConta,"Preencha o campo digito conta");
+                Validator.validateNotNull(edtDigAgencia,"Preencha o campo digito agencia");
 
                 if(!(edtSenha.getText().toString().equals(EdtSenhaRep.getText().toString()))){
                     EdtSenhaRep.setError("Senhas não conferem");
@@ -215,8 +241,9 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     edtEmail.requestFocus();
                     boolEmail = false;
                 }
-                else
+                else {
                     boolEmail = true;
+                }
 
                 if((Validator.validateNotNull(edtNome,"Preencha o campo nome")&&
                         Validator.validateNotNull(edtCel,"Preencha o campo numero de celular")&&
@@ -237,7 +264,11 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                         Validator.validateNotNull(edtTitular,"Preencha o campo titular")&&
                         Validator.validateNotNull(edtBanco,"Preencha o campo banco")&&
                         Validator.validateNotNull(edtAgencia,"Preencha o campo agencia")&&
-                        Validator.validateNotNull(edtConta,"Preencha o campo conta"))){
+                        Validator.validateNotNull(edtConta,"Preencha o campo conta")&&
+                        Validator.validateNotNull(edtDigConta,"Preencha o campo digito conta")&&
+                        Validator.validateNotNull(edtDigAgencia,"Preencha o campo digito agencia"))){
+
+
 
                         if(boolCPF){
                             Validator.validateNotNull(edtCPF,"Preencha o campo cpf");
@@ -263,6 +294,10 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                             String banco = edtBanco.getText().toString();
                             String agencia = edtAgencia.getText().toString();
                             String conta = edtConta.getText().toString();
+                            String pais = edtPais.getText().toString();
+                            String numero = edtNum.getText().toString();
+                            int digConta = Integer.parseInt(edtDigConta.getText().toString());
+                            int digAgencia = Integer.parseInt(edtDigAgencia.getText().toString());
 
                             costumer.setNome(nome);
 
@@ -276,14 +311,18 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                             costumer.setBanco(banco);
                             costumer.setAgencia(agencia);
                             costumer.setConta(conta);
+                            costumer.setDigConta(digConta);
+                            costumer.setDigAgencia(digAgencia);
 
-                            Toast.makeText( getActivity() , "Dados cadastrados com sucesso!" , Toast.LENGTH_LONG).show();
+                            //Endereco
+                            costumer.setNumero(numero);
+                            costumer.setPais(pais);
 
-
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(intent);
+                            new SendPostRequestSignUp().execute();
 
                 }
+                else
+                    Toast.makeText(getActivity(), "Falha!", Toast.LENGTH_SHORT).show();
             }
         });
         //
@@ -300,6 +339,135 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
 
     }
 
+    public class SendPostRequestSignUp extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute(){}
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+                URL url = new URL("https://smart-delivery-labes.herokuapp.com/api/entregador/cadastrar/"); // here is your URL path
+
+                JSONObject postDataParams = new JSONObject();
+                //TODO fazer a classe obter automaticamente o id do entregador
+                postDataParams.put("nomeCompleto", costumer.getNome());
+                postDataParams.put("email", costumer.getEmail());
+                postDataParams.put("senha", costumer.getSenha());
+                postDataParams.put("numCelular", costumer.getContato());
+                postDataParams.put("cep", costumer.getLoadedAddress().getCep());
+                postDataParams.put("numEndereco", costumer.getNumero());
+                postDataParams.put("país", costumer.getPais());
+                postDataParams.put("estado", costumer.getLoadedAddress().getUf());
+                postDataParams.put("cidade", costumer.getLoadedAddress().getLocalidade());
+                postDataParams.put("bairro", costumer.getLoadedAddress().getBairro());
+                postDataParams.put("placaVeiculo", costumer.getPlaca_Veiculo());
+                postDataParams.put("marcaVeiculo", costumer.getMarca_Veiculo());
+                postDataParams.put("modeloVeiculo", costumer.getModel_Veiculo());
+
+                if(!(costumer.getCPF().isEmpty())){
+                    postDataParams.put("cpf_cnpj", costumer.getCPF());
+                }
+                else{
+                    postDataParams.put("cpf_cnpj", costumer.getCNPJ());
+                }
+
+                postDataParams.put("banco", costumer.getBanco());
+                postDataParams.put("titularConta", costumer.getTitular_banco());
+                postDataParams.put("agencia", costumer.getAgencia());
+                postDataParams.put("digitoAgencia", costumer.getDigAgencia());
+                postDataParams.put("conta", costumer.getConta());
+                postDataParams.put("digitoConta", costumer.getDigConta());
+
+                Log.e("params",postDataParams.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode=conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader in=new BufferedReader(new
+                            InputStreamReader(
+                            conn.getInputStream()));
+
+                    StringBuffer sb = new StringBuffer("");
+                    String line="";
+
+                    while((line = in.readLine()) != null) {
+
+                        sb.append(line);
+                        break;
+                    }
+
+                    in.close();
+                    return sb.toString();
+
+                }
+                else {
+                    return new String("false : "+responseCode);
+                }
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+
+
+        @Override
+        protected void onPostExecute(final String result) {
+            String subString = result.substring(12, 16);
+
+            if(subString.equals("true")){
+                Toast.makeText(getActivity(), "Cadastrado com Sucesso!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+            else
+                Toast.makeText(getActivity(), "O email informado já está cadastrado", Toast.LENGTH_LONG).show();
+
+
+        }
+    }
+
+    public String getPostDataString(JSONObject params) throws Exception {
+
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        Iterator<String> itr = params.keys();
+
+        while(itr.hasNext()){
+
+            String key= itr.next();
+            Object value = params.get(key);
+
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(key, "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+        }
+        return result.toString();
+    }
 
 
     private void configureSpinner() {
@@ -441,8 +609,6 @@ public class Form_Activity extends Fragment implements TextWatcher, TextView.OnE
                     edtBairro.setText(address.getBairro());
                     edtComplemento.setText(address.getComplemento());
                     edtCidade.setText(address.getLocalidade());
-                    String pais = edtPais.getText().toString();
-                    address.setPais(pais);
                     setSpinner(R.array.string_array_estados, address.getUf());
                     costumer.setLoadedAddress(address);
 

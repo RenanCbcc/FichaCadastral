@@ -27,6 +27,8 @@
     <string name="hint_banco">Banco</string>
     <string name="hint_agencia">Agência</string>
     <string name="hint_conta">Conta</string>
+    <string name="hint_DigAgencia">Dígito</string>
+    <string name="hint_DigConta">Dígito</string>
 
     <!-- Fim Dados do Cliente.  -->
 

@@ -17,7 +17,7 @@ public class LoadedAddress implements Serializable {
     private String bairro;
     private String localidade; //Cidade
     private String uf;
-    private String pais;
+
 
     public LoadedAddress(String cep, String logradouro, String complemento, String bairro, String localidade, String uf) {
         this.cep = cep;
@@ -74,14 +74,6 @@ public class LoadedAddress implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
     }
 
 

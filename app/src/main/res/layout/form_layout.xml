@@ -382,7 +382,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="400px"
+            android:layout_height="600px"
             android:id="@+id/relativeLayout"
             android:layout_below="@+id/relativeLayout2"
             android:layout_alignParentLeft="true"
@@ -435,8 +435,26 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:digits="1234567890"
-                android:layout_alignTop="@+id/edt_banco"
-                android:layout_centerHorizontal="true" />
+                android:layout_alignBaseline="@+id/edt_banco"
+                android:layout_alignBottom="@+id/edt_banco"
+                android:layout_alignRight="@+id/txtView2"
+                android:layout_alignEnd="@+id/txtView2"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp" />
+
+            <EditText
+                android:id="@+id/edt_DigAgencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="1234567890"
+                android:hint="@string/hint_DigAgencia"
+                android:inputType="number"
+                android:layout_alignBaseline="@+id/edt_agencia"
+                android:layout_alignBottom="@+id/edt_agencia"
+                android:layout_toRightOf="@+id/txtView2"
+                android:layout_toEndOf="@+id/txtView2"
+                android:layout_marginLeft="38dp"
+                android:layout_marginStart="38dp" />
 
             <EditText
                 android:id="@+id/edt_conta"
@@ -445,20 +463,31 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:digits="1234567890"
-                android:layout_marginRight="21dp"
-                android:layout_marginEnd="21dp"
-                android:layout_alignBaseline="@+id/edt_agencia"
-                android:layout_alignBottom="@+id/edt_agencia"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@+id/edt_agencia"
+                android:layout_alignLeft="@+id/edt_agencia"
+                android:layout_alignStart="@+id/edt_agencia"
+                android:layout_marginTop="14dp" />
+
+            <EditText
+                android:id="@+id/edt_DigConta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="1234567890"
+                android:hint="@string/hint_DigConta"
+                android:inputType="number"
+                android:layout_alignBaseline="@+id/edt_conta"
+                android:layout_alignBottom="@+id/edt_conta"
+                android:layout_alignRight="@+id/edt_DigAgencia"
+                android:layout_alignEnd="@+id/edt_DigAgencia" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FINALIZAR CADASTRO"
-                android:layout_below="@+id/edt_agencia"
-                android:layout_centerHorizontal="true" />
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="19dp" />
 
         </RelativeLayout>
 

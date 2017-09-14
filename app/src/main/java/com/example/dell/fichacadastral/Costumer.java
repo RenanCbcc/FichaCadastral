@@ -17,6 +17,8 @@ public class Costumer implements Serializable {
     private String email;
     private String senha;
     private LoadedAddress loadedAddress;
+    private String pais;
+    private String numero;
     private String placa_Veiculo;
     private String marca_Veiculo;
     private String model_Veiculo;
@@ -24,12 +26,14 @@ public class Costumer implements Serializable {
     private String banco;
     private String agencia;
     private String conta;
+    private int digConta;
+    private int digAgencia;
 
     public Costumer(){}
     public Costumer(String nome, Bitmap foto, String contato, String cpf, String cnpj, String email, String senha,
-                    LoadedAddress loadedAddress, String placa_Veiculo, String marca_Veiculo,
+                    LoadedAddress loadedAddress, String pais, String numero, String placa_Veiculo, String marca_Veiculo,
                     String model_Veiculo, String titular_banco, String banco, String agencia,
-                    String conta) {
+                    String conta, int digConta, int digAgencia) {
         this.nome = nome;
         this.foto = foto;
         this.contato = contato;
@@ -38,6 +42,8 @@ public class Costumer implements Serializable {
         this.email = email;
         this.senha = senha;
         this.loadedAddress = loadedAddress;
+        this.pais = pais;
+        this.numero = numero;
         this.placa_Veiculo = placa_Veiculo;
         this.marca_Veiculo = marca_Veiculo;
         this.model_Veiculo = model_Veiculo;
@@ -45,6 +51,8 @@ public class Costumer implements Serializable {
         this.banco = banco;
         this.agencia = agencia;
         this.conta = conta;
+        this.digConta = digConta;
+        this.digAgencia = digAgencia;
     }
 
     public String getNome() {
@@ -167,13 +175,66 @@ public class Costumer implements Serializable {
         this.conta = conta;
     }
 
+    public int getDigConta() {
+        return digConta;
+    }
+
+    public void setDigConta(int digConta) {
+        this.digConta = digConta;
+    }
+
+    public int getDigAgencia() {
+        return digAgencia;
+    }
+
+    public void setDigAgencia(int digAgencia) {
+        this.digAgencia = digAgencia;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+
     @Override
     public String toString() {
         return "Costumer{" +
                 "nome='" + nome + '\'' +
+                ", foto=" + foto +
                 ", contato='" + contato + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", cnpj='" + cnpj + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
+                ", numeroEndereco=" + numero +
+                ", bairro=" + loadedAddress.getBairro() +
+                ", cep=" + loadedAddress.getCep() +
+                ", complem=" + loadedAddress.getComplemento() +
+                ", cidade=" + loadedAddress.getLocalidade() +
+                ", lograd=" + loadedAddress.getLogradouro() +
+                ", pais=" + pais +
+                ", uf=" + loadedAddress.getUf() +
+                ", placa_Veiculo='" + placa_Veiculo + '\'' +
+                ", marca_Veiculo='" + marca_Veiculo + '\'' +
+                ", model_Veiculo='" + model_Veiculo + '\'' +
+                ", titular_banco='" + titular_banco + '\'' +
+                ", banco='" + banco + '\'' +
+                ", agencia='" + agencia + '\'' +
+                ", conta='" + conta + '\'' +
+                ", digConta=" + digConta +
+                ", digAgencia=" + digAgencia +
                 '}';
     }
 }

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent intent;
-                intent = new Intent(MainActivity.this, Exibir_Solicitacoes.class);
+                intent = new Intent(MainActivity.this, SignUp.class);
                 startActivity(intent);
             }
         });
