@@ -186,13 +186,9 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 break;
 
             case R.id.action_verificar:
-                fragment = Deliveries_Fragment.newInstance(deliveryman);
-                //TODO
-                /**
-                 * Intent intent = new Intent()
-                 * intent.putSerializable('entregador',deliveryman)
-                 * startActivity(this,SuaAtitivity)
-                 */
+                Intent it = new Intent(this, Exibir_Solicitacoes.class);
+                it.putExtra("entregador", deliveryman);
+                startActivity(it);
                 break;
 
             case R.id.action_logout:
