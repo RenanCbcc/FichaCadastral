@@ -184,6 +184,17 @@ public class Deliverer_Activity extends AppCompatActivity implements
             case R.id.action_entregas:
                 fragment = Deliveries_Fragment.newInstance(deliveryman);
                 break;
+
+            case R.id.action_verificar:
+                fragment = Deliveries_Fragment.newInstance(deliveryman);
+                //TODO
+                /**
+                 * Intent intent = new Intent()
+                 * intent.putSerializable('entregador',deliveryman)
+                 * startActivity(this,SuaAtitivity)
+                 */
+                break;
+
             case R.id.action_logout:
                 Intent intent = new Intent(this, LogInActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

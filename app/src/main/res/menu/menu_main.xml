@@ -11,9 +11,9 @@
             android:icon="@android:drawable/ic_menu_add"
             android:title="@string/option_entregas" />
         <item
-            android:id="@+id/action_historico"
+            android:id="@+id/action_verificar"
             android:icon="@android:drawable/ic_menu_delete"
-            android:title="@string/option_outros" />
+            android:title="@string/option_verificar" />
     </group>
 
     <item

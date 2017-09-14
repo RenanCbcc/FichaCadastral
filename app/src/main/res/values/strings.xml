@@ -99,7 +99,7 @@
 
     <string name="option_dados">Editar dados</string>
 '   <string name="option_entregas">Entregas</string>
-    <string name="option_outros">Outros</string>
+    <string name="option_verificar">Verificar</string>
     <string name="option_log">Fazer Logout</string>
 
     <!-- Fim Mensagens.  -->
