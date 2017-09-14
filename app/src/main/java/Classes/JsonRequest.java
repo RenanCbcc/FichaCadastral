@@ -23,7 +23,6 @@ import Classes.LoadedRequest;
 
 public class JsonRequest {
 
-
     private static HttpURLConnection toConnect(String file) throws IOException {
         final int SEGUNDOS = 1000;
         URL url = new URL(file);

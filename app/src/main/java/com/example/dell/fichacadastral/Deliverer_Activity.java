@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 import Classes.Deliveryman;
 import Classes.LoadedRequest;
+import Fragments.Confirmation_Fragment;
 import Fragments.Deliveries_Fragment;
 import Fragments.DetailRequests_Fragment;
 import Fragments.Profile_Fragment;
@@ -221,7 +222,10 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 Toast.makeText(this, getString(R.string.sucsses_msg_02, "Fulano"), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
-
+                break;
+            case R.id.action_confirmacao:
+                fragment = Confirmation_Fragment.newInstance(deliveryman);
+                break;
         }
 
         //replacing the fragment
@@ -268,12 +272,12 @@ public class Deliverer_Activity extends AppCompatActivity implements
         super.onStop();
     }
 
-
     /**
      * Verify whether the location settings is enable usng the method:
      * <code>LocationServices.SettingsApi.checkLocationSettings</code>, that, then, returns an
      * <code>PendingResult<LocationSettingsResult></code> object.
      **/
+
     private void verifyGPSStatus() {
         Toast.makeText(this, "verifyGPSStatus", Toast.LENGTH_SHORT).show();
 

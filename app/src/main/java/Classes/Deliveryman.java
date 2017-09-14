@@ -33,6 +33,15 @@ public class Deliveryman implements Serializable {
     private int experiencia;
     private float media;
 
+    public String getModoConfimacao() {
+        return modoConfimacao;
+    }
+
+    public void setModoConfimacao(String modoConfimacao) {
+        this.modoConfimacao = modoConfimacao;
+    }
+
+    private String modoConfimacao;
 
 
 

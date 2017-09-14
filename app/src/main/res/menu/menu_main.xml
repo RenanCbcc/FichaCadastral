@@ -14,6 +14,10 @@
             android:id="@+id/action_historico"
             android:icon="@android:drawable/ic_menu_delete"
             android:title="@string/option_outros" />
+        <item
+            android:id="@+id/action_confirmacao"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:title="Confirmação de coleta/entrega" />
     </group>
 
     <item
