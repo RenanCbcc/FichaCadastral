@@ -16,6 +16,17 @@ public class Deliveryman implements Serializable {
     private String contato;
     private String email;
     private String senha;
+
+    public String getSenhaAntiga() {
+        return senhaAntiga;
+    }
+
+    public void setSenhaAntiga(String senhaAntiga) {
+        this.senhaAntiga = senhaAntiga;
+
+    }
+
+    private String senhaAntiga;
     private String telefone;
     private LoadedAddress loadedAddress;
     private String placa_Veiculo;

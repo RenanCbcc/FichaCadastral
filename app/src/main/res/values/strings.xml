@@ -6,6 +6,7 @@
     <string name="hint_nome">Nome completo</string>
     <string name="hint_email">E-Mail</string>
     <string name="hint_senha">Senha</string>
+    <string name="hint_nv_senha">Nova Senha</string>
     <string name="hint_rp_senha">Repita a Senha</string>
     <string name="hint_sa_senha">Senha antiga</string>
     <string name="hint_numero_celular">Número do celular</string>
@@ -80,6 +81,9 @@
     <!-- Mensagens.  -->
     <string name="error_msg_01">Erro ao tentar conexão</string>
     <string name="error_msg_02">Erro ao gravar valor</string>
+    <string name="error_msg_03">Erro ao alterar senha</string>
+    <string name="error_msg_04">Erro ao atualizar todos os valores</string>
+
     <string name="gps_error">Its necessary to enable the G.P.S. </string>
     <string name="error_msg_email">Email Inválido</string>
     <string name="error_msg_senha">Senha Inválida</string>

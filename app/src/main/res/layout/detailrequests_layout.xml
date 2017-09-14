@@ -1,79 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-
-    >
+        >
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginLeft="25dp">
+
 
         <TextView
+            android:id="@+id/txt_enderecoGPS_Coleta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_EnderecoGPS_Coleta"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:text="Coleta: " />
+
         <TextView
+            android:id="@+id/txt_complemento_Coleta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_Complemento_Coleta"
-            android:layout_below="@+id/txt_EnderecoGPS_Coleta" />
+            android:text="Complemento: "
+            android:layout_below="@+id/txt_enderecoGPS_Coleta"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp" />
         />
+
         <TextView
             android:id="@+id/txt_enderecoGPS_Entrega"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_Complemento_Coleta"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="7dp" />
+            android:layout_below="@+id/txt_complemento_Coleta"
+            android:layout_marginTop="22dp"
+            android:text="Entrega: " />
+
         <TextView
             android:id="@+id/txt_complemento_Entrega"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="21dp"
+            android:text="Complemento: "
+            android:layout_below="@+id/txt_enderecoGPS_Entrega"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Button
             android:id="@+id/btn_accept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btn_cancel"
+            android:layout_alignBottom="@+id/btn_cancel"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_toEndOf="@+id/btn_cancel"
+            android:layout_toRightOf="@+id/btn_cancel"
             android:background="@drawable/buttonshape"
             android:shadowColor="#B0A9AE"
             android:shadowDx="0"
             android:shadowDy="-0"
             android:shadowRadius="5"
-            android:text="Aceitar"
-            android:layout_alignBaseline="@+id/btn_cancel"
-            android:layout_alignBottom="@+id/btn_cancel"
-            android:layout_toRightOf="@+id/btn_cancel"
-            android:layout_toEndOf="@+id/btn_cancel"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp" />
+            android:text="Aceitar" />
 
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="52dp"
+            android:layout_marginStart="52dp"
             android:background="@drawable/buttonshape"
             android:shadowColor="#B0A9AE"
             android:shadowDx="0"
             android:shadowDy="-0"
             android:shadowRadius="5"
-            android:text="Cancelar"
-            android:layout_marginLeft="69dp"
-            android:layout_marginStart="69dp"
-            android:layout_marginTop="97dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="Cancelar" />
 
 
     </RelativeLayout>
 
 
-
-
-</ScrollView>
+</LinearLayout>

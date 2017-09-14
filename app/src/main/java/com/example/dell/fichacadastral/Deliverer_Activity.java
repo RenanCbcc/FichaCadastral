@@ -39,6 +39,9 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Classes.Deliveryman;
 import Classes.LoadedRequest;
 import Fragments.Deliveries_Fragment;
@@ -450,6 +453,35 @@ public class Deliverer_Activity extends AppCompatActivity implements
                     if (!response.getBoolean("success")) {
                         String errorMsg = response.getString("errorMsg");
                         Toast.makeText(Deliverer_Activity.this, "Erro ao atualiza: " + errorMsg, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            }
+        });
+    }
+
+    public void saveModifications(Deliveryman deliveryman){
+        String URL = "https://smart-delivery-labes.herokuapp.com/api/entregador/mudarSenha/";
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("idEntregador", deliveryman.getId());
+        params.put("senhaAntiga", deliveryman.getPlaca_Veiculo());
+        params.put("senhaNova", deliveryman.getMarca_Veiculo());
+
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (!response.getBoolean("success")) {
+                        String errorMsg = response.getString("errorMsg");
+                        Toast.makeText(Deliverer_Activity.this, "Erro ao alterar: " + errorMsg, Toast.LENGTH_LONG).show();
                         return;
                     }
 

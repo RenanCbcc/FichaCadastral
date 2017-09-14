@@ -42,6 +42,9 @@ import org.json.JSONObject;
 public class Profile_Fragment extends Fragment implements TextWatcher, View.OnClickListener {
     private static final String EXTRA_DELIVEYMAN = "deliveryman"; // Primary Key
 
+    private TextView textView;
+    private RelativeLayout background;
+
     private EditText edtTelefone;
     private EditText edtNome;
     private EditText edtCep;
@@ -51,8 +54,8 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     private EditText edtBairro;
     private ProgressBar progressBar;
     private Spinner spnEstado;
-    private EditText edtSenha;
-    private EditText EdtSenhaRep;
+    private EditText edtSenhaAntiga;
+    private EditText EdtSenhaNova;
     private EditText edtEmail;
     private EditText edtPlacaViculo;
     private EditText edtMArcaViculo;
@@ -64,6 +67,8 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     private EditText edtAgencia;
     private EditText edtConta;
     private Button btnSalvar;
+    private Button btnAlterar;
+
     private Deliveryman deliveryman;
 
     public static Profile_Fragment newInstance(Deliveryman deliveryman) {//METODO CONSTRUTOR
@@ -86,6 +91,8 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_layout, container, false);
 
+        textView = (TextView) view.findViewById(R.id.txtprogress);
+        background = (RelativeLayout) view.findViewById(R.id.layout_Profile);
         edtTelefone = view.findViewById(R.id.edt_nCelular);
         edtNome = view.findViewById(R.id.edt_nome);
         edtCep = view.findViewById(R.id.edt_Cep);
@@ -94,8 +101,8 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
         edtComplemento = view.findViewById(R.id.edt_complemento);
         edtBairro = view.findViewById(R.id.edt_bairro);
         spnEstado = view.findViewById(R.id.snp_Estados);
-        edtSenha = view.findViewById(R.id.edt_senha);
-        EdtSenhaRep = view.findViewById(R.id.edt_rp_senha);
+        edtSenhaAntiga = view.findViewById(R.id.edt_at_senha);
+        EdtSenhaNova = view.findViewById(R.id.edt_nv_senha);
         edtEmail = view.findViewById(R.id.edt_email);
         edtPlacaViculo = view.findViewById(R.id.edt_placaVeiculo);
         edtMArcaViculo = view.findViewById(R.id.edt_marca);
@@ -106,19 +113,23 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
         edtConta = view.findViewById(R.id.edt_conta);
         foto = view.findViewById(R.id.img_Foto);
         btnSalvar = view.findViewById(R.id.btn_Salvar);
+        btnAlterar = view.findViewById(R.id.btn_Alterar);
 
+        btnAlterar.setOnClickListener(this);
         btnSalvar.setOnClickListener(this);
         edtTitular.addTextChangedListener(this);
         edtBanco.addTextChangedListener(this);
-        edtPlacaViculo.setOnClickListener(this);
-        edtMArcaViculo.setOnClickListener(this);
-        edtModelViculo.setOnClickListener(this);
-        edtTitular.setOnClickListener(this);
-        edtBanco.setOnClickListener(this);
-        edtAgencia.setOnClickListener(this);
-        edtConta.setOnClickListener(this);
-        edtTelefone.setOnClickListener(this);
+        edtPlacaViculo.addTextChangedListener(this);
+        edtMArcaViculo.addTextChangedListener(this);
+        edtModelViculo.addTextChangedListener(this);
+        edtTitular.addTextChangedListener(this);
+        edtBanco.addTextChangedListener(this);
+        edtAgencia.addTextChangedListener(this);
+        edtConta.addTextChangedListener(this);
         edtTelefone.addTextChangedListener(this);
+        edtTelefone.addTextChangedListener(this);
+        edtSenhaAntiga.addTextChangedListener(this);
+        EdtSenhaNova.addTextChangedListener(this);
 
         edtNome.setEnabled(false);
         edtRua.setEnabled(false);
@@ -163,6 +174,10 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
             if (view.getId() == R.id.btn_Salvar) {
                 onModifyFragment listener = (onModifyFragment) activity;
                 listener.saveAllModifications(deliveryman);
+            }
+            else if (view.getId() == R.id.btn_Alterar) {
+                onModifyFragment listener = (onModifyFragment) activity;
+                listener.saveModifications(deliveryman);
             }
 
         }
@@ -214,117 +229,28 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
             } else {
                 deliveryman.setTelefone(edtTelefone.getText().toString());
             }
+
         }
 
-
-    }
-
-    /*
-    @Override
-    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        if (textView == edtSenha || textView == EdtSenhaRep || textView == edtEmail
-                || textView == edtTitular || textView == edtBanco || textView == edtAgencia
-                || textView == edtConta || textView == edtPlacaViculo || textView == edtMArcaViculo
-                || textView == edtModelViculo) {
-            boolean ok = true;
-            if (!Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText().toString()).matches()) {
-                edtEmail.setError(getString(R.string.error_msg_email));
-                ok = false;
+        else if (editable == edtSenhaAntiga.getEditableText()) {
+            if (edtSenhaAntiga.getText().length() == 0) {
+                edtSenhaAntiga.setError(getString(R.string.error_msg_vazio));
             } else {
-                deliveryman.setEmail(edtEmail.getText().toString());
+                deliveryman.setSenhaAntiga(edtSenhaAntiga.getText().toString());
             }
 
-            if (!edtSenha.getText().toString().equals(EdtSenhaRep.getText().toString())) {
-                EdtSenhaRep.setError(getString(R.string.error_msg_senharp));
-
-                ok = false;
-            }
-            if (edtTitular.getText().length() <= 10) {
-                edtTitular.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtTitular.getText().length() == 0) {
-                    edtTitular.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                }
-            } else {
-                deliveryman.setTitular_banco(edtTitular.getText().toString());
-            }
-
-            if (edtBanco.getText().length() <= 10) {
-                edtBanco.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtBanco.getText().length() == 0) {
-                    edtBanco.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                } else {
-                    deliveryman.setTitular_banco(edtBanco.getText().toString());
-                }
-            }
-
-            if (edtAgencia.getText().length() <= 10) {
-                edtAgencia.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtAgencia.getText().length() == 0) {
-                    edtAgencia.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                }
-            }
-            if (edtConta.getText().length() <= 10) {
-                edtConta.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtConta.getText().length() == 0) {
-                    edtConta.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                }
-            }
-            if (edtPlacaViculo.getText().length() <= 10) {
-                edtPlacaViculo.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtPlacaViculo.getText().length() == 0) {
-                    edtPlacaViculo.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                } else {
-                    deliveryman.setPlaca_Veiculo(edtPlacaViculo.getText().toString());
-                }
-            }
-            if (edtMArcaViculo.getText().length() <= 10) {
-                edtMArcaViculo.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtMArcaViculo.getText().length() == 0) {
-                    edtMArcaViculo.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                } else {
-                    deliveryman.setMarca_Veiculo(edtMArcaViculo.getText().toString());
-                }
-            }
-            if (edtModelViculo.getText().length() <= 10) {
-                edtModelViculo.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtModelViculo.getText().length() == 0) {
-                    edtModelViculo.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                } else {
-                    deliveryman.setModel_Veiculo(edtModelViculo.getText().toString());
-                }
-            }
-            if (edtTelefone.getText().length() <= 10) {
-                edtTelefone.setError(getString(R.string.error_msg_invalido));
-                ok = false;
-                if (edtTelefone.getText().length() == 0) {
-                    edtTelefone.setError(getString(R.string.error_msg_vazio));
-                    ok = false;
-                } else {
-                    deliveryman.setTelefone(edtTelefone.getText().toString());
-                }
-            }
-            if (ok) {
-                //Toast.makeText(this,getString(R.string.sucsses_msg_01),Toast.LENGTH_SHORT).show();
-            }
-            return true;
         }
-        return false;
+        else if (editable == EdtSenhaNova.getEditableText()) {
+            if (EdtSenhaNova.getText().length() == 0) {
+                EdtSenhaNova.setError(getString(R.string.error_msg_vazio));
+            } else {
+                deliveryman.setSenha(EdtSenhaNova.getText().toString());
+            }
+
+        }
     }
-*/
+
+
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -334,6 +260,18 @@ public class Profile_Fragment extends Fragment implements TextWatcher, View.OnCl
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
     }
+
+    private void exhibitPogress(boolean exhibit) {
+        if (exhibit) {
+            textView.setText("Aguarde");
+            background.setBackgroundColor(getResources().getColor(R.color.background_color_loading));
+        }
+        textView.setVisibility(exhibit ? View.VISIBLE : View.GONE);
+        progressBar.setVisibility(exhibit ? View.VISIBLE : View.GONE);
+        background.setBackgroundColor(getResources().getColor(R.color.color_whight));
+
+    }
+
 
 
 }

@@ -41,8 +41,9 @@
             android:id="@+id/txtprogress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/til_password"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/progressBar"/>
+            android:layout_marginBottom="44dp" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_email"

@@ -9,4 +9,6 @@ import Classes.Deliveryman;
 public interface onModifyFragment {
 
     void saveAllModifications(Deliveryman deliveryman);
+    void saveModifications(Deliveryman deliveryman);
+
 }

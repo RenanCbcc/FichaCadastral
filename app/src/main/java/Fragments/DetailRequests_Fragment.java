@@ -25,15 +25,15 @@ import Interfaces.onRequestAccepted;
  */
 
 public class DetailRequests_Fragment extends DialogFragment implements View.OnClickListener {
+    private LoadedRequest loadedRequest;
     private static final String DIALOG_TAG = "detailDialog";
     private static final String EXTRA_LOADEDREQUEST = "detail";
-    private TextView txt_EnderecoGPS_Coleta;
-    private TextView txt_Complemento_Coleta;
-    private TextView txt_enderecoGPS_Entrega;
-    private TextView txt_complemento_Entrega;
+    private TextView EnderecoGPS_Coleta;
+    private TextView Complemento_Coleta;
+    private TextView EnderecoGPS_Entrega;
+    private TextView Complemento_Entrega;
     private Button btn_Aceitar;
     private Button btn_Cancelar;
-    private LoadedRequest loadedRequest;
 
     public static DetailRequests_Fragment newInstance(LoadedRequest loadedRequest) {
         Bundle bundle = new Bundle();
@@ -46,16 +46,18 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadedRequest = (LoadedRequest) getArguments().getSerializable(EXTRA_LOADEDREQUEST);
+        this.loadedRequest = (LoadedRequest) getArguments().getSerializable(EXTRA_LOADEDREQUEST);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.detailrequests_layout, container, false);
-        txt_EnderecoGPS_Coleta = (TextView) layout.findViewById(R.id.txt_EnderecoGPS_Coleta);
-        txt_Complemento_Coleta = (TextView) layout.findViewById(R.id.txt_Complemento_Coleta);
-        txt_enderecoGPS_Entrega = (TextView) layout.findViewById(R.id.txt_enderecoGPS_Entrega);
-        txt_complemento_Entrega = (TextView) layout.findViewById(R.id.txt_complemento_Entrega);
+        EnderecoGPS_Coleta = (TextView) layout.findViewById(R.id.txt_enderecoGPS_Coleta);
+        Complemento_Coleta = (TextView) layout.findViewById(R.id.txt_complemento_Coleta);
+        EnderecoGPS_Entrega = (TextView) layout.findViewById(R.id.txt_enderecoGPS_Entrega);
+        Complemento_Entrega = (TextView) layout.findViewById(R.id.txt_complemento_Entrega);
         btn_Aceitar = (Button) layout.findViewById(R.id.btn_accept);
         btn_Cancelar = (Button) layout.findViewById(R.id.btn_accept);
 
@@ -63,20 +65,14 @@ public class DetailRequests_Fragment extends DialogFragment implements View.OnCl
         btn_Cancelar.setOnClickListener(this);
 
         getDialog().setTitle("Deseja aceitar esta Solicitação?");
-        Toast.makeText(getActivity(), loadedRequest.toString(), Toast.LENGTH_LONG).show();
-
         if (loadedRequest != null) {
-            txt_EnderecoGPS_Coleta.setText(loadedRequest.getEnderecoGPS_Coleta());
-            txt_Complemento_Coleta.setText(loadedRequest.getComplemento_Coleta());
-            txt_enderecoGPS_Entrega.setText(loadedRequest.getComplemento_Entrega());
-            txt_complemento_Entrega.setText(loadedRequest.getComplemento_Entrega());
+
+            EnderecoGPS_Coleta.setText("Coleta: "+loadedRequest.getEnderecoGPS_Coleta().toString());
+            Complemento_Coleta.setText("Complemento: "+loadedRequest.getComplemento_Coleta());
+            EnderecoGPS_Entrega.setText("Entrega: "+loadedRequest.getComplemento_Entrega());
+            Complemento_Entrega.setText("Complemento: "+loadedRequest.getComplemento_Entrega());
 
         }
-
-        txt_EnderecoGPS_Coleta.setText(loadedRequest.getEnderecoGPS_Coleta());
-        txt_Complemento_Coleta.setText(loadedRequest.getComplemento_Coleta());
-        txt_enderecoGPS_Entrega.setText(loadedRequest.getComplemento_Entrega());
-        txt_complemento_Entrega.setText(loadedRequest.getComplemento_Entrega());
 
         return layout;
     }

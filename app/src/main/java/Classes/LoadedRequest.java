@@ -19,7 +19,10 @@ public class LoadedRequest implements Serializable{
                 ", Tipo: '" + tipo + '\'' +
                 ", Quantidade: " + quantidade +
                 ", Peso: " + peso +
-                ", Tamanho: " + tamanho;
+                ", Tamanho: " + tamanho+
+                ", Endereco: " + enderecoGPS_Coleta;
+
+
     }
 
     public String getDataHoraSolicitacao() {
@@ -182,14 +185,14 @@ public class LoadedRequest implements Serializable{
         this.tamanho = 0.0;
         this.latitude_Coleta = 0;
         this.longitude_Coleta = 0;
-        this.complemento_Coleta = "";
+        this.complemento_Coleta = "Não especificado";
         this.numero_Coleta = 0;
-        this.enderecoGPS_Coleta = "";
+        this.enderecoGPS_Coleta = "Não especificado";
         this.latitude_Entrega = 0;
         this.longitude_Entrega = 0;
-        this.complemento_Entrega = "";
+        this.complemento_Entrega = "Não especificado";
         this.numero_Entrega = 0;
-        this.enderecoGPS_Entrega = "";
+        this.enderecoGPS_Entrega = "Não especificado";
 
     }
 
