@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/lyttxtConfirmacaoOpModo"
+        android:id="@+id/lytTelaConfirmacao41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirmar "
         android:textColor="@color/colorPrimary" />
 
     <TextView
-        android:id="@+id/txtConfirmacaoOpModo"
+        android:id="@+id/txtConfirmacaoOpModo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
@@ -20,26 +21,20 @@
         tools:text="coleta/entrega" />
 
     <Button
-        android:id="@+id/btnconfirmarviaqrcode"
+        android:id="@+id/btnAbrirAPIQRCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Via QRCode" />
+        android:text="Escanear QRCode" />
 
     <Button
-        android:id="@+id/btnconfirmarviatoken"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Via token" />
-
-    <Button
-        android:id="@+id/btnvoltar1"
+        android:id="@+id/btnvoltar31"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Voltar" />
 
     <Button
-        android:id="@+id/btncancelar2"
+        android:id="@+id/btnvoltartudo1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancelar confirmação" />
+        android:text="voltar ao inicio" />
 </LinearLayout>

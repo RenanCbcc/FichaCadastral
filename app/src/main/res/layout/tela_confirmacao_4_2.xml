@@ -6,14 +6,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/lyttxtConfirmacaoOptoken"
+        android:id="@+id/lytTelaConfirmacao42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirmar "
         android:textColor="@color/colorPrimary" />
 
     <TextView
-        android:id="@+id/txtConfirmacaoOptoken"
+        android:id="@+id/txtConfirmacaoOpModo3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
@@ -29,16 +29,16 @@
         tools:text="token de confirmação" />
 
     <Button
-        android:id="@+id/btnvoltar3"
+        android:id="@+id/btnvoltar32"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="voltar" />
 
     <Button
-        android:id="@+id/btncancelar4"
+        android:id="@+id/btnvoltartudo2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancelar confirmação" />
+        android:text="Voltar ao início" />
 
 
 </LinearLayout>

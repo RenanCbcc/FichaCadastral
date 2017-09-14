@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -43,7 +42,6 @@ import org.json.JSONObject;
 
 import Classes.Deliveryman;
 import Classes.LoadedRequest;
-import Fragments.Confirmation_Fragment;
 import Fragments.Deliveries_Fragment;
 import Fragments.DetailRequests_Fragment;
 import Fragments.Profile_Fragment;
@@ -77,6 +75,8 @@ public class Deliverer_Activity extends AppCompatActivity implements
     private boolean shouldExhibitDialog;
     private LatLng origin;
     private GoogleApiClient googleApiClient;
+
+    static final int CODE_CONFIRMATION_ACTIVITY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,7 +224,6 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 startActivity(intent);
                 break;
             case R.id.action_confirmacao:
-                fragment = Confirmation_Fragment.newInstance(deliveryman);
                 break;
         }
 
@@ -238,6 +237,8 @@ public class Deliverer_Activity extends AppCompatActivity implements
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -336,6 +337,10 @@ public class Deliverer_Activity extends AppCompatActivity implements
                 this.numberOfAttempts = 0;
                 handler.removeCallbacksAndMessages(null);
                 getCurrentLocation();
+            }
+        } else if (resultCode == CODE_CONFIRMATION_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
+
             }
         } else {
             Toast.makeText(this, R.string.gps_error, Toast.LENGTH_SHORT).show();
