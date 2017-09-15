@@ -130,6 +130,8 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
             }
 
             ArrayAdapter<Solicitacoes_Entregador> solicitacoesAdapter = new ArrayAdapter<Solicitacoes_Entregador>(Exibir_Solicitacoes.this, android.R.layout.simple_list_item_1, obj);
+            View empty = findViewById(R.id.empty);
+            listView.setEmptyView(empty);
             listView.setAdapter(solicitacoesAdapter);
 
             //Torna o list view clicável
