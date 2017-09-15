@@ -41,6 +41,8 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
     private List<Solicitacoes_Entregador> obj = null;
     private AlertDialog alerta;//atributo da classe.
     private int idEntregador;
+    private int posicao;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
         Deliveryman deliveryman = (Deliveryman) getIntent().getSerializableExtra("entregador");
 
         idEntregador = deliveryman.getId();
-
+        //idEntregador = 1;
 
         new SendPostRequest().execute();
 
@@ -126,6 +128,7 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             ArrayAdapter<Solicitacoes_Entregador> solicitacoesAdapter = new ArrayAdapter<Solicitacoes_Entregador>(Exibir_Solicitacoes.this, android.R.layout.simple_list_item_1, obj);
             listView.setAdapter(solicitacoesAdapter);
 
@@ -135,7 +138,9 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
+                    posicao = position;
                     new SendPostRequestToken().execute();
+
                     //Código para o clique
                     /*Toast.makeText(getApplicationContext(), obj.get(0).getId(),
                             Toast.LENGTH_LONG).show();*/
@@ -157,7 +162,7 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
 
                 JSONObject postDataParams = new JSONObject();
 
-                postDataParams.put("idSolicitacao", obj.get(0).getId());
+                postDataParams.put("idSolicitacao", obj.get(posicao).getId());
                 Log.e("params",postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -215,7 +220,7 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
                 /*Toast.makeText(getApplicationContext(), obj.get(0).getStatus(),
                         Toast.LENGTH_LONG).show();*/
 
-                if(obj.get(0).getStatus().equals("PENDENTE_COLETA")) {
+                if(obj.get(posicao).getStatus().equals("PENDENTE_COLETA")) { //Todo: mudar para pendente confirmação
                     AlertDialog.Builder builder = new AlertDialog.Builder(Exibir_Solicitacoes.this);//Cria o gerador do AlertDialog
                     builder.setTitle("Token");//define o titulo
                     builder.setMessage(tokenEntregador);//define a mensagem
@@ -223,6 +228,9 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
                     alerta = builder.create();//cria o AlertDialog
                     alerta.show();//Exibe
                 }
+                else
+                    Toast.makeText(getApplicationContext(), "",
+                            Toast.LENGTH_LONG).show();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -232,34 +240,31 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
 
     private List<Solicitacoes_Entregador> gerarSolicitacoes(String result) throws JSONException {
 
-            JSONObject objetoJSON = new JSONObject(result);
-            JSONArray jsonArray = objetoJSON.getJSONArray("solicitacoes");
+        JSONObject objetoJSON = new JSONObject(result);
+        JSONArray jsonArray = objetoJSON.getJSONArray("solicitacoes");
 
-            Solicitacoes_Entregador solEnt = new Solicitacoes_Entregador();
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject e = jsonArray.getJSONObject(i);
-                solEnt.setId(e.getString("id"));
-                solEnt.setStatus(e.getString("status"));
-                solEnt.setNomeSolicitante(e.getString("nomeSolicitante"));
-                solEnt.setSobrenomeSolicitante(e.getString("sobrenomeSolicitante"));
-                solEnt.setValor(e.getDouble("valor"));
-                solEnt.setDataPrevistaColeta(e.getString("dataPrevistaColeta"));
-                solEnt.setDataPrevistaEntrega(e.getString("dataPrevistaColeta"));
-                solEnt.setDataRealColeta(e.getString("dataRealColeta"));
-                solEnt.setDataRealEntrega(e.getString("dataRealEntrega"));
-                solEnt.setReclamacao_id(e.getString("reclamacao_id"));
-                solEnt.setValorTaxaServico(e.getDouble("valorTaxaServico"));
-
-            }
-            //solEnt.setId(objetoJSON.getString("solicitacoes"));//esta linha sera removida
-            /*Toast.makeText(getApplicationContext(), solEnt.getId(),
-                    Toast.LENGTH_LONG).show();*/
-
+        Solicitacoes_Entregador solEnt;
         List<Solicitacoes_Entregador> solicitacoes = new ArrayList<Solicitacoes_Entregador>();
-        for(int i = 0; i<1; i++) {
-            solicitacoes.add(solEnt);
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            solEnt = new Solicitacoes_Entregador();
+            JSONObject e = jsonArray.getJSONObject(i);
+            solEnt.setId(e.getString("id"));
+            solEnt.setStatus(e.getString("status"));
+            solEnt.setNomeSolicitante(e.getString("nomeSolicitante"));
+            solEnt.setSobrenomeSolicitante(e.getString("sobrenomeSolicitante"));
+            solEnt.setValor(e.getDouble("valor"));
+            solEnt.setDataPrevistaColeta(e.getString("dataPrevistaColeta"));
+            solEnt.setDataPrevistaEntrega(e.getString("dataPrevistaColeta"));
+            solEnt.setDataRealColeta(e.getString("dataRealColeta"));
+            solEnt.setDataRealEntrega(e.getString("dataRealEntrega"));
+            solEnt.setReclamacao_id(e.getString("reclamacao_id"));
+            solEnt.setValorTaxaServico(e.getDouble("valorTaxaServico"));
+
+            solicitacoes.add(i,solEnt);
         }
+        //solEnt.setId(objetoJSON.getString("solicitacoes"));//esta linha sera removida
+
         return solicitacoes;
     }
 
