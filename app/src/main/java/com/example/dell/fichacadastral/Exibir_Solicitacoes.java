@@ -215,21 +215,30 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
         protected void onPostExecute(final String result) {
             try {
                 JSONObject jsonObjeto = new JSONObject(result);
-                String tokenEntregador = jsonObjeto.getString("tokenEntrega");
+                String tokenEntrega = jsonObjeto.getString("tokenEntrega");
+                String tokenColeta = jsonObjeto.getString("tokenColeta");
 
                 /*Toast.makeText(getApplicationContext(), obj.get(0).getStatus(),
                         Toast.LENGTH_LONG).show();*/
 
                 if(obj.get(posicao).getStatus().equals("PENDENTE_COLETA")) { //Todo: mudar para pendente confirmação
                     AlertDialog.Builder builder = new AlertDialog.Builder(Exibir_Solicitacoes.this);//Cria o gerador do AlertDialog
-                    builder.setTitle("Token");//define o titulo
-                    builder.setMessage(tokenEntregador);//define a mensagem
+                    builder.setTitle("Token Coleta");//define o titulo
+                    builder.setMessage(tokenColeta);//define a mensagem
+
+                    alerta = builder.create();//cria o AlertDialog
+                    alerta.show();//Exibe
+                }
+                else if(obj.get(posicao).getStatus().equals("COLETADO")) { //Todo: mudar para pendente confirmação
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Exibir_Solicitacoes.this);//Cria o gerador do AlertDialog
+                    builder.setTitle("Token Entrega");//define o titulo
+                    builder.setMessage(tokenEntrega);//define a mensagem
 
                     alerta = builder.create();//cria o AlertDialog
                     alerta.show();//Exibe
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "",
+                    Toast.makeText(getApplicationContext(), "O pacote já foi entregue.",
                             Toast.LENGTH_LONG).show();
 
             } catch (JSONException e) {
