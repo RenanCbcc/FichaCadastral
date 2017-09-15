@@ -237,9 +237,7 @@ public class Exibir_Solicitacoes  extends AppCompatActivity{
                     alerta = builder.create();//cria o AlertDialog
                     alerta.show();//Exibe
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "O pacote já foi entregue.",
-                            Toast.LENGTH_LONG).show();
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
